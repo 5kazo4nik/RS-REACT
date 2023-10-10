@@ -1,5 +1,7 @@
 import { Component } from 'react';
 
+import styles from './Pagination.module.css';
+
 interface IPaginationProps {
   next: string | null;
   previous: string | null;
@@ -12,13 +14,17 @@ export class Pagination extends Component<IPaginationProps> {
     const { next, previous, page } = this.props;
 
     return (
-      <div>
-        <button disabled={!previous} onClick={this.getPrevPage}>
-          Назад
+      <div className={styles.pagination}>
+        <button
+          className={`${styles.pagination__btn} ${styles.btn_prev}`}
+          disabled={!previous}
+          onClick={this.getPrevPage}
+        >
+          {'<'}
         </button>
-        <div>{page}</div>
-        <button disabled={!next} onClick={this.getNextPage}>
-          Вперед
+        <div className={styles.pagination__page}>{page}</div>
+        <button className={`${styles.pagination__btn} ${styles.btn_next}`} disabled={!next} onClick={this.getNextPage}>
+          {'>'}
         </button>
       </div>
     );
