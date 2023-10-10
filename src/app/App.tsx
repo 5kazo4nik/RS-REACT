@@ -8,6 +8,7 @@ import { Pagination } from './UI/Pagination/Pagination';
 import { Loader } from './UI/Loader/Loader';
 
 interface IAppState {
+  searchValue: string;
   searchResult: ISearchData | null;
   page: number;
   isLoad: boolean;
@@ -15,10 +16,15 @@ interface IAppState {
 
 class App extends Component {
   state: IAppState = {
+    searchValue: localStorage.getItem('searchValue') || '',
     searchResult: null,
     page: 1,
     isLoad: false,
   };
+
+  componentDidMount() {
+    this.getPlanets(this.state.searchValue);
+  }
 
   render(): ReactNode {
     const next = this.state.searchResult?.next as string | null;
@@ -27,7 +33,7 @@ class App extends Component {
     return (
       <div className='app'>
         {this.state.isLoad && <Loader />}
-        <Search getPlanets={this.getPlanets} />
+        <Search value={this.state.searchValue} getPlanets={this.getPlanets} />
         <PlanetList planets={this.state.searchResult?.results || []} count={this.state.searchResult?.count || 0} />
         {!!this.state.searchResult && (
           <Pagination page={this.state.page} next={next} previous={previous} getPage={this.getPage} />

@@ -3,6 +3,7 @@ import styles from './Search.module.css';
 
 interface ISearchProps {
   getPlanets: (val: string) => void;
+  value: string;
 }
 
 interface ISearchState {
@@ -13,7 +14,7 @@ export class Search extends Component<ISearchProps, ISearchState> {
   constructor(props: ISearchProps) {
     super(props);
     this.state = {
-      value: localStorage.getItem('searchValue') || '',
+      value: this.props.value,
     };
   }
 
