@@ -1,0 +1,39 @@
+.search {
+  padding: 100px 0 100px 0;
+  background-color: blueviolet;
+}
+
+.searchHeading {
+  width: fit-content;
+  margin: 0 auto 30px auto;
+}
+
+.searchForm {
+  margin: 20px auto 20px auto;
+  max-width: 400px;
+  display: flex;
+  justify-content: center;
+}
+
+.searchInput {
+  width: 300px;
+  font-size: 30px;
+  border: 1px solid orange;
+  border-radius: 5px 0 0 5px;
+}
+
+.searchBtn {
+  padding: 10px;
+  background-color: rgb(7, 202, 0);
+  border: 1px solid red;
+  border-radius: 0 5px 5px 0;
+  font-size: 15px;
+  cursor: pointer;
+
+  transition: all 0.5s;
+}
+
+.searchBtn:hover {
+  color: white;
+  background-color: rgb(179, 21, 0);
+}
