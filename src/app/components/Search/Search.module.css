@@ -26,6 +26,7 @@
   padding: 10px;
   background-color: rgb(7, 202, 0);
   border: 1px solid red;
+  border-right: none;
   border-radius: 0 5px 5px 0;
   font-size: 15px;
   cursor: pointer;
@@ -36,4 +37,16 @@
 .searchBtn:hover {
   color: white;
   background-color: rgb(179, 21, 0);
+}
+
+.searchError {
+  padding: 10px;
+  background-color: red;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  font-size: 15px;
+  cursor: pointer;
+  text-wrap: nowrap;
+
+  transition: all 0.5s;
 }
