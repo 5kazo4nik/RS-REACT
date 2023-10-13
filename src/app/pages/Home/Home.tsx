@@ -13,15 +13,13 @@ interface IHomeProps {
   pageQuery: number;
 }
 
-function Home({ searchQuery, pageQuery = 1 }: IHomeProps) {
+function Home({ searchQuery = '', pageQuery = 1 }: IHomeProps) {
   const [searchResult, setSearchResult] = useState<ISearchData | null>(null);
   const [page, setPage] = useState(pageQuery);
   const [isLoad, setIsLoad] = useState(false);
   const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
-
-  const searchValue = searchQuery || '';
 
   const fetchData = (callback: (...args: unknown[]) => unknown) => {
     return async (...args: unknown[]) => {
@@ -39,35 +37,29 @@ function Home({ searchQuery, pageQuery = 1 }: IHomeProps) {
     };
   };
 
-  // const getPage = fetchData(async (url, page) => {
-  //   const res = await PlanetsService.getPlanetPage(url as string);
-  //   setSearchResult(res);
-  //   setPage((p) => p + (page as number));
-  // });
   const changePage = (p: number) => {
     setPage(page + p);
   };
 
   const getPlanets = fetchData(async () => {
-    // const res = await PlanetsService.getPlanets(searchValue, page);
-    const res = await PlanetsService.getPlanets(searchValue, page);
+    setPage(pageQuery);
+    const res = await PlanetsService.getPlanets(searchQuery, pageQuery);
     setSearchResult(res);
-    // setPage(1);
   });
 
   useEffect(() => {
     getPlanets();
-  }, [searchValue, pageQuery]);
+  }, [searchQuery, pageQuery]);
 
   useEffect(() => {
-    const path = searchValue.length ? `&page=${page}` : `?page=${page}`;
+    const path = searchQuery.length ? `?search=${searchQuery}&page=${page}` : `?page=${page}`;
     navigate(path);
   }, [page]);
 
   return (
     <div className='home'>
       {isLoad && <Loader />}
-      <Search value={searchValue} />
+      <Search value={searchQuery} />
 
       {message ? (
         <h2 className='error-message'>Error: {message}</h2>
@@ -76,7 +68,6 @@ function Home({ searchQuery, pageQuery = 1 }: IHomeProps) {
       )}
 
       {!!searchResult?.results?.length && (
-        // <Pagination page={page} next={searchResult.next} previous={searchResult.previous} getPage={getPage} />
         <Pagination
           page={pageQuery}
           next={searchResult.next}

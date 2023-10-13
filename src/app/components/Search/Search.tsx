@@ -12,8 +12,7 @@ export function Search({ value }: ISearchProps) {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // const path = searchValue ? `?search=${searchValue}&page=1` : '';
-    const path = searchValue ? `?search=${searchValue}` : '';
+    const path = searchValue ? `?search=${searchValue}&page=1` : '';
     navigate(path);
   };
 

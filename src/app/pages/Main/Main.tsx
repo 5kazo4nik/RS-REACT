@@ -10,9 +10,7 @@ type IMainQuery = {
 
 function Main() {
   const location = useLocation();
-
   const parsedQuery = queryString.parse(location.search) as IMainQuery;
-
   const [query, setQuery] = useState<IMainQuery>(parsedQuery);
 
   useEffect(() => {
