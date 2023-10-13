@@ -1,4 +1,5 @@
-import { Component, ReactNode } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react';
 import './App.css';
 import { Search } from './components/Search/Search';
 import { PlanetsService } from './API/PlanetsService';
@@ -7,76 +8,61 @@ import { PlanetList } from './components/PlanetList/PlanetList';
 import { Pagination } from './UI/Pagination/Pagination';
 import { Loader } from './UI/Loader/Loader';
 
-interface IAppState {
-  searchValue: string;
-  searchResult: ISearchData | null;
-  page: number;
-  isLoad: boolean;
-  isError: boolean;
-  message: string;
-}
+function App() {
+  const [searchResult, setSearchResult] = useState<ISearchData | null>(null);
+  const [page, setPage] = useState(1);
+  const [isLoad, setIsLoad] = useState(false);
+  const [message, setMessage] = useState('');
+  const searchValue = localStorage.getItem('searchValue') || '';
 
-class App extends Component {
-  state: IAppState = {
-    searchValue: localStorage.getItem('searchValue') || '',
-    searchResult: null,
-    page: 1,
-    isLoad: false,
-    isError: false,
-    message: '',
+  const fetchData = (callback: (...args: unknown[]) => unknown) => {
+    return async (...args: unknown[]) => {
+      try {
+        setIsLoad(true);
+        setMessage('');
+        await callback(...args);
+      } catch (e) {
+        const message = (e as Error).message;
+        setSearchResult(null);
+        setMessage(message);
+      } finally {
+        setIsLoad(false);
+      }
+    };
   };
 
-  componentDidMount() {
-    this.getPlanets(this.state.searchValue);
-  }
+  const getPage = fetchData(async (url, page) => {
+    const res = await PlanetsService.getPlanetPage(url as string);
+    setSearchResult(res);
+    setPage((p) => p + (page as number));
+  });
 
-  render(): ReactNode {
-    const next = this.state.searchResult?.next as string | null;
-    const previous = this.state.searchResult?.previous as string | null;
+  const getPlanets = fetchData(async (value) => {
+    const res = await PlanetsService.getPlanet(value as string);
+    setSearchResult(res);
+    setPage(1);
+  });
 
-    return (
-      <div className='app'>
-        {this.state.isLoad && <Loader />}
-        <Search value={this.state.searchValue} getPlanets={this.getPlanets} getPage={this.getPage} />
+  useEffect(() => {
+    getPlanets(searchValue);
+  }, []);
 
-        {this.state.isError ? (
-          <h2 className='error-message'>Error: {this.state.message}</h2>
-        ) : (
-          <PlanetList planets={this.state.searchResult?.results || []} count={this.state.searchResult?.count || 0} />
-        )}
+  return (
+    <div className='app'>
+      {isLoad && <Loader />}
+      <Search value={searchValue} getPlanets={getPlanets} />
 
-        {!!this.state.searchResult && !this.state.isError && (
-          <Pagination page={this.state.page} next={next} previous={previous} getPage={this.getPage} />
-        )}
-      </div>
-    );
-  }
+      {message ? (
+        <h2 className='error-message'>Error: {message}</h2>
+      ) : (
+        <PlanetList planets={searchResult?.results || []} count={searchResult?.count || 0} />
+      )}
 
-  getPlanets = async (value: string = '') => {
-    this.setState({ ...this.state, isLoad: true, isError: false });
-    try {
-      const res = await PlanetsService.getPlanet(value);
-      this.setState({ ...this.state, isLoad: false, searchResult: res, page: 1 });
-    } catch (e) {
-      this.catchError(e as Error);
-    }
-  };
-
-  getPage = async (url: string, page: number) => {
-    this.setState({ ...this.state, isLoad: true, isError: false });
-    try {
-      const res = await PlanetsService.getPlanetPage(url);
-      this.setState({ ...this.state, searchResult: res, page: this.state.page + page, isLoad: false });
-    } catch (e) {
-      this.catchError(e as Error);
-    }
-  };
-
-  catchError = (e: Error) => {
-    const message = (e as Error).message;
-    console.log(message);
-    this.setState({ ...this.state, searchResult: [], isError: true, isLoad: false, message });
-  };
+      {!!searchResult?.results?.length && (
+        <Pagination page={page} next={searchResult.next} previous={searchResult.previous} getPage={getPage} />
+      )}
+    </div>
+  );
 }
 
 export default App;
