@@ -3,20 +3,24 @@ import styles from './Pagination.module.css';
 interface IPaginationProps {
   next: string | null;
   previous: string | null;
-  getPage: (url: string, page: number) => void;
+  // getPage: (url: string, page: number) => void;
+  // getPlanets: () => void;
+  changePage: (page: number) => void;
   page: number;
 }
 
-export function Pagination({ next, previous, getPage, page }: IPaginationProps) {
+export function Pagination({ next, previous, page, changePage }: IPaginationProps) {
   const getNextPage = () => {
     if (next) {
-      getPage(next, 1);
+      // getPage(next, 1);
+      changePage(1);
     }
   };
 
   const getPrevPage = () => {
     if (previous) {
-      getPage(previous, -1);
+      // getPage(previous, -1);
+      changePage(-1);
     }
   };
 

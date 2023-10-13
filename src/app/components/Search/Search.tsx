@@ -1,18 +1,20 @@
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './Search.module.css';
 
 interface ISearchProps {
-  getPlanets: (val: string) => void;
   value: string;
 }
 
-export function Search({ value, getPlanets }: ISearchProps) {
+export function Search({ value }: ISearchProps) {
   const [searchValue, setSearchValue] = useState(value);
+  const navigate = useNavigate();
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    localStorage.setItem('searchValue', searchValue);
-    getPlanets(searchValue);
+    // const path = searchValue ? `?search=${searchValue}&page=1` : '';
+    const path = searchValue ? `?search=${searchValue}` : '';
+    navigate(path);
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
