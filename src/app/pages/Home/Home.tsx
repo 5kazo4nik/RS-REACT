@@ -1,51 +1,33 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-import { ISearchData } from '../../types/PlanetsData';
+// import { ISearchData } from '../../types/PlanetsData';
 import { PlanetsService } from '../../API/PlanetsService';
 import { Loader } from '../../UI/Loader/Loader';
 import { Search } from '../../components/Search/Search';
 import { PlanetList } from '../../components/PlanetList/PlanetList';
 import { Pagination } from '../../UI/Pagination/Pagination';
 import { useNavigate } from 'react-router-dom';
+import { useFetch } from '../../hooks/useFetch';
 
 interface IHomeProps {
   searchQuery: string | undefined;
   pageQuery: number;
+  detail: string | undefined;
 }
 
-function Home({ searchQuery = '', pageQuery = 1 }: IHomeProps) {
-  const [searchResult, setSearchResult] = useState<ISearchData | null>(null);
+function Home({ searchQuery = '', pageQuery = 1, detail = '' }: IHomeProps) {
   const [page, setPage] = useState(pageQuery);
-  const [isLoad, setIsLoad] = useState(false);
-  const [message, setMessage] = useState('');
+  const [getPlanets, isLoad, message, searchResult] = useFetch(async () => {
+    setPage(pageQuery);
+    const res = await PlanetsService.getPlanets(searchQuery, pageQuery, detail);
+    return res;
+  });
 
   const navigate = useNavigate();
-
-  const fetchData = (callback: (...args: unknown[]) => unknown) => {
-    return async (...args: unknown[]) => {
-      try {
-        setIsLoad(true);
-        setMessage('');
-        await callback(...args);
-      } catch (e) {
-        const message = (e as Error).message;
-        setSearchResult(null);
-        setMessage(message);
-      } finally {
-        setIsLoad(false);
-      }
-    };
-  };
 
   const changePage = (p: number) => {
     setPage(page + p);
   };
-
-  const getPlanets = fetchData(async () => {
-    setPage(pageQuery);
-    const res = await PlanetsService.getPlanets(searchQuery, pageQuery);
-    setSearchResult(res);
-  });
 
   useEffect(() => {
     getPlanets();

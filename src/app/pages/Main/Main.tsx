@@ -1,11 +1,12 @@
 import queryString from 'query-string';
-import { useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Home from '../Home/Home';
 import { useEffect, useState } from 'react';
 
 type IMainQuery = {
   search: string | undefined;
   page: string | undefined;
+  detail: string | undefined;
 };
 
 function Main() {
@@ -20,7 +21,8 @@ function Main() {
 
   return (
     <div className='app'>
-      <Home searchQuery={query.search} pageQuery={Number(query.page) || 1} />
+      <Home searchQuery={query.search} pageQuery={Number(query.page) || 1} detail={query.detail} />
+      <Outlet />
     </div>
   );
 }
