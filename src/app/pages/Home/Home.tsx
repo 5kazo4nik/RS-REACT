@@ -1,13 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-// import { ISearchData } from '../../types/PlanetsData';
 import { PlanetsService } from '../../API/PlanetsService';
 import { Loader } from '../../UI/Loader/Loader';
 import { Search } from '../../components/Search/Search';
 import { PlanetList } from '../../components/PlanetList/PlanetList';
 import { Pagination } from '../../UI/Pagination/Pagination';
-import { useNavigate } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
+import { useParamsNavigator } from '../../hooks/useNavigator';
 
 interface IHomeProps {
   searchQuery: string | undefined;
@@ -16,14 +15,13 @@ interface IHomeProps {
 }
 
 function Home({ searchQuery = '', pageQuery = 1, detail = '' }: IHomeProps) {
+  const paramsNavigate = useParamsNavigator();
   const [page, setPage] = useState(pageQuery);
   const [getPlanets, isLoad, message, searchResult] = useFetch(async () => {
     setPage(pageQuery);
     const res = await PlanetsService.getPlanets(searchQuery, pageQuery, detail);
     return res;
   });
-
-  const navigate = useNavigate();
 
   const changePage = (p: number) => {
     setPage(page + p);
@@ -34,12 +32,11 @@ function Home({ searchQuery = '', pageQuery = 1, detail = '' }: IHomeProps) {
   }, [searchQuery, pageQuery]);
 
   useEffect(() => {
-    const path = searchQuery.length ? `?search=${searchQuery}&page=${page}` : `?page=${page}`;
-    navigate(path);
+    paramsNavigate(null, searchQuery, page);
   }, [page]);
 
   return (
-    <div className='home'>
+    <div onClick={() => paramsNavigate('..', null, null, null)}>
       {isLoad && <Loader />}
       <Search value={searchQuery} />
 

@@ -1,4 +1,6 @@
+import { useParamsNavigator } from '../../hooks/useNavigator';
 import { IPlanetData } from '../../types/PlanetsData';
+import { parseDetailNumber } from '../../utils/parseDetailNumber';
 
 import styles from './PlanetItem.module.css';
 
@@ -7,29 +9,17 @@ interface IPlanetItemProps {
 }
 
 export function PlanetItem({ planet }: IPlanetItemProps) {
+  const navigate = useParamsNavigator();
+
+  const onClickHandler = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const number = parseDetailNumber(planet.url);
+    navigate('details', null, null, number);
+  };
+
   return (
-    <div className={styles.planet}>
+    <div className={styles.planet} onClick={onClickHandler}>
       <h3 className={styles.planet__heading}>{planet.name}</h3>
-      <p className={styles.planet__diam}>
-        Diameter of this planet is <strong>{planet.diameter} kilometers.</strong>
-      </p>
-      <ul className={styles.planet__list}>
-        <li>
-          <strong>Orbital period:</strong> {planet.orbital_period} days.
-        </li>
-        <li>
-          <strong>Population:</strong> {planet.population} units.
-        </li>
-        <li>
-          <strong>Climate:</strong> {planet.climate}.
-        </li>
-        <li>
-          <strong>Terrain:</strong> {planet.terrain}.
-        </li>
-        <li>
-          <strong>Surface water:</strong> {planet.surface_water}%.
-        </li>
-      </ul>
     </div>
   );
 }

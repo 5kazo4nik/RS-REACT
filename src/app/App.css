@@ -14,6 +14,10 @@ select {
   background-color: rgb(197, 197, 255);
 }
 
+.app__splitted {
+  display: flex;
+}
+
 .error-message {
   text-align: center;
   color: red;

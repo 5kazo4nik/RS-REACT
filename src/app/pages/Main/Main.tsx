@@ -1,7 +1,9 @@
 import queryString from 'query-string';
 import { Outlet, useLocation } from 'react-router-dom';
-import Home from '../Home/Home';
 import { useEffect, useState } from 'react';
+import Home from '../Home/Home';
+
+import './Main.css';
 
 type IMainQuery = {
   search: string | undefined;
@@ -20,8 +22,10 @@ function Main() {
   }, [location.search]);
 
   return (
-    <div className='app'>
-      <Home searchQuery={query.search} pageQuery={Number(query.page) || 1} detail={query.detail} />
+    <div className={`app ${!!query.detail ? 'app__splitted' : ''}`}>
+      <div className={`home ${!!query.detail ? 'home__splitted' : ''}`}>
+        <Home searchQuery={query.search} pageQuery={Number(query.page) || 1} detail={query.detail} />
+      </div>
       <Outlet />
     </div>
   );

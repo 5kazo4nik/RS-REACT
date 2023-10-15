@@ -1,6 +1,6 @@
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './Search.module.css';
+import { useParamsNavigator } from '../../hooks/useNavigator';
 
 interface ISearchProps {
   value: string;
@@ -8,12 +8,11 @@ interface ISearchProps {
 
 export function Search({ value }: ISearchProps) {
   const [searchValue, setSearchValue] = useState(value);
-  const navigate = useNavigate();
+  const navigate = useParamsNavigator();
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const path = searchValue ? `?search=${searchValue}&page=1` : '';
-    navigate(path);
+    navigate(null, searchValue, 1);
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
