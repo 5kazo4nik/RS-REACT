@@ -9,6 +9,14 @@
   z-index: 10;
 }
 
+.loader_absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: inherit;
+  z-index: 9;
+}
+
 .loader__spin {
   transform: translate(-50%, -50%);
   width: 100px;

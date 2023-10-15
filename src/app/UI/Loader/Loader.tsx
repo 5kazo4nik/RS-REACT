@@ -1,8 +1,14 @@
 import styles from './Loader.module.css';
 
-export function Loader() {
+interface ILoaderProps {
+  absolute?: boolean;
+}
+
+export function Loader({ absolute }: ILoaderProps) {
+  const loaderClassname = `${styles.loader} ${absolute ? styles.loader_absolute : ''}`;
+
   return (
-    <div className={styles.loader}>
+    <div className={loaderClassname}>
       <div className={styles.loader__spin}></div>
     </div>
   );

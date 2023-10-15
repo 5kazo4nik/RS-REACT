@@ -1,4 +1,5 @@
 .details {
+  position: relative;
   width: 50%;
   min-height: 100vh;
   display: flex;
