@@ -8,6 +8,7 @@ import { useFetch } from '../../hooks/useFetch';
 import styles from './Details.module.css';
 import { IPlanetData } from '../../types/PlanetsData';
 import { Loader } from '../../UI/Loader/Loader';
+import { useParamsNavigator } from '../../hooks/useNavigator';
 
 type DetailsQuery = {
   detail: string;
@@ -16,6 +17,7 @@ type DetailsQuery = {
 const Details = () => {
   const location = useLocation();
   const { detail } = queryString.parse(location.search) as DetailsQuery;
+  const paramsNavigate = useParamsNavigator();
 
   const [getPlanet, isLoad, message, searchResult] = useFetch(async () => {
     const res = await PlanetsService.getPlanet(detail);
@@ -26,6 +28,10 @@ const Details = () => {
     const { detail } = queryString.parse(location.search) as DetailsQuery;
     getPlanet(detail);
   }, [location.search]);
+
+  const onBtnClose = () => {
+    paramsNavigate('..', null, null, null);
+  };
 
   return (
     <div className={styles.details}>
@@ -61,6 +67,9 @@ const Details = () => {
         ) : (
           <h2 className='error-message'>Error: {message}</h2>
         )}
+        <button className={styles.btn__close} onClick={onBtnClose}>
+          Close details
+        </button>
       </div>
     </div>
   );
