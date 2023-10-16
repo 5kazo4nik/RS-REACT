@@ -7,6 +7,7 @@ import { PlanetList } from '../../components/PlanetList/PlanetList';
 import { Pagination } from '../../UI/Pagination/Pagination';
 import { useFetch } from '../../hooks/useFetch';
 import { useParamsNavigator } from '../../hooks/useNavigator';
+import { SearchContext } from '../../context/SearchContext';
 
 interface IHomeProps {
   searchQuery: string | undefined;
@@ -36,25 +37,16 @@ function Home({ searchQuery = '', pageQuery = 1, detail = '' }: IHomeProps) {
   }, [page]);
 
   return (
-    <div onClick={() => paramsNavigate('..', null, null, null)}>
-      {isLoad && <Loader />}
-      <Search value={searchQuery} />
+    <SearchContext.Provider value={{ search: searchQuery, searchResult }}>
+      <div onClick={() => paramsNavigate('..', null, null, null)}>
+        {isLoad && <Loader />}
+        <Search />
 
-      {message ? (
-        <h2 className='error-message'>Error: {message}</h2>
-      ) : (
-        <PlanetList planets={searchResult?.results || []} count={searchResult?.count || 0} />
-      )}
+        {message ? <h2 className='error-message'>Error: {message}</h2> : <PlanetList />}
 
-      {!!searchResult?.results?.length && (
-        <Pagination
-          page={pageQuery}
-          next={searchResult.next}
-          previous={searchResult.previous}
-          changePage={changePage}
-        />
-      )}
-    </div>
+        {!!searchResult?.results?.length && <Pagination page={pageQuery} changePage={changePage} />}
+      </div>
+    </SearchContext.Provider>
   );
 }
 

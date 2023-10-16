@@ -1,13 +1,11 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styles from './Search.module.css';
 import { useParamsNavigator } from '../../hooks/useNavigator';
+import { SearchContext } from '../../context/SearchContext';
 
-interface ISearchProps {
-  value: string;
-}
-
-export function Search({ value }: ISearchProps) {
-  const [searchValue, setSearchValue] = useState(value);
+export function Search() {
+  const { search } = useContext(SearchContext);
+  const [searchValue, setSearchValue] = useState(search);
   const navigate = useParamsNavigator();
 
   const onSubmit = (e: React.FormEvent) => {

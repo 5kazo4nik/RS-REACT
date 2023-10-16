@@ -1,13 +1,17 @@
+import { useContext } from 'react';
 import styles from './Pagination.module.css';
+import { SearchContext } from '../../context/SearchContext';
 
 interface IPaginationProps {
-  next: string | null;
-  previous: string | null;
   changePage: (page: number) => void;
   page: number;
 }
 
-export function Pagination({ next, previous, page, changePage }: IPaginationProps) {
+export function Pagination({ page, changePage }: IPaginationProps) {
+  const { searchResult } = useContext(SearchContext);
+  const previous = searchResult?.previous;
+  const next = searchResult?.next;
+
   const getNextPage = () => {
     if (next) {
       changePage(1);
