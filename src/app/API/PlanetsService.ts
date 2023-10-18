@@ -1,11 +1,10 @@
 import axios from 'axios';
 
 export class PlanetsService {
-  static async getPlanets(value?: string, page?: number, detail?: string) {
+  static async getPlanets(value?: string, page?: number) {
     const searchValue = value ? `?search=${value}` : '';
     const pageValue = page && value ? `&page=${page}` : page ? `?page=${page}` : '';
-    const detailValue = detail ? `&detail=${detail}` : '';
-    const res = await axios.get(`https://swapi.dev/api/planets/${searchValue}${pageValue}${detailValue}`);
+    const res = await axios.get(`https://swapi.dev/api/planets/${searchValue}${pageValue}`);
     return res.data;
   }
 

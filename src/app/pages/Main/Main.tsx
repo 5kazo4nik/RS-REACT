@@ -24,7 +24,7 @@ function Main() {
   return (
     <div className={`app ${!!query.detail && location.pathname.includes('details') ? 'app__splitted' : ''}`}>
       <div className={`home ${!!query.detail && location.pathname.includes('details') ? 'home__splitted' : ''}`}>
-        <Home searchQuery={query.search} pageQuery={Number(query.page) || 1} detail={query.detail} />
+        <Home searchQuery={query.search} pageQuery={Number(query.page) || 1} />
       </div>
       <Outlet />
     </div>

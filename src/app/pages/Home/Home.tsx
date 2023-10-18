@@ -12,15 +12,14 @@ import { SearchContext } from '../../context/SearchContext';
 interface IHomeProps {
   searchQuery: string | undefined;
   pageQuery: number;
-  detail: string | undefined;
 }
 
-function Home({ searchQuery = '', pageQuery = 1, detail = '' }: IHomeProps) {
+function Home({ searchQuery = '', pageQuery = 1 }: IHomeProps) {
   const paramsNavigate = useParamsNavigator();
   const [page, setPage] = useState(pageQuery);
   const [getPlanets, isLoad, message, searchResult] = useFetch(async () => {
     setPage(pageQuery);
-    const res = await PlanetsService.getPlanets(searchQuery, pageQuery, detail);
+    const res = await PlanetsService.getPlanets(searchQuery, pageQuery);
     return res;
   });
 
