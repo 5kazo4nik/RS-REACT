@@ -13,15 +13,11 @@ export function Pagination({ page, changePage }: IPaginationProps) {
   const next = searchResult?.next;
 
   const getNextPage = () => {
-    if (next) {
-      changePage(1);
-    }
+    changePage(1);
   };
 
   const getPrevPage = () => {
-    if (previous) {
-      changePage(-1);
-    }
+    changePage(-1);
   };
 
   return (
