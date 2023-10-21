@@ -68,6 +68,6 @@ describe('test Details page component', () => {
     const btn = screen.getByRole('button');
     fireEvent.click(btn);
 
-    expect(paramsNavigateMock).toHaveBeenCalledWith('..', null, null, null);
+    expect(paramsNavigateMock).toHaveBeenCalledWith('..', null, null);
   });
 });

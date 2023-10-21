@@ -66,7 +66,7 @@ describe('test Pagination component', () => {
     };
 
     render(
-      <SearchContext.Provider value={{ search: '', searchResult: searchResult }}>
+      <SearchContext.Provider value={{ search: '', searchResult: searchResult, setSearch: () => {} }}>
         <Pagination page={page} changePage={changePage} />
       </SearchContext.Provider>
     );
@@ -92,7 +92,7 @@ describe('test Pagination component', () => {
     };
 
     render(
-      <SearchContext.Provider value={{ search: '', searchResult: searchResult }}>
+      <SearchContext.Provider value={{ search: '', searchResult: searchResult, setSearch: () => {} }}>
         <Pagination page={page} changePage={changePage} />
       </SearchContext.Provider>
     );
@@ -115,7 +115,7 @@ describe('test Pagination component', () => {
     await act(async () => {
       render(
         <MemoryRouter>
-          <Home searchQuery='' pageQuery={2} />
+          <Home pageQuery={2} />
         </MemoryRouter>
       );
     });
@@ -124,9 +124,9 @@ describe('test Pagination component', () => {
     const btnPrev = screen.getByText('<');
 
     fireEvent.click(btnNext);
-    expect(paramsNavigateMock).toHaveBeenCalledWith(null, '', 3);
+    expect(paramsNavigateMock).toHaveBeenCalledWith(null, 3);
 
     fireEvent.click(btnPrev);
-    expect(paramsNavigateMock).toHaveBeenCalledWith(null, '', 2);
+    expect(paramsNavigateMock).toHaveBeenCalledWith(null, 2);
   });
 });

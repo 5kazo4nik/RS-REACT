@@ -10,11 +10,9 @@ import { useParamsNavigator } from '../../hooks/useNavigator';
 import { SearchContext } from '../../context/SearchContext';
 
 interface IHomeProps {
-  // searchQuery: string | undefined;
   pageQuery: number;
 }
 
-// function Home({ searchQuery = '', pageQuery = 1 }: IHomeProps) {
 function Home({ pageQuery = 1 }: IHomeProps) {
   const paramsNavigate = useParamsNavigator();
   const [searchQuery, setSearchQuery] = useState(localStorage.getItem('search') || '');

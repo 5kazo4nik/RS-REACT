@@ -59,6 +59,8 @@ const notFoundData = {
   results: [],
 };
 
+localStorage.setItem('search', 'a');
+
 describe('test Home component', () => {
   test('should render planets and pagination', async () => {
     getPlanetsMock.mockResolvedValue(data);
@@ -66,7 +68,7 @@ describe('test Home component', () => {
     await act(async () => {
       render(
         <MemoryRouter>
-          <Home searchQuery='a' pageQuery={1} />
+          <Home pageQuery={1} />
         </MemoryRouter>
       );
     });
@@ -85,7 +87,7 @@ describe('test Home component', () => {
     await act(async () => {
       render(
         <MemoryRouter>
-          <Home searchQuery='a' pageQuery={1} />
+          <Home pageQuery={1} />
         </MemoryRouter>
       );
     });
@@ -102,7 +104,7 @@ describe('test Home component', () => {
     await act(async () => {
       render(
         <MemoryRouter>
-          <Home searchQuery='a' pageQuery={1} />
+          <Home pageQuery={1} />
         </MemoryRouter>
       );
     });
@@ -119,7 +121,7 @@ describe('test Home component', () => {
     await act(async () => {
       render(
         <MemoryRouter>
-          <Home searchQuery='a' pageQuery={1} />
+          <Home pageQuery={1} />
         </MemoryRouter>
       );
     });
@@ -127,6 +129,6 @@ describe('test Home component', () => {
     const element = screen.getByText(/error/i);
     fireEvent.click(element);
 
-    expect(paramsNavigateMock).toHaveBeenCalledWith(null, 'a', 1);
+    expect(paramsNavigateMock).toHaveBeenCalledWith(null, 1);
   });
 });

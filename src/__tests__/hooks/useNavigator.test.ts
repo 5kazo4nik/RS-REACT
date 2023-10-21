@@ -16,16 +16,13 @@ describe('test useParamsNavigator custom hook', () => {
   test('should navigate to correct path', () => {
     const navigate = useParamsNavigator();
 
-    navigate(null, 'hello', 2);
-    expect(mockNavigate).toHaveBeenCalledWith('?search=hello&page=2');
-
-    navigate('test', 'hello', 2);
-    expect(mockNavigate).toHaveBeenCalledWith('test/?search=hello&page=2');
-
-    navigate(null, '', 2);
+    navigate(null, 2);
     expect(mockNavigate).toHaveBeenCalledWith('?page=2');
 
-    navigate(null, '', 3, '3');
+    navigate('test', 2);
+    expect(mockNavigate).toHaveBeenCalledWith('test/?page=2');
+
+    navigate(null, 3, '3');
     expect(mockNavigate).toHaveBeenCalledWith('?page=3&detail=3');
   });
 });

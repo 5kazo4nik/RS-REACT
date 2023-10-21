@@ -45,6 +45,6 @@ describe('test PlanetItem component', () => {
     const planet = screen.getByText(/Tatooine/i);
     fireEvent.click(planet);
 
-    expect(navigateMock).toHaveBeenCalledWith('details', null, null, '1');
+    expect(navigateMock).toHaveBeenCalledWith('details', null, '1');
   });
 });
