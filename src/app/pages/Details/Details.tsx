@@ -30,7 +30,7 @@ const Details = () => {
   }, [location.search]);
 
   const onBtnClose = () => {
-    paramsNavigate('..', null, null, null);
+    paramsNavigate('..', null, null);
   };
 
   return (

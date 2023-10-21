@@ -10,13 +10,16 @@ import { useParamsNavigator } from '../../hooks/useNavigator';
 import { SearchContext } from '../../context/SearchContext';
 
 interface IHomeProps {
-  searchQuery: string | undefined;
+  // searchQuery: string | undefined;
   pageQuery: number;
 }
 
-function Home({ searchQuery = '', pageQuery = 1 }: IHomeProps) {
+// function Home({ searchQuery = '', pageQuery = 1 }: IHomeProps) {
+function Home({ pageQuery = 1 }: IHomeProps) {
   const paramsNavigate = useParamsNavigator();
+  const [searchQuery, setSearchQuery] = useState(localStorage.getItem('search') || '');
   const [page, setPage] = useState(pageQuery);
+
   const [getPlanets, isLoad, message, searchResult] = useFetch(async () => {
     setPage(pageQuery);
     const res = await PlanetsService.getPlanets(searchQuery, pageQuery);
@@ -27,17 +30,21 @@ function Home({ searchQuery = '', pageQuery = 1 }: IHomeProps) {
     setPage(page + p);
   };
 
+  const setSearch = (value: string) => {
+    setSearchQuery(value);
+  };
+
   useEffect(() => {
     getPlanets();
   }, [searchQuery, pageQuery]);
 
   useEffect(() => {
-    paramsNavigate(null, searchQuery, page);
+    paramsNavigate(null, page);
   }, [page]);
 
   return (
-    <SearchContext.Provider value={{ search: searchQuery, searchResult }}>
-      <div onClick={() => paramsNavigate('..', null, null, null)}>
+    <SearchContext.Provider value={{ search: searchQuery, setSearch, searchResult }}>
+      <div onClick={() => paramsNavigate('..', null, null)}>
         {isLoad && <Loader />}
         <Search />
 

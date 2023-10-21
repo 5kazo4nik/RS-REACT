@@ -4,13 +4,15 @@ import { useParamsNavigator } from '../../hooks/useNavigator';
 import { SearchContext } from '../../context/SearchContext';
 
 export function Search() {
-  const { search } = useContext(SearchContext);
+  const { search, setSearch } = useContext(SearchContext);
   const [searchValue, setSearchValue] = useState(search);
   const navigate = useParamsNavigator();
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate(null, searchValue, 1);
+    localStorage.setItem('search', searchValue);
+    setSearch(searchValue);
+    navigate(null, 1);
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

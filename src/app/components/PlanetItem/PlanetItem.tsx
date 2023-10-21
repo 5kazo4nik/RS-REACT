@@ -14,7 +14,7 @@ export function PlanetItem({ planet }: IPlanetItemProps) {
   const onClickHandler = (e: React.MouseEvent) => {
     e.stopPropagation();
     const number = parseDetailNumber(planet.url);
-    navigate('details', null, null, number);
+    navigate('details', null, number);
   };
 
   return (
