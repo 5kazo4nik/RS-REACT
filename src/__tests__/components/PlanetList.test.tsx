@@ -7,6 +7,7 @@ import { MemoryRouter } from 'react-router-dom';
 describe('test PlanetList component', () => {
   const data = {
     search: '',
+    setSearch: () => {},
     searchResult: {
       count: 2,
       next: null,
@@ -50,6 +51,7 @@ describe('test PlanetList component', () => {
 
   const emptyData = {
     search: '',
+    setSearch: () => {},
     searchResult: {
       count: 0,
       next: null,
