@@ -1,0 +1,20 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: blueviolet;
+}
+
+.message {
+  color: yellow;
+  font-size: 25px;
+}
+
+.btn_back {
+  padding: 15px;
+  font-size: 20px;
+  background-color: antiquewhite;
+  border-radius: 10px;
+}

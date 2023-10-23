@@ -34,6 +34,8 @@ class App extends Component {
     const next = this.state.searchResult?.next as string | null;
     const previous = this.state.searchResult?.previous as string | null;
 
+    if (this.state.isError) throw new Error(this.state.message);
+
     return (
       <div className='app'>
         {this.state.isLoad && <Loader />}
