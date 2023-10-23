@@ -44,7 +44,8 @@ export class Search extends Component<ISearchProps, ISearchState> {
     this.setState({ ...this.state, value: e.target.value });
   };
 
-  private onErrorClick = () => {
+  private onErrorClick = (e: React.MouseEvent) => {
+    e.preventDefault();
     this.props.getPage('https://swa/', 1);
   };
 }
