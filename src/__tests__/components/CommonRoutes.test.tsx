@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, test } from 'vitest';
-import CommonRoutes from '../../app/Router/CommonRoutes';
+import CommonRoutes from '../../app/components/Router/CommonRoutes';
 
 describe('test CommonRoutes component', () => {
   test('should render Main page', () => {

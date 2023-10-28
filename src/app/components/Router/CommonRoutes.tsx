@@ -1,8 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Main from '../pages/Main/Main';
-import Details from '../pages/Details/Details';
-import NotFound from '../pages/NotFound/NotFound';
+import Main from '../Main/Main';
+import Details from '../../pages/Details/Details';
+import NotFound from '../../pages/NotFound/NotFound';
 
 const CommonRoutes = () => {
   return (

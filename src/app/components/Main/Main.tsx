@@ -1,14 +1,14 @@
 import queryString from 'query-string';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Home from '../Home/Home';
+import Home from '../../pages/Home/Home';
 
 import './Main.css';
 
 type IMainQuery = {
-  search: string | undefined;
-  page: string | undefined;
-  detail: string | undefined;
+  search?: string;
+  page?: string;
+  detail?: string;
 };
 
 function Main() {
