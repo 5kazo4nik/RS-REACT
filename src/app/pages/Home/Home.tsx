@@ -1,44 +1,28 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
-import { PlanetsService } from '../../API/PlanetsService';
+import { useState } from 'react';
 import { Loader } from '../../UI/Loader/Loader';
 import { Search } from '../../components/Search/Search';
 import { PlanetList } from '../../components/PlanetList/PlanetList';
 import { Pagination } from '../../UI/Pagination/Pagination';
-import { useFetch } from '../../hooks/useFetch';
 import { useParamsNavigator } from '../../hooks/useNavigator';
 import { SearchContext } from '../../context/SearchContext';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { planetApi } from '../../store/reducers/planetsApi';
 
-interface IHomeProps {
-  pageQuery: number;
-}
-
-function Home({ pageQuery = 1 }: IHomeProps) {
+function Home() {
+  const { page } = useAppSelector((state) => state.query);
   const paramsNavigate = useParamsNavigator();
+
   const [searchQuery, setSearchQuery] = useState(localStorage.getItem('search') || '');
-  const [page, setPage] = useState(pageQuery);
 
-  const [getPlanets, isLoad, message, searchResult] = useFetch(async () => {
-    setPage(pageQuery);
-    const res = await PlanetsService.getPlanets(searchQuery, pageQuery);
-    return res;
-  });
-
-  const changePage = (p: number) => {
-    setPage(page + p);
-  };
+  const {
+    isFetching: isLoad,
+    isError,
+    data: searchResult,
+  } = planetApi.useGetPlanetsQuery({ search: searchQuery, page });
 
   const setSearch = (value: string) => {
     setSearchQuery(value);
   };
-
-  useEffect(() => {
-    getPlanets();
-  }, [searchQuery, pageQuery]);
-
-  useEffect(() => {
-    paramsNavigate(null, page);
-  }, [page]);
 
   return (
     <SearchContext.Provider value={{ search: searchQuery, setSearch, searchResult }}>
@@ -46,9 +30,9 @@ function Home({ pageQuery = 1 }: IHomeProps) {
         {isLoad && <Loader />}
         <Search />
 
-        {message ? <h2 className='error-message'>Error: {message}</h2> : <PlanetList />}
+        {isError ? <h2 className='error-message'>Oops... Something went wrong...</h2> : <PlanetList />}
 
-        {!!searchResult?.results?.length && <Pagination page={pageQuery} changePage={changePage} />}
+        {!!searchResult?.results?.length && <Pagination />}
       </div>
     </SearchContext.Provider>
   );

@@ -1,30 +1,29 @@
 import queryString from 'query-string';
 import { Outlet, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import Home from '../../pages/Home/Home';
-
 import './Main.css';
+import Home from '../../pages/Home/Home';
+import { setQuery } from '../../store/reducers/querySlice';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useEffect } from 'react';
 
-type IMainQuery = {
-  search?: string;
+export interface IParsedQuery {
   page?: string;
   detail?: string;
-};
+}
 
 function Main() {
   const location = useLocation();
-  const parsedQuery = queryString.parse(location.search) as IMainQuery;
-  const [query, setQuery] = useState<IMainQuery>(parsedQuery);
+  const parsedQuery = queryString.parse(location.search) as IParsedQuery;
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const parsedQuery = queryString.parse(location.search) as IMainQuery;
-    setQuery(parsedQuery);
-  }, [location.search]);
+    dispatch(setQuery(parsedQuery));
+  }, [parsedQuery, dispatch]);
 
   return (
-    <div className={`app ${!!query.detail && location.pathname.includes('details') ? 'app__splitted' : ''}`}>
-      <div className={`home ${!!query.detail && location.pathname.includes('details') ? 'home__splitted' : ''}`}>
-        <Home pageQuery={Number(query.page) || 1} />
+    <div className={`app ${!!parsedQuery.detail && location.pathname.includes('details') ? 'app__splitted' : ''}`}>
+      <div className={`home ${!!parsedQuery.detail && location.pathname.includes('details') ? 'home__splitted' : ''}`}>
+        <Home />
       </div>
       <Outlet />
     </div>

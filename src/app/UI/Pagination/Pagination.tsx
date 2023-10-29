@@ -1,24 +1,34 @@
-import { useContext } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect, useState } from 'react';
 import styles from './Pagination.module.css';
 import { SearchContext } from '../../context/SearchContext';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { useParamsNavigator } from '../../hooks/useNavigator';
+import { ISearchData } from '../../types/PlanetsData';
 
-interface IPaginationProps {
-  changePage: (page: number) => void;
-  page: number;
-}
-
-export function Pagination({ page, changePage }: IPaginationProps) {
+export function Pagination() {
   const { searchResult } = useContext(SearchContext);
-  const previous = searchResult?.previous;
-  const next = searchResult?.next;
+  const { previous, next } = searchResult as ISearchData;
+
+  const { page } = useAppSelector((state) => state.query);
+  const [p, setP] = useState(page);
+  const paramsNavigate = useParamsNavigator();
 
   const getNextPage = () => {
-    changePage(1);
+    setP(p + 1);
   };
 
   const getPrevPage = () => {
-    changePage(-1);
+    setP(p - 1);
   };
+
+  useEffect(() => {
+    paramsNavigate(null, p);
+  }, [p]);
+
+  useEffect(() => {
+    setP(page);
+  }, [page]);
 
   return (
     <div className={styles.pagination}>
