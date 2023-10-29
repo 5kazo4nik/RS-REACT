@@ -1,12 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
-import { PlanetItem } from '../PlanetItem/PlanetItem';
-
 import styles from './PlanetList.module.css';
-import { useContext } from 'react';
-import { SearchContext } from '../../context/SearchContext';
+import { PlanetItem } from '../PlanetItem/PlanetItem';
+import { useAppSelector } from '../../hooks/useAppSelector';
 
 export function PlanetList() {
-  const { searchResult } = useContext(SearchContext);
+  const { result: searchResult } = useAppSelector((state) => state.search);
   const planets = searchResult?.results || [];
   const count = searchResult?.count || 0;
 

@@ -1,14 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Pagination.module.css';
-import { SearchContext } from '../../context/SearchContext';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useParamsNavigator } from '../../hooks/useNavigator';
-import { ISearchData } from '../../types/PlanetsData';
 
 export function Pagination() {
-  const { searchResult } = useContext(SearchContext);
-  const { previous, next } = searchResult as ISearchData;
+  const { result } = useAppSelector((state) => state.search);
+  const previous = result?.previous;
+  const next = result?.next;
 
   const { page } = useAppSelector((state) => state.query);
   const [p, setP] = useState(page);
