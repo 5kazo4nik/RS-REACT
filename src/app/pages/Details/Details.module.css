@@ -15,21 +15,6 @@
   border-radius: 10px;
 }
 
-.details__heading {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.details__diam {
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.details__list {
-  list-style: none;
-  margin-bottom: 15px;
-}
-
 .btn__close {
   display: block;
   padding: 10px;
