@@ -14,7 +14,8 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 3px dotted orangered;
+  border-inline: 3px dotted orangered;
+  border-block: 3px dotted orangered;
   animation: rotate 1.5s infinite linear;
 }
 

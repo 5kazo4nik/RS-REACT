@@ -2,7 +2,8 @@
   box-sizing: border-box;
   width: 300px;
   min-height: 300px;
-  padding: 45px;
+  padding-block: 45px;
+  padding-inline: 45px;
   border-radius: 50%;
   background-color: rgb(255, 178, 85);
   display: flex;
@@ -10,13 +11,9 @@
   align-items: center;
 }
 
-.planet__heading {
-  margin-bottom: 20px;
-}
-
 .planet__diam {
   text-align: center;
-  margin-bottom: 15px;
+  margin-block: 15px;
 }
 
 .planet__list {

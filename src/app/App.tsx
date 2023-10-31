@@ -11,7 +11,7 @@ interface IAppState {
   searchValue: string;
   searchResult: ISearchData | null;
   page: number;
-  isLoad: boolean;
+  isLoading: boolean;
   isError: boolean;
   message: string;
 }
@@ -21,7 +21,7 @@ class App extends Component {
     searchValue: localStorage.getItem('searchValue') || '',
     searchResult: null,
     page: 1,
-    isLoad: false,
+    isLoading: false,
     isError: false,
     message: '',
   };
@@ -38,7 +38,7 @@ class App extends Component {
 
     return (
       <div className='app'>
-        {this.state.isLoad && <Loader />}
+        {this.state.isLoading && <Loader />}
         <Search value={this.state.searchValue} getPlanets={this.getPlanets} getPage={this.getPage} />
 
         {this.state.isError ? (
