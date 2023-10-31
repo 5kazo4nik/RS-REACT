@@ -4,6 +4,7 @@ import styles from './Search.module.css';
 interface ISearchProps {
   getPage: (url: string, page: number) => void;
   getPlanets: (val: string) => void;
+  setTestError: () => void;
   value: string;
 }
 
@@ -46,6 +47,6 @@ export class Search extends Component<ISearchProps, ISearchState> {
 
   private onErrorClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    this.props.getPage('https://swa/', 1);
+    this.props.setTestError();
   };
 }

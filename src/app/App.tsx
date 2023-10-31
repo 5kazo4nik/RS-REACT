@@ -14,6 +14,7 @@ interface IAppState {
   isLoading: boolean;
   isError: boolean;
   message: string;
+  hasTestError: boolean;
 }
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
     isLoading: false,
     isError: false,
     message: '',
+    hasTestError: false,
   };
 
   componentDidMount() {
@@ -34,12 +36,17 @@ class App extends Component {
     const next = this.state.searchResult?.next ?? null;
     const previous = this.state.searchResult?.previous ?? null;
 
-    if (this.state.isError) throw new Error(this.state.message);
+    if (this.state.hasTestError) throw new Error('test error');
 
     return (
       <div className='app'>
         {this.state.isLoading && <Loader />}
-        <Search value={this.state.searchValue} getPlanets={this.getPlanets} getPage={this.getPage} />
+        <Search
+          value={this.state.searchValue}
+          getPlanets={this.getPlanets}
+          getPage={this.getPage}
+          setTestError={this.setTestError}
+        />
 
         {this.state.isError ? (
           <h2 className='error-message'>Error: {this.state.message}</h2>
@@ -55,20 +62,20 @@ class App extends Component {
   }
 
   getPlanets = async (value: string = '') => {
-    this.setState({ ...this.state, isLoad: true, isError: false });
+    this.setState({ ...this.state, isLoading: true, isError: false });
     try {
       const res = await PlanetsService.getPlanet(value);
-      this.setState({ ...this.state, isLoad: false, searchResult: res, page: 1 });
+      this.setState({ ...this.state, isLoading: false, searchResult: res, page: 1 });
     } catch (e) {
       this.catchError(e as Error);
     }
   };
 
   getPage = async (url: string, page: number) => {
-    this.setState({ ...this.state, isLoad: true, isError: false });
+    this.setState({ ...this.state, isLoading: true, isError: false });
     try {
       const res = await PlanetsService.getPlanetPage(url);
-      this.setState({ ...this.state, searchResult: res, page: this.state.page + page, isLoad: false });
+      this.setState({ ...this.state, searchResult: res, page: this.state.page + page, isLoading: false });
     } catch (e) {
       this.catchError(e as Error);
     }
@@ -76,8 +83,11 @@ class App extends Component {
 
   catchError = (e: Error) => {
     const message = (e as Error).message;
-    console.log(message);
-    this.setState({ ...this.state, searchResult: [], isError: true, isLoad: false, message });
+    this.setState({ ...this.state, searchResult: [], isError: true, isLoading: false, message });
+  };
+
+  setTestError = () => {
+    this.setState({ ...this.state, hasTestError: true });
   };
 }
 
