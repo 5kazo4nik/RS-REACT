@@ -15,18 +15,21 @@ export class PlanetList extends Component<IPlanetListProps> {
     const quantity = this.props.count;
     const planets = this.props.planets;
 
-    return planets.length ? (
+    return (
       <div className={styles.planets__container}>
-        <h2 className={styles.planets__heading}>We found {quantity} planets!</h2>
-        <div className={styles.planets__list}>
-          {planets.map((planet) => (
-            <PlanetItem key={uuidv4()} planet={planet} />
-          ))}
-        </div>
-      </div>
-    ) : (
-      <div className={styles.planets__container}>
-        <h2 className={styles.planets__heading}>There are no planets with that name</h2>
+        {planets.length ? (
+          <>
+            {' '}
+            <h2 className={styles.planets__heading}>We found {quantity} planets!</h2>
+            <div className={styles.planets__list}>
+              {planets.map((planet) => (
+                <PlanetItem key={uuidv4()} planet={planet} />
+              ))}
+            </div>{' '}
+          </>
+        ) : (
+          <h2 className={styles.planets__heading}>There are no planets with that name</h2>
+        )}
       </div>
     );
   }
