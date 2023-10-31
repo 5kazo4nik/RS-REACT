@@ -1,4 +1,3 @@
-import { IPlanetData } from '../../types/PlanetsData';
 import { PlanetItem } from '../PlanetItem/PlanetItem';
 
 import styles from './PlanetList.module.css';
@@ -10,7 +9,7 @@ export function PlanetList() {
   const planets = searchResult?.results || [];
   const count = searchResult?.count || 0;
 
-  return planets.length ? (
+  return (
     <div className={styles.planets__container}>
       {planets.length ? (
         <>
