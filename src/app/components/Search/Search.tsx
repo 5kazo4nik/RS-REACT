@@ -27,7 +27,7 @@ export function Search() {
       <h1 className={styles.searchHeading}>Find any Star Wars planet!</h1>
       <form className={styles.searchForm} onSubmit={onSubmit}>
         <input value={inputValue} className={styles.searchInput} type='text' onChange={onInputChange} />
-        <button className={styles.searchBtn}>Search</button>
+        <button className={styles.searchButton}>Search</button>
       </form>
     </div>
   );

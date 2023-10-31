@@ -9,9 +9,9 @@ import { IPlanetData } from '../../types/PlanetsData';
 const Details = () => {
   const { detail } = useAppSelector((state) => state.query);
   const paramsNavigate = useParamsNavigator();
-  const { isFetching: isLoad, isError, data } = planetApi.useGetPlanetQuery(detail || '1');
+  const { isFetching: isLoading, isError, data } = planetApi.useGetPlanetQuery(detail || '1');
 
-  const onBtnClose = () => {
+  const onButtonClose = () => {
     paramsNavigate('..', null, null);
   };
 
@@ -19,14 +19,14 @@ const Details = () => {
     <>
       {detail && (
         <div className={styles.details}>
-          {isLoad && <Loader absolute />}
+          {isLoading && <Loader absolute />}
           <div className={styles.details__wrapper}>
             {!isError ? (
               <DetailedPlanetItem planet={data as IPlanetData} />
             ) : (
               <h2 className='error-message'>Oops... Something went wrong...</h2>
             )}
-            <button className={styles.btn__close} onClick={onBtnClose}>
+            <button className={styles.button__close} onClick={onButtonClose}>
               Close details
             </button>
           </div>

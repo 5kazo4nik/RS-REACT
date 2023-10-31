@@ -16,7 +16,7 @@ function Home() {
   const dispatch = useAppDispatch();
 
   const { search } = useAppSelector((state) => state.search);
-  const { isFetching: isLoad, isError, data: searchResult } = planetApi.useGetPlanetsQuery({ search, page });
+  const { isFetching: isLoading, isError, data: searchResult } = planetApi.useGetPlanetsQuery({ search, page });
 
   useEffect(() => {
     dispatch(setResult(searchResult || null));
@@ -24,7 +24,7 @@ function Home() {
 
   return (
     <div onClick={() => paramsNavigate('..', null, null)}>
-      {isLoad && <Loader />}
+      {isLoading && <Loader />}
       <Search />
 
       {isError ? <h2 className='error-message'>Oops... Something went wrong...</h2> : <PlanetList />}

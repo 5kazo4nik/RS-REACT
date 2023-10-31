@@ -8,20 +8,23 @@
 }
 
 .details__wrapper {
-  margin-top: 250px;
+  margin-block-start: 250px;
   background-color: rgb(241, 168, 115);
   height: fit-content;
-  padding: 15px;
+  padding-block: 15px;
+  padding-inline: 15px;
   border-radius: 10px;
 }
 
-.btn__close {
+.button__close {
   display: block;
-  padding: 10px;
+  padding-block: 10px;
+  padding-inline: 10px;
   width: 100%;
-  margin: 0 auto;
+  margin-inline: auto;
   background-color: rgb(159, 243, 2);
-  border: 1px solid black;
+  border-block: 1px solid black;
+  border-inline: 1px solid black;
   border-radius: 5px;
   cursor: pointer;
 }

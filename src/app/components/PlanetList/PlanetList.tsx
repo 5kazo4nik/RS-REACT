@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import styles from './PlanetList.module.css';
 import { PlanetItem } from '../PlanetItem/PlanetItem';
 import { useAppSelector } from '../../hooks/useAppSelector';
@@ -8,18 +7,20 @@ export function PlanetList() {
   const planets = searchResult?.results || [];
   const count = searchResult?.count || 0;
 
-  return planets.length ? (
+  return (
     <div className={styles.planets__container}>
-      <h2 className={styles.planets__heading}>We found {count} planets!</h2>
-      <div className={styles.planets__list}>
-        {planets.map((planet) => (
-          <PlanetItem key={uuidv4()} planet={planet} />
-        ))}
-      </div>
-    </div>
-  ) : (
-    <div className={styles.planets__container}>
-      <h2 className={styles.planets__heading}>There are no planets with that name</h2>
+      {planets.length ? (
+        <>
+          <h2 className={styles.planets__heading}>We found {count} planets!</h2>
+          <div className={styles.planets__list}>
+            {planets.map((planet, index) => (
+              <PlanetItem key={index} planet={planet} />
+            ))}
+          </div>
+        </>
+      ) : (
+        <h2 className={styles.planets__heading}>There are no planets with that name</h2>
+      )}
     </div>
   );
 }
