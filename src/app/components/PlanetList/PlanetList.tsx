@@ -1,5 +1,4 @@
 import { Component, ReactNode } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { IPlanetData } from '../../types/PlanetsData';
 import { PlanetItem } from '../PlanetItem/PlanetItem';
 
@@ -19,13 +18,12 @@ export class PlanetList extends Component<IPlanetListProps> {
       <div className={styles.planets__container}>
         {planets.length ? (
           <>
-            {' '}
             <h2 className={styles.planets__heading}>We found {quantity} planets!</h2>
             <div className={styles.planets__list}>
-              {planets.map((planet) => (
-                <PlanetItem key={uuidv4()} planet={planet} />
+              {planets.map((planet, index) => (
+                <PlanetItem key={index} planet={planet} />
               ))}
-            </div>{' '}
+            </div>
           </>
         ) : (
           <h2 className={styles.planets__heading}>There are no planets with that name</h2>
