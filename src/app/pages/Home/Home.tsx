@@ -17,8 +17,7 @@ function Home({ pageQuery = 1 }: IHomeProps) {
   const paramsNavigate = useParamsNavigator();
   const [searchQuery, setSearchQuery] = useState(localStorage.getItem('search') || '');
   const [page, setPage] = useState(pageQuery);
-
-  const [getPlanets, isLoad, message, searchResult] = useFetch(async () => {
+  const [getPlanets, isLoading, message, searchResult] = useFetch(async () => {
     setPage(pageQuery);
     const res = await PlanetsService.getPlanets(searchQuery, pageQuery);
     return res;
@@ -43,7 +42,7 @@ function Home({ pageQuery = 1 }: IHomeProps) {
   return (
     <SearchContext.Provider value={{ search: searchQuery, setSearch, searchResult }}>
       <div onClick={() => paramsNavigate('..', null, null)}>
-        {isLoad && <Loader />}
+        {isLoading && <Loader />}
         <Search />
 
         {message ? <h2 className='error-message'>Error: {message}</h2> : <PlanetList />}

@@ -1,6 +1,8 @@
 * {
-  margin: 0;
-  padding: 0;
+  margin-block: 0;
+  margin-inline: 0;
+  padding-block: 0;
+  padding-inline: 0;
 }
 
 input,
@@ -21,4 +23,5 @@ select {
 .error-message {
   text-align: center;
   color: red;
+  margin-block-start: 30px;
 }
