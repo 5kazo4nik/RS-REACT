@@ -14,7 +14,8 @@
   border-radius: 50%;
   font-weight: bold;
   font-size: 20px;
-  border: none;
+  border-block: none;
+  border-inline: none;
   cursor: pointer;
   transition: all 0.3s;
 }

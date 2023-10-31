@@ -19,7 +19,7 @@ const Details = () => {
   const { detail } = queryString.parse(location.search) as DetailsQuery;
   const paramsNavigate = useParamsNavigator();
 
-  const [getPlanet, isLoad, message, searchResult] = useFetch(async () => {
+  const [getPlanet, isLoading, message, searchResult] = useFetch(async () => {
     const res = await PlanetsService.getPlanet(detail);
     return res;
   }) as [(...args: unknown[]) => Promise<void>, boolean, string, IPlanetData | null];
@@ -29,13 +29,13 @@ const Details = () => {
     getPlanet(detail);
   }, [location.search]);
 
-  const onBtnClose = () => {
+  const onButtonClose = () => {
     paramsNavigate('..', null, null, null);
   };
 
   return (
     <div className={styles.details}>
-      {isLoad && <Loader absolute />}
+      {isLoading && <Loader absolute />}
       <div className={styles.details__wrapper}>
         {!message ? (
           <div className={styles.details__info}>
@@ -67,7 +67,7 @@ const Details = () => {
         ) : (
           <h2 className='error-message'>Error: {message}</h2>
         )}
-        <button className={styles.btn__close} onClick={onBtnClose}>
+        <button className={styles.button__close} onClick={onButtonClose}>
           Close details
         </button>
       </div>

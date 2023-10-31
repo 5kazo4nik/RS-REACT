@@ -9,18 +9,20 @@ interface IPlanetListProps {
 }
 
 export function PlanetList({ planets, count }: IPlanetListProps) {
-  return planets.length ? (
+  return (
     <div className={styles.planets__container}>
-      <h2 className={styles.planets__heading}>We found {count} planets!</h2>
-      <div className={styles.planets__list}>
-        {planets.map((planet, index) => (
-          <PlanetItem key={index} planet={planet} />
-        ))}
-      </div>
-    </div>
-  ) : (
-    <div className={styles.planets__container}>
-      <h2 className={styles.planets__heading}>There are no planets with that name</h2>
+      {planets.length ? (
+        <>
+          <h2 className={styles.planets__heading}>We found {count} planets!</h2>
+          <div className={styles.planets__list}>
+            {planets.map((planet, index) => (
+              <PlanetItem key={index} planet={planet} />
+            ))}
+          </div>
+        </>
+      ) : (
+        <h2 className={styles.planets__heading}>There are no planets with that name</h2>
+      )}
     </div>
   );
 }

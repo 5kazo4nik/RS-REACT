@@ -4,7 +4,7 @@ import styles from './NotFound.module.css';
 const NotFound = () => {
   const paramsNavigate = useParamsNavigator();
 
-  const onClickBtn = () => {
+  const onClickButton = () => {
     paramsNavigate('..', null, null, null);
   };
 
@@ -16,7 +16,7 @@ const NotFound = () => {
       <h3>Page not found...</h3>
       <h2>Page not found...</h2>
       <h1>Page not found...</h1>
-      <button className={styles.notFound__btn} onClick={onClickBtn}>
+      <button className={styles.notFound__button} onClick={onClickButton}>
         Go to main
       </button>
     </div>

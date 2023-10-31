@@ -6,12 +6,12 @@ type UseFetchingReturn = [(...args: unknown[]) => Promise<void>, boolean, string
 
 export const useFetch = (callback: (...args: unknown[]) => unknown): UseFetchingReturn => {
   const [searchResult, setSearchResult] = useState<ISearchData | null>(null);
-  const [isLoading, setIsLoad] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
 
   const fetching = async (...args: unknown[]) => {
     try {
-      setIsLoad(true);
+      setIsLoading(true);
       setMessage('');
       const data = (await callback(...args)) as ISearchResult;
       setSearchResult(data);
@@ -20,7 +20,7 @@ export const useFetch = (callback: (...args: unknown[]) => unknown): UseFetching
       setSearchResult(null);
       setMessage(message);
     } finally {
-      setIsLoad(false);
+      setIsLoading(false);
     }
   };
 

@@ -17,7 +17,7 @@ interface IHomeProps {
 function Home({ searchQuery = '', pageQuery = 1, detail = '' }: IHomeProps) {
   const paramsNavigate = useParamsNavigator();
   const [page, setPage] = useState(pageQuery);
-  const [getPlanets, isLoad, message, searchResult] = useFetch(async () => {
+  const [getPlanets, isLoading, message, searchResult] = useFetch(async () => {
     setPage(pageQuery);
     const res = await PlanetsService.getPlanets(searchQuery, pageQuery, detail);
     return res;
@@ -37,7 +37,7 @@ function Home({ searchQuery = '', pageQuery = 1, detail = '' }: IHomeProps) {
 
   return (
     <div onClick={() => paramsNavigate('..', null, null, null)}>
-      {isLoad && <Loader />}
+      {isLoading && <Loader />}
       <Search value={searchQuery} />
 
       {message ? (

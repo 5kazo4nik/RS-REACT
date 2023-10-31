@@ -22,11 +22,15 @@ export function Pagination({ next, previous, page, changePage }: IPaginationProp
 
   return (
     <div className={styles.pagination}>
-      <button className={`${styles.pagination__btn} ${styles.btn_prev}`} disabled={!previous} onClick={getPrevPage}>
+      <button
+        className={`${styles.pagination__button} ${styles.button_prev}`}
+        disabled={!previous}
+        onClick={getPrevPage}
+      >
         {'<'}
       </button>
       <div className={styles.pagination__page}>{page}</div>
-      <button className={`${styles.pagination__btn} ${styles.btn_next}`} disabled={!next} onClick={getNextPage}>
+      <button className={`${styles.pagination__button} ${styles.button_next}`} disabled={!next} onClick={getNextPage}>
         {'>'}
       </button>
     </div>
