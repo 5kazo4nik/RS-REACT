@@ -18,22 +18,26 @@
 }
 
 .loader__spin {
-  transform: translate(-50%, -50%);
+  translate: (-50%, -50%);
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 3px dotted orangered;
+  border-inline: 3px dotted orangered;
+  border-block: 3px dotted orangered;
   animation: rotate 1.5s infinite linear;
 }
 
 @keyframes rotate {
   0% {
-    transform: rotate(0deg) scale(1);
+    rotate: 0deg;
+    scale: 1;
   }
   50% {
-    transform: rotate(360deg) scale(1.4);
+    rotate: 360deg;
+    scale: 1.4;
   }
   100% {
-    transform: rotate(0deg) scale(1);
+    rotate: 0deg;
+    scale: 1;
   }
 }

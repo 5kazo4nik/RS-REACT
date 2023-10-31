@@ -1,8 +1,9 @@
 .planet {
   box-sizing: border-box;
   width: 120px;
-  min-height: 120px;
-  padding: 20px;
+  min-height: 120px
+  padding-block: 45px;
+  padding-inline: 45px
   border-radius: 50%;
   background-color: rgb(255, 178, 85);
   display: flex;

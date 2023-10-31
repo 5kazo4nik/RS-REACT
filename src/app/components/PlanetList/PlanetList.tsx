@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import { IPlanetData } from '../../types/PlanetsData';
 import { PlanetItem } from '../PlanetItem/PlanetItem';
 
@@ -14,8 +13,8 @@ export function PlanetList({ planets, count }: IPlanetListProps) {
     <div className={styles.planets__container}>
       <h2 className={styles.planets__heading}>We found {count} planets!</h2>
       <div className={styles.planets__list}>
-        {planets.map((planet) => (
-          <PlanetItem key={uuidv4()} planet={planet} />
+        {planets.map((planet, index) => (
+          <PlanetItem key={index} planet={planet} />
         ))}
       </div>
     </div>
