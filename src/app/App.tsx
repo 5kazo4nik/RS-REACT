@@ -31,8 +31,8 @@ class App extends Component {
   }
 
   render(): ReactNode {
-    const next = this.state.searchResult?.next as string | null;
-    const previous = this.state.searchResult?.previous as string | null;
+    const next = this.state.searchResult?.next ?? null;
+    const previous = this.state.searchResult?.previous ?? null;
 
     if (this.state.isError) throw new Error(this.state.message);
 
