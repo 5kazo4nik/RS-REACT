@@ -1,0 +1,21 @@
+.planet {
+  box-sizing: border-box;
+  width: 300px;
+  min-height: 300px;
+  padding-block: 45px;
+  padding-inline: 45px;
+  border-radius: 50%;
+  background-color: rgb(255, 178, 85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.planet__diam {
+  text-align: center;
+  margin-block: 15px;
+}
+
+.planet__list {
+  list-style: none;
+}
