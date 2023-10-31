@@ -7,7 +7,7 @@
   margin-inline: auto;
 }
 
-.pagination__btn {
+.pagination__button {
   padding-block: 16px;
   padding-inline: 22px;
   background-color: coral;
@@ -19,15 +19,15 @@
   transition: all 0.3s;
 }
 
-.btn_next:active:not([disabled]) {
+.button_next:active:not([disabled]) {
   transform: translateX(10px);
 }
 
-.btn_prev:active:not([disabled]) {
+.button_prev:active:not([disabled]) {
   transform: translateX(-10px);
 }
 
-.pagination__btn:hover:not([disabled]) {
+.pagination__button:hover:not([disabled]) {
   background-color: chocolate;
 }
 

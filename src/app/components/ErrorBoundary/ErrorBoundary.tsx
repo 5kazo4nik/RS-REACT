@@ -31,7 +31,7 @@ class ErrorBoundary extends Component<IErrorBoundaryProps> {
         <div className={styles.wrapper}>
           <p className={styles.message}>Seems like an error occured!</p>
           <p className={styles.message}>{error.message}</p>
-          <button className={styles.btn_back} onClick={this.goBackHandler}>
+          <button className={styles.button_back} onClick={this.goBackHandler}>
             Go back
           </button>
         </div>

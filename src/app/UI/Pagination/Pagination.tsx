@@ -16,14 +16,18 @@ export class Pagination extends Component<IPaginationProps> {
     return (
       <div className={styles.pagination}>
         <button
-          className={`${styles.pagination__btn} ${styles.btn_prev}`}
+          className={`${styles.pagination__button} ${styles.button_prev}`}
           disabled={!previous}
           onClick={this.getPrevPage}
         >
           {'<'}
         </button>
         <div className={styles.pagination__page}>{page}</div>
-        <button className={`${styles.pagination__btn} ${styles.btn_next}`} disabled={!next} onClick={this.getNextPage}>
+        <button
+          className={`${styles.pagination__button} ${styles.button_next}`}
+          disabled={!next}
+          onClick={this.getNextPage}
+        >
           {'>'}
         </button>
       </div>
