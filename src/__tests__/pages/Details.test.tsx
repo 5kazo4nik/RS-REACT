@@ -28,6 +28,15 @@ vi.mock('../../app/hooks/useFetch', () => ({
 const paramsNavigateMock = vi.fn();
 vi.mock('../../app/hooks/useNavigator', () => ({ useParamsNavigator: vi.fn(() => paramsNavigateMock) }));
 
+const context = { detail: '1' };
+vi.mock('react-router-dom', async () => {
+  const actual = (await vi.importActual('react-router-dom')) as object;
+  return {
+    ...actual,
+    useOutletContext: () => context,
+  };
+});
+
 describe('test Details page component', () => {
   test('should display elements with correct data', () => {
     useFetchMock.mockReturnValue([vi.fn(), false, '', data]);

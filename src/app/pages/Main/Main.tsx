@@ -19,7 +19,7 @@ function Main() {
       <div className={`home ${!!parsedQuery.detail && location.pathname.includes('details') ? 'home__splitted' : ''}`}>
         <Home pageQuery={Number(parsedQuery.page) || 1} />
       </div>
-      <Outlet />
+      <Outlet context={{ detail: parsedQuery.detail }} />
     </div>
   );
 }

@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import queryString from 'query-string';
-import { useLocation } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 import { useEffect } from 'react';
 import { PlanetsService } from '../../API/PlanetsService';
 import { useFetch } from '../../hooks/useFetch';
@@ -10,13 +9,12 @@ import { IPlanetData } from '../../types/PlanetsData';
 import { Loader } from '../../UI/Loader/Loader';
 import { useParamsNavigator } from '../../hooks/useNavigator';
 
-type DetailsQuery = {
+interface IDetailsContext {
   detail: string;
-};
+}
 
 const Details = () => {
-  const location = useLocation();
-  const { detail } = queryString.parse(location.search) as DetailsQuery;
+  const { detail } = useOutletContext<IDetailsContext>();
   const paramsNavigate = useParamsNavigator();
 
   const [getPlanet, isLoading, message, searchResult] = useFetch(async () => {
@@ -25,9 +23,8 @@ const Details = () => {
   }) as [(...args: unknown[]) => Promise<void>, boolean, string, IPlanetData | null];
 
   useEffect(() => {
-    const { detail } = queryString.parse(location.search) as DetailsQuery;
     getPlanet(detail);
-  }, [location.search]);
+  }, [detail]);
 
   const onButtonClose = () => {
     paramsNavigate('..', null, null);
