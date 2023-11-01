@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-import { PlanetsService } from '../../API/PlanetsService';
+import { AnimeService } from '../../API/AnimeService';
 import { Loader } from '../../UI/Loader/Loader';
 import { Search } from '../../components/Search/Search';
-import { PlanetList } from '../../components/PlanetList/PlanetList';
+import { AnimeList } from '../../components/PlanetList/AnimeList';
 import { Pagination } from '../../UI/Pagination/Pagination';
 import { useFetch } from '../../hooks/useFetch';
 import { useParamsNavigator } from '../../hooks/useNavigator';
@@ -11,15 +11,14 @@ import { useParamsNavigator } from '../../hooks/useNavigator';
 interface IHomeProps {
   searchQuery: string | undefined;
   pageQuery: number;
-  detail: string | undefined;
 }
 
-function Home({ searchQuery = '', pageQuery = 1, detail = '' }: IHomeProps) {
+function Home({ searchQuery = '', pageQuery = 1 }: IHomeProps) {
   const paramsNavigate = useParamsNavigator();
   const [page, setPage] = useState(pageQuery);
-  const [getPlanets, isLoading, message, searchResult] = useFetch(async () => {
+  const [getAllAnime, isLoading, message, searchResult] = useFetch(async () => {
     setPage(pageQuery);
-    const res = await PlanetsService.getPlanets(searchQuery, pageQuery, detail);
+    const res = await AnimeService.getAllAnime(searchQuery, pageQuery);
     return res;
   });
 
@@ -28,7 +27,7 @@ function Home({ searchQuery = '', pageQuery = 1, detail = '' }: IHomeProps) {
   };
 
   useEffect(() => {
-    getPlanets();
+    getAllAnime();
   }, [searchQuery, pageQuery]);
 
   useEffect(() => {
@@ -43,14 +42,14 @@ function Home({ searchQuery = '', pageQuery = 1, detail = '' }: IHomeProps) {
       {message ? (
         <h2 className='error-message'>Error: {message}</h2>
       ) : (
-        <PlanetList planets={searchResult?.results || []} count={searchResult?.count || 0} />
+        <AnimeList data={searchResult?.data || []} count={searchResult?.pagination.items.total || 0} />
       )}
 
-      {!!searchResult?.results?.length && (
+      {!!searchResult?.data?.length && (
         <Pagination
           page={pageQuery}
-          next={searchResult.next}
-          previous={searchResult.previous}
+          hasNext={searchResult?.pagination.has_next_page}
+          hasPrev={page > 1 && !!searchResult.data.length}
           changePage={changePage}
         />
       )}

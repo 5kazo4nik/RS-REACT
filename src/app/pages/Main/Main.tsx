@@ -17,7 +17,7 @@ function Main() {
   return (
     <div className={`app ${!!parsedQuery.detail && location.pathname.includes('details') ? 'app__splitted' : ''}`}>
       <div className={`home ${!!parsedQuery.detail && location.pathname.includes('details') ? 'home__splitted' : ''}`}>
-        <Home searchQuery={parsedQuery.search} pageQuery={Number(parsedQuery.page) || 1} detail={parsedQuery.detail} />
+        <Home searchQuery={parsedQuery.search} pageQuery={Number(parsedQuery.page) || 1} />
       </div>
       <Outlet />
     </div>

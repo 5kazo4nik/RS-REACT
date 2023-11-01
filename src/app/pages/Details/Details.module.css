@@ -9,6 +9,7 @@
 
 .details__wrapper {
   margin-block-start: 250px;
+  max-width: 400px;
   background-color: rgb(241, 168, 115);
   height: fit-content;
   padding-block: 15px;
@@ -21,7 +22,7 @@
   text-align: center;
 }
 
-.details__diam {
+.details__score {
   text-align: center;
   margin-block-end: 15px;
 }
@@ -29,6 +30,10 @@
 .details__list {
   list-style: none;
   margin-block-end: 15px;
+}
+
+.details__sinopsis {
+  margin-block-end: 20px;
 }
 
 .button__close {

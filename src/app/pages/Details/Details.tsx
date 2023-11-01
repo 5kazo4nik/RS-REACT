@@ -2,13 +2,13 @@
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import { PlanetsService } from '../../API/PlanetsService';
+import { AnimeService } from '../../API/AnimeService';
 import { useFetch } from '../../hooks/useFetch';
 
 import styles from './Details.module.css';
-import { IPlanetData } from '../../types/PlanetsData';
 import { Loader } from '../../UI/Loader/Loader';
 import { useParamsNavigator } from '../../hooks/useNavigator';
+import { IAnimeData } from '../../types/AnimeData';
 
 type DetailsQuery = {
   detail: string;
@@ -20,9 +20,9 @@ const Details = () => {
   const paramsNavigate = useParamsNavigator();
 
   const [getPlanet, isLoading, message, searchResult] = useFetch(async () => {
-    const res = await PlanetsService.getPlanet(detail);
+    const res = await AnimeService.getPlanet(detail);
     return res;
-  }) as [(...args: unknown[]) => Promise<void>, boolean, string, IPlanetData | null];
+  }) as [(...args: unknown[]) => Promise<void>, boolean, string, IAnimeData | null];
 
   useEffect(() => {
     const { detail } = queryString.parse(location.search) as DetailsQuery;
@@ -39,30 +39,26 @@ const Details = () => {
       <div className={styles.details__wrapper}>
         {!message ? (
           <div className={styles.details__info}>
-            <h2 className={styles.details__heading}>{searchResult?.name}</h2>
-            <p className={styles.details__diam}>
-              Diameter of this planet is <strong>{searchResult?.diameter} kilometers.</strong>
+            <h2 className={styles.details__heading}>{searchResult?.data.title_english}</h2>
+            <p className={styles.details__score}>
+              Score of this anime is <strong>{searchResult?.data.score}</strong>
             </p>
             <ul className={styles.details__list}>
               <li>
-                <strong>Orbital period:</strong> {searchResult?.orbital_period} days.
+                <strong>Episodes:</strong> {searchResult?.data.episodes}.
               </li>
               <li>
-                <strong>Population:</strong> {searchResult?.population} units.
+                <strong>Status:</strong> {searchResult?.data.status}.
               </li>
               <li>
-                <strong>Climate:</strong> {searchResult?.climate}.
+                <strong>Rating:</strong> {searchResult?.data.rating}.
               </li>
               <li>
-                <strong>Terrain:</strong> {searchResult?.terrain}.
-              </li>
-              <li>
-                <strong>Gravity:</strong> {searchResult?.gravity}.
-              </li>
-              <li>
-                <strong>Rotation period:</strong> {searchResult?.rotation_period}.
+                <strong>Year:</strong> {searchResult?.data.year}.
               </li>
             </ul>
+            <h2 className={styles.details__heading}>Synopsis</h2>
+            <p className={styles.details__sinopsis}>{searchResult?.data.synopsis}</p>
           </div>
         ) : (
           <h2 className='error-message'>Error: {message}</h2>

@@ -23,6 +23,20 @@ export function Search({ value }: ISearchProps) {
     <div className={styles.search}>
       <h1 className={styles.searchHeading}>Find any Star Wars planet!</h1>
       <form className={styles.searchForm} onSubmit={onSubmit}>
+        <select>
+          <option value='5' selected>
+            5
+          </option>
+          <option value='5' selected>
+            10
+          </option>
+          <option value='5' selected>
+            15
+          </option>
+          <option value='5' selected>
+            20
+          </option>
+        </select>
         <input value={searchValue} className={styles.searchInput} type='text' onChange={onInputChange} />
         <button className={styles.searchButton}>Search</button>
       </form>

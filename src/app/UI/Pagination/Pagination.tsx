@@ -1,21 +1,21 @@
 import styles from './Pagination.module.css';
 
 interface IPaginationProps {
-  next: string | null;
-  previous: string | null;
+  hasNext: boolean;
+  hasPrev: boolean;
   changePage: (page: number) => void;
   page: number;
 }
 
-export function Pagination({ next, previous, page, changePage }: IPaginationProps) {
+export function Pagination({ hasNext, hasPrev, page, changePage }: IPaginationProps) {
   const getNextPage = () => {
-    if (next) {
+    if (hasNext) {
       changePage(1);
     }
   };
 
   const getPrevPage = () => {
-    if (previous) {
+    if (hasPrev) {
       changePage(-1);
     }
   };
@@ -24,13 +24,17 @@ export function Pagination({ next, previous, page, changePage }: IPaginationProp
     <div className={styles.pagination}>
       <button
         className={`${styles.pagination__button} ${styles.button_prev}`}
-        disabled={!previous}
+        disabled={!hasPrev}
         onClick={getPrevPage}
       >
         {'<'}
       </button>
       <div className={styles.pagination__page}>{page}</div>
-      <button className={`${styles.pagination__button} ${styles.button_next}`} disabled={!next} onClick={getNextPage}>
+      <button
+        className={`${styles.pagination__button} ${styles.button_next}`}
+        disabled={!hasNext}
+        onClick={getNextPage}
+      >
         {'>'}
       </button>
     </div>
