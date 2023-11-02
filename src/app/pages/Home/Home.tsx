@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { AnimeService } from '../../API/AnimeService';
 import { Loader } from '../../UI/Loader/Loader';
 import { Search } from '../../components/Search/Search';
-import { AnimeList } from '../../components/PlanetList/AnimeList';
+import { AnimeList } from '../../components/AnimeList/AnimeList';
 import { Pagination } from '../../UI/Pagination/Pagination';
 import { useFetch } from '../../hooks/useFetch';
 import { useParamsNavigator } from '../../hooks/useNavigator';

@@ -11,7 +11,7 @@ describe('test CommonRoutes component', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText(/Star Wars planet/i)).toBeInTheDocument();
+    expect(screen.getByText(/Find any anime/i)).toBeInTheDocument();
     expect(screen.getByRole('textbox')).toBeInTheDocument();
   });
 

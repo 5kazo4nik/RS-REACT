@@ -17,13 +17,13 @@ const Details = () => {
   const { detail } = useOutletContext<IDetailsContext>();
   const paramsNavigate = useParamsNavigator();
 
-  const [getPlanet, isLoading, message, searchResult] = useFetch(async () => {
-    const res = await AnimeService.getPlanet(detail);
+  const [getAnime, isLoading, message, searchResult] = useFetch(async () => {
+    const res = await AnimeService.getAnime(detail);
     return res;
   }) as [(...args: unknown[]) => Promise<void>, boolean, string, IAnimeData | null];
 
   useEffect(() => {
-    getPlanet(detail);
+    getAnime(detail);
   }, [detail]);
 
   const onButtonClose = () => {

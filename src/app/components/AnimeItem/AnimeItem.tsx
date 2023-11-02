@@ -3,11 +3,11 @@ import { useParamsNavigator } from '../../hooks/useNavigator';
 
 import styles from './AnimeItem.module.css';
 
-interface IPlanetItemProps {
+interface IAnimeItemProps {
   anime: Anime;
 }
 
-export function AnimeItem({ anime }: IPlanetItemProps) {
+export function AnimeItem({ anime }: IAnimeItemProps) {
   const navigate = useParamsNavigator();
 
   const onClickHandler = (e: React.MouseEvent) => {

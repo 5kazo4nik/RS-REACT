@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { IAnimeData, ISearchData } from '../types/AnimeData';
 
-const BASE_URL = 'https://api.jikan.moe/v4/anime';
+export const BASE_URL = 'https://api.jikan.moe/v4/anime';
 
 export class AnimeService {
   static async getAllAnime(value?: string, page = 1, limit = '5') {
@@ -12,7 +12,7 @@ export class AnimeService {
     return res.data;
   }
 
-  static async getPlanet(value: string) {
+  static async getAnime(value: string) {
     const res = await axios.get<IAnimeData>(`${BASE_URL}/${value}`);
     return res.data;
   }

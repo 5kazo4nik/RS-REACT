@@ -22,7 +22,10 @@ describe('test useParamsNavigator custom hook', () => {
     navigate('test', 2);
     expect(mockNavigate).toHaveBeenCalledWith('test/?page=2');
 
-    navigate(null, 3, '3');
-    expect(mockNavigate).toHaveBeenCalledWith('?page=3&detail=3');
+    navigate(null, 4, '3');
+    expect(mockNavigate).toHaveBeenCalledWith('?page=4&detail=3');
+
+    navigate(null, 5, null);
+    expect(mockNavigate).toHaveBeenCalledWith('?page=5');
   });
 });

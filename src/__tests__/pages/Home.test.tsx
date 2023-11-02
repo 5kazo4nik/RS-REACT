@@ -4,8 +4,8 @@ import { describe, expect, test, vi } from 'vitest';
 import Home from '../../app/pages/Home/Home';
 import { act } from 'react-dom/test-utils';
 
-const getPlanetsMock = vi.hoisted(() => vi.fn());
-vi.mock('../../app/API/PlanetsService', () => ({ PlanetsService: { getPlanets: getPlanetsMock } }));
+const getAnimeMock = vi.hoisted(() => vi.fn());
+vi.mock('../../app/API/AnimeService', () => ({ AnimeService: { getAllAnime: getAnimeMock } }));
 
 const paramsNavigateMock = vi.fn();
 vi.mock('../../app/hooks/useNavigator', () => ({
@@ -13,76 +13,70 @@ vi.mock('../../app/hooks/useNavigator', () => ({
 }));
 
 const data = {
-  count: 2,
-  next: null,
-  previous: null,
-  results: [
+  pagination: {
+    has_next_page: true,
+    items: {
+      total: 2,
+    },
+  },
+  data: [
     {
-      climate: 'arid',
-      created: '1.1.1',
-      diameter: '10465',
-      edited: '1.1.1',
-      films: [],
-      gravity: '1 standard',
-      name: 'Tatooine',
-      orbital_period: '304',
-      population: '200000',
-      residents: [],
-      rotation_period: '23',
-      surface_water: '',
-      terrain: 'desert',
-      url: 'https://swapi.dev/api/planets/1/',
+      mal_id: 1,
+      rating: 'R - 17+ (violence & profanity)',
+      score: 8.75,
+      status: 'Finished Airing',
+      title: 'Cowboy',
+      title_english: 'Cowboy',
+      year: 1998,
+      episodes: 26,
     },
     {
-      climate: 'arid',
-      created: '1.1.1',
-      diameter: '12465',
-      edited: '1.1.1',
-      films: [],
-      gravity: '2 standard',
-      name: 'Hoth',
-      orbital_period: '304',
-      population: '200000',
-      residents: [],
-      rotation_period: '23',
-      surface_water: '',
-      terrain: 'desert',
-      url: 'https://swapi.dev/api/planets/1/',
+      mal_id: 2,
+      rating: 'R - 17+ (violence & profanity)',
+      score: 8.75,
+      status: 'Finished Airing',
+      title: null,
+      title_english: 'Bebop',
+      year: 1998,
+      episodes: 26,
     },
   ],
 };
 
 const notFoundData = {
-  count: 2,
-  next: null,
-  previous: null,
-  results: [],
+  pagination: {
+    has_next_page: false,
+    items: {
+      total: 2,
+    },
+  },
+  data: [],
 };
 
 localStorage.setItem('search', 'a');
 
 describe('test Home component', () => {
-  test('should render planets and pagination', async () => {
-    getPlanetsMock.mockResolvedValue(data);
+  test('should render items and pagination', async () => {
+    getAnimeMock.mockResolvedValue(data);
 
     await act(async () => {
       render(
         <MemoryRouter>
-          <Home pageQuery={1} />
+          <Home pageQuery={2} />
         </MemoryRouter>
       );
     });
 
-    expect(screen.getByText('Tatooine')).toBeInTheDocument();
-    expect(screen.getByText('Hoth')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('a')).toBeInTheDocument();
-    expect(screen.getByText(1)).toBeInTheDocument();
-    expect(screen.getByText('<')).toBeInTheDocument();
-    expect(screen.getByText('>')).toBeInTheDocument();
+    expect(await screen.findByText('Cowboy')).toBeInTheDocument();
+    expect(await screen.findByText('Bebop')).toBeInTheDocument();
+    expect(await screen.findByDisplayValue('a')).toBeInTheDocument();
+    expect(await screen.findByText(2)).toBeInTheDocument();
+    expect(await screen.findByText('<')).toBeInTheDocument();
+    expect(await screen.findByText('>')).toBeInTheDocument();
   });
 
-  test('should hide pagination if planets not found', async () => {
-    getPlanetsMock.mockResolvedValue(notFoundData);
+  test('should hide pagination if items not found', async () => {
+    getAnimeMock.mockResolvedValue(notFoundData);
 
     await act(async () => {
       render(
@@ -92,14 +86,14 @@ describe('test Home component', () => {
       );
     });
 
-    expect(screen.getByText(/no planets/)).toBeInTheDocument();
+    expect(screen.getByText(/no anime/)).toBeInTheDocument();
     expect(screen.queryByText('>')).toBeNull();
     expect(screen.queryByText('<')).toBeNull();
     expect(screen.queryByText('1')).toBeNull();
   });
 
   test('should display error message if something went wrong', async () => {
-    getPlanetsMock.mockRejectedValue(new Error('error 404'));
+    getAnimeMock.mockRejectedValue(new Error('error 404'));
 
     await act(async () => {
       render(
@@ -116,7 +110,7 @@ describe('test Home component', () => {
   });
 
   test('should navigate after click', async () => {
-    getPlanetsMock.mockRejectedValue(new Error('error 404'));
+    getAnimeMock.mockRejectedValue(new Error('error 404'));
 
     await act(async () => {
       render(

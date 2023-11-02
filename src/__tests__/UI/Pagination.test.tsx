@@ -5,9 +5,10 @@ import { Pagination } from '../../app/UI/Pagination/Pagination';
 import { act } from 'react-dom/test-utils';
 import { MemoryRouter } from 'react-router-dom';
 import Home from '../../app/pages/Home/Home';
+import { ISearchData } from '../../app/types/AnimeData';
 
-const getPlanetsMock = vi.hoisted(() => vi.fn());
-vi.mock('../../app/API/PlanetsService', () => ({ PlanetsService: { getPlanets: getPlanetsMock } }));
+const getAnimeMock = vi.hoisted(() => vi.fn());
+vi.mock('../../app/API/AnimeService', () => ({ AnimeService: { getAllAnime: getAnimeMock } }));
 
 const paramsNavigateMock = vi.fn();
 vi.mock('../../app/hooks/useNavigator', () => ({
@@ -15,58 +16,51 @@ vi.mock('../../app/hooks/useNavigator', () => ({
 }));
 
 const searchData = {
-  count: 60,
-  next: 'https://swapi.dev/api/planets/?page=3',
-  previous: 'https://swapi.dev/api/planets/?page=1',
-  results: [
+  pagination: {
+    has_next_page: true,
+    items: {
+      total: 2,
+    },
+  },
+  data: [
     {
-      climate: 'arid',
-      created: '1.1.1',
-      diameter: '10465',
-      edited: '1.1.1',
-      films: [],
-      gravity: '1 standard',
-      name: 'Tatooine',
-      orbital_period: '304',
-      population: '200000',
-      residents: [],
-      rotation_period: '23',
-      surface_water: '',
-      terrain: 'desert',
-      url: 'https://swapi.dev/api/planets/1/',
+      mal_id: 1,
+      rating: 'R - 17+ (violence & profanity)',
+      score: 8.75,
+      status: 'Finished Airing',
+      title: 'Cowboy Bebop',
+      title_english: 'Cowboy Bebop',
+      year: 1998,
+      episodes: 26,
     },
     {
-      climate: 'arid',
-      created: '1.1.1',
-      diameter: '12465',
-      edited: '1.1.1',
-      films: [],
-      gravity: '2 standard',
-      name: 'Hoth',
-      orbital_period: '304',
-      population: '200000',
-      residents: [],
-      rotation_period: '23',
-      surface_water: '',
-      terrain: 'desert',
-      url: 'https://swapi.dev/api/planets/1/',
+      mal_id: 2,
+      rating: 'R - 17+ (violence & profanity)',
+      score: 8.75,
+      status: 'Finished Airing',
+      title: 'Cowboy Bebop',
+      title_english: 'Cowboy Bebop',
+      year: 1998,
+      episodes: 26,
     },
   ],
 };
 
 describe('test Pagination component', () => {
   test('should update page after click', () => {
-    const page = 1;
+    const page = 2;
     const changePage = vi.fn();
     const searchResult = {
-      count: 0,
-      next: '1',
-      previous: '1',
-      results: [],
-    };
+      pagination: {
+        has_next_page: true,
+      },
+      data: [, , ,],
+    } as unknown as ISearchData;
 
     render(
-      <SearchContext.Provider value={{ search: '', searchResult: searchResult, setSearch: () => {} }}>
+      <SearchContext.Provider
+        value={{ changeLimit: () => {}, search: '', limit: '5', searchResult: searchResult, setSearch: () => {} }}
+      >
         <Pagination page={page} changePage={changePage} />
       </SearchContext.Provider>
     );
@@ -85,14 +79,16 @@ describe('test Pagination component', () => {
     const page = 1;
     const changePage = vi.fn();
     const searchResult = {
-      count: 0,
-      next: null,
-      previous: null,
-      results: [],
-    };
+      pagination: {
+        has_next_page: false,
+      },
+      data: [],
+    } as unknown as ISearchData;
 
     render(
-      <SearchContext.Provider value={{ search: '', searchResult: searchResult, setSearch: () => {} }}>
+      <SearchContext.Provider
+        value={{ changeLimit: () => {}, search: '', limit: '5', searchResult: searchResult, setSearch: () => {} }}
+      >
         <Pagination page={page} changePage={changePage} />
       </SearchContext.Provider>
     );
@@ -110,7 +106,7 @@ describe('test Pagination component', () => {
   });
 
   test('should navigate after click', async () => {
-    getPlanetsMock.mockResolvedValue(searchData);
+    getAnimeMock.mockResolvedValue(searchData);
 
     await act(async () => {
       render(
@@ -120,8 +116,8 @@ describe('test Pagination component', () => {
       );
     });
 
-    const btnNext = screen.getByText('>');
-    const btnPrev = screen.getByText('<');
+    const btnNext = await screen.findByText('>');
+    const btnPrev = await screen.findByText('<');
 
     fireEvent.click(btnNext);
     expect(paramsNavigateMock).toHaveBeenCalledWith(null, 3);

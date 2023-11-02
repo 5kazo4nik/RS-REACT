@@ -1,4 +1,4 @@
-import { AnimeItem } from '../PlanetItem/AnimeItem';
+import { AnimeItem } from '../AnimeItem/AnimeItem';
 
 import styles from './AnimeList.module.css';
 import { useContext } from 'react';
@@ -21,7 +21,7 @@ export function AnimeList() {
           </div>
         </>
       ) : (
-        <h2 className={styles.anime__heading}>There are no planets with that name</h2>
+        <h2 className={styles.anime__heading}>There are no anime with that name</h2>
       )}
     </div>
   );

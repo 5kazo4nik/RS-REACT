@@ -1,37 +1,39 @@
 import { describe, expect, test, vi } from 'vitest';
-import { PlanetsService } from '../../app/API/PlanetsService';
+import { AnimeService, BASE_URL } from '../../app/API/AnimeService';
 import axios from 'axios';
 
-describe('test PlanetService', () => {
-  describe('test getPlanets method', () => {
+describe('test AnimeService', () => {
+  describe('test getAllAnime method', () => {
     const usersMock = [{ id: 1 }, { id: 2 }];
     axios.get = vi.fn().mockResolvedValue({
       data: usersMock,
     });
 
-    test('should call correct query with getPlanets method', () => {
-      PlanetsService.getPlanets();
-      expect(axios.get).toHaveBeenCalledWith('https://swapi.dev/api/planets/');
-      PlanetsService.getPlanets('hello');
-      expect(axios.get).toHaveBeenCalledWith('https://swapi.dev/api/planets/?search=hello');
-      PlanetsService.getPlanets('', 2);
-      expect(axios.get).toHaveBeenCalledWith('https://swapi.dev/api/planets/?page=2');
-      PlanetsService.getPlanets('hello', 2);
-      expect(axios.get).toHaveBeenCalledWith('https://swapi.dev/api/planets/?search=hello&page=2');
+    test('should call correct query with getAllAnime method', () => {
+      AnimeService.getAllAnime();
+      expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}?page=1&limit=5`);
+      AnimeService.getAllAnime('hello');
+      expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}?q=hello&page=1&limit=5`);
+      AnimeService.getAllAnime('', 2);
+      expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}?page=2&limit=5`);
+      AnimeService.getAllAnime('hello', 2);
+      expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}?q=hello&page=2&limit=5`);
+      AnimeService.getAllAnime('', 2, '10');
+      expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}?page=2&limit=5`);
     });
   });
 
-  describe('test getPlanet method', () => {
+  describe('test getAnime method', () => {
     const usersMock = { id: 1 };
     axios.get = vi.fn().mockResolvedValue({
       data: usersMock,
     });
 
-    test('should call correct query with getPlanets method', () => {
-      PlanetsService.getPlanet('1');
-      expect(axios.get).toHaveBeenCalledWith('https://swapi.dev/api/planets/1/');
-      PlanetsService.getPlanet('2');
-      expect(axios.get).toHaveBeenCalledWith('https://swapi.dev/api/planets/2/');
+    test('should call correct query with getAnime method', () => {
+      AnimeService.getAnime('1');
+      expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}/1`);
+      AnimeService.getAnime('2');
+      expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}/1`);
     });
   });
 });
