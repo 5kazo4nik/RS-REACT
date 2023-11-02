@@ -8,7 +8,9 @@
 }
 
 .details__wrapper {
-  margin-block-start: 250px;
+  position: fixed;
+  left: 60%;
+  top: 5%;
   max-width: 400px;
   background-color: rgb(241, 168, 115);
   height: fit-content;

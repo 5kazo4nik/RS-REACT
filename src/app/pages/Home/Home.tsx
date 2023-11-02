@@ -16,9 +16,10 @@ interface IHomeProps {
 function Home({ searchQuery = '', pageQuery = 1 }: IHomeProps) {
   const paramsNavigate = useParamsNavigator();
   const [page, setPage] = useState(pageQuery);
+  const [limit, setLimit] = useState('5');
   const [getAllAnime, isLoading, message, searchResult] = useFetch(async () => {
     setPage(pageQuery);
-    const res = await AnimeService.getAllAnime(searchQuery, pageQuery);
+    const res = await AnimeService.getAllAnime(searchQuery, pageQuery, limit);
     return res;
   });
 
@@ -26,9 +27,14 @@ function Home({ searchQuery = '', pageQuery = 1 }: IHomeProps) {
     setPage(page + p);
   };
 
+  const changeLimit = (limit: string) => {
+    paramsNavigate(null, searchQuery, 1);
+    setLimit(limit);
+  };
+
   useEffect(() => {
     getAllAnime();
-  }, [searchQuery, pageQuery]);
+  }, [searchQuery, pageQuery, limit]);
 
   useEffect(() => {
     paramsNavigate(null, searchQuery, page);
@@ -37,7 +43,7 @@ function Home({ searchQuery = '', pageQuery = 1 }: IHomeProps) {
   return (
     <div onClick={() => paramsNavigate('..', null, null, null)}>
       {isLoading && <Loader />}
-      <Search value={searchQuery} />
+      <Search value={searchQuery} limit={limit} changeLimit={changeLimit} />
 
       {message ? (
         <h2 className='error-message'>Error: {message}</h2>

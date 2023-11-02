@@ -1,17 +1,19 @@
 import axios from 'axios';
 import { IAnimeData, ISearchData } from '../types/AnimeData';
 
-export class AnimeService {
-  static async getAllAnime(value?: string, page?: number) {
-    const searchValue = value ? `?q=${value}` : '';
-    const pageValue = page && value ? `&page=${page}` : page ? `?page=${page}` : '';
+const BASE_URL = 'https://api.jikan.moe/v4/anime';
 
-    const res = await axios.get<ISearchData>(`https://api.jikan.moe/v4/anime${searchValue}${pageValue}`);
+export class AnimeService {
+  static async getAllAnime(value?: string, page = 1, limit = '5') {
+    const searchValue = value ? `?q=${value}` : '';
+    const pageValue = page && value ? `&page=${page}` : `?page=${page}`;
+    const limitValue = `&limit=${limit}`;
+    const res = await axios.get<ISearchData>(`${BASE_URL}${searchValue}${pageValue}${limitValue}`);
     return res.data;
   }
 
   static async getPlanet(value: string) {
-    const res = await axios.get<IAnimeData>(`https://api.jikan.moe/v4/anime/${value}`);
+    const res = await axios.get<IAnimeData>(`${BASE_URL}/${value}`);
     return res.data;
   }
 }

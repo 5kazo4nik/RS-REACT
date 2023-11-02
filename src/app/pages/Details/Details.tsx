@@ -35,11 +35,11 @@ const Details = () => {
 
   return (
     <div className={styles.details}>
-      {isLoading && <Loader absolute />}
+      {isLoading && <Loader absolute details />}
       <div className={styles.details__wrapper}>
         {!message ? (
           <div className={styles.details__info}>
-            <h2 className={styles.details__heading}>{searchResult?.data.title_english}</h2>
+            <h2 className={styles.details__heading}>{searchResult?.data.title_english || searchResult?.data.title}</h2>
             <p className={styles.details__score}>
               Score of this anime is <strong>{searchResult?.data.score}</strong>
             </p>
@@ -54,11 +54,11 @@ const Details = () => {
                 <strong>Rating:</strong> {searchResult?.data.rating}.
               </li>
               <li>
-                <strong>Year:</strong> {searchResult?.data.year}.
+                <strong>Year:</strong> {searchResult?.data.year || 'Who knows...'}.
               </li>
             </ul>
             <h2 className={styles.details__heading}>Synopsis</h2>
-            <p className={styles.details__sinopsis}>{searchResult?.data.synopsis}</p>
+            <p className={styles.details__sinopsis}>{searchResult?.data.synopsis || 'No such thing'}</p>
           </div>
         ) : (
           <h2 className='error-message'>Error: {message}</h2>

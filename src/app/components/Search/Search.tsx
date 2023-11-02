@@ -4,9 +4,11 @@ import { useParamsNavigator } from '../../hooks/useNavigator';
 
 interface ISearchProps {
   value: string;
+  limit: string;
+  changeLimit: (limit: string) => void;
 }
 
-export function Search({ value }: ISearchProps) {
+export function Search({ value, limit, changeLimit }: ISearchProps) {
   const [searchValue, setSearchValue] = useState(value);
   const navigate = useParamsNavigator();
 
@@ -19,23 +21,19 @@ export function Search({ value }: ISearchProps) {
     setSearchValue(e.target.value);
   };
 
+  const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    changeLimit(e.target.value);
+  };
+
   return (
     <div className={styles.search}>
-      <h1 className={styles.searchHeading}>Find any Star Wars planet!</h1>
+      <h1 className={styles.searchHeading}>Find any anime!</h1>
       <form className={styles.searchForm} onSubmit={onSubmit}>
-        <select>
-          <option value='5' selected>
-            5
-          </option>
-          <option value='5' selected>
-            10
-          </option>
-          <option value='5' selected>
-            15
-          </option>
-          <option value='5' selected>
-            20
-          </option>
+        <select defaultValue={limit} onChange={onSelectChange}>
+          <option value='5'>5</option>
+          <option value='10'>10</option>
+          <option value='15'>15</option>
+          <option value='20'>20</option>
         </select>
         <input value={searchValue} className={styles.searchInput} type='text' onChange={onInputChange} />
         <button className={styles.searchButton}>Search</button>

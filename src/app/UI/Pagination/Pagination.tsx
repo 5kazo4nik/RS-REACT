@@ -9,15 +9,11 @@ interface IPaginationProps {
 
 export function Pagination({ hasNext, hasPrev, page, changePage }: IPaginationProps) {
   const getNextPage = () => {
-    if (hasNext) {
-      changePage(1);
-    }
+    changePage(1);
   };
 
   const getPrevPage = () => {
-    if (hasPrev) {
-      changePage(-1);
-    }
+    changePage(-1);
   };
 
   return (
