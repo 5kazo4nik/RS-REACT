@@ -1,11 +1,9 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import { describe, expect, test, vi } from 'vitest';
+import { fireEvent, screen } from '@testing-library/react';
+import { afterAll, afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
 import Home from '../../app/pages/Home/Home';
-import { act } from 'react-dom/test-utils';
-
-const getAnimeMock = vi.hoisted(() => vi.fn());
-vi.mock('../../app/API/AnimeService', () => ({ AnimeService: { getAllAnime: getAnimeMock } }));
+import { server } from '../mock/api/server';
+import { renderWithProviders } from '../redux/renderWithProviders';
+import { HttpResponse, http } from 'msw';
 
 const paramsNavigateMock = vi.fn();
 vi.mock('../../app/hooks/useNavigator', () => ({
@@ -47,80 +45,64 @@ const notFoundData = {
   pagination: {
     has_next_page: false,
     items: {
-      total: 2,
+      total: 0,
     },
   },
   data: [],
 };
 
-localStorage.setItem('search', 'a');
+beforeAll(() => {
+  server.listen();
+});
+afterEach(() => {
+  server.resetHandlers();
+});
+afterAll(() => {
+  server.close();
+});
 
 describe('test Home component', () => {
   test('should render items and pagination', async () => {
-    getAnimeMock.mockResolvedValue(data);
+    server.use(http.get('https://api.jikan.moe/v4/anime', () => HttpResponse.json(data)));
 
-    await act(async () => {
-      render(
-        <MemoryRouter>
-          <Home pageQuery={2} />
-        </MemoryRouter>
-      );
-    });
+    renderWithProviders(<Home />, { preloadedState: { search: { result: null, search: 'a', limit: '5' } } });
 
-    expect(await screen.findByText('Cowboy')).toBeInTheDocument();
-    expect(await screen.findByText('Bebop')).toBeInTheDocument();
+    expect(await screen.findByText(/Cowboy/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Bebop/i)).toBeInTheDocument();
     expect(await screen.findByDisplayValue('a')).toBeInTheDocument();
-    expect(await screen.findByText(2)).toBeInTheDocument();
+    expect(await screen.findByText(1)).toBeInTheDocument();
     expect(await screen.findByText('<')).toBeInTheDocument();
     expect(await screen.findByText('>')).toBeInTheDocument();
   });
 
   test('should hide pagination if items not found', async () => {
-    getAnimeMock.mockResolvedValue(notFoundData);
+    server.use(http.get('https://api.jikan.moe/v4/anime', () => HttpResponse.json(notFoundData)));
 
-    await act(async () => {
-      render(
-        <MemoryRouter>
-          <Home pageQuery={1} />
-        </MemoryRouter>
-      );
-    });
+    renderWithProviders(<Home />);
 
-    expect(screen.getByText(/no anime/)).toBeInTheDocument();
+    expect(await screen.findByText(/no anime/)).toBeInTheDocument();
     expect(screen.queryByText('>')).toBeNull();
     expect(screen.queryByText('<')).toBeNull();
     expect(screen.queryByText('1')).toBeNull();
   });
 
   test('should display error message if something went wrong', async () => {
-    getAnimeMock.mockRejectedValue(new Error('error 404'));
+    server.use(http.get('https://api.jikan.moe/v4/anime', () => HttpResponse.error()));
 
-    await act(async () => {
-      render(
-        <MemoryRouter>
-          <Home pageQuery={1} />
-        </MemoryRouter>
-      );
-    });
+    renderWithProviders(<Home />);
 
-    expect(screen.getByText(/error/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Oops... Something went wrong.../i)).toBeInTheDocument();
     expect(screen.queryByText('>')).toBeNull();
     expect(screen.queryByText('<')).toBeNull();
     expect(screen.queryByText('1')).toBeNull();
   });
 
   test('should navigate after click', async () => {
-    getAnimeMock.mockRejectedValue(new Error('error 404'));
+    server.use(http.get('https://api.jikan.moe/v4/anime', () => HttpResponse.error()));
 
-    await act(async () => {
-      render(
-        <MemoryRouter>
-          <Home pageQuery={1} />
-        </MemoryRouter>
-      );
-    });
+    renderWithProviders(<Home />);
 
-    const element = screen.getByText(/error/i);
+    const element = await screen.findByText(/Oops... Something went wrong.../i);
     fireEvent.click(element);
 
     expect(paramsNavigateMock).toHaveBeenCalledWith(null, 1);
