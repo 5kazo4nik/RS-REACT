@@ -12,7 +12,7 @@ export class AnimeService {
     return res.data;
   }
 
-  static async getPlanet(value: string) {
+  static async getAnime(value: string) {
     const res = await axios.get<IAnimeData>(`${BASE_URL}/${value}`);
     return res.data;
   }

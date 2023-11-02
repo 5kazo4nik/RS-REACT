@@ -1,14 +1,14 @@
 import { Anime } from '@tutkli/jikan-ts';
-import { AnimeItem } from '../PlanetItem/AnimeItem';
+import { AnimeItem } from '../AnimeItem/AnimeItem';
 
 import styles from './AnimeList.module.css';
 
-interface IPlanetListProps {
+interface IAnimeListProps {
   data: Anime[];
   count: number;
 }
 
-export function AnimeList({ data, count }: IPlanetListProps) {
+export function AnimeList({ data, count }: IAnimeListProps) {
   return (
     <div className={styles.anime__container}>
       {data.length ? (
@@ -21,7 +21,7 @@ export function AnimeList({ data, count }: IPlanetListProps) {
           </div>
         </>
       ) : (
-        <h2 className={styles.anime__heading}>There are no planets with that name</h2>
+        <h2 className={styles.anime__heading}>There are no anime with that name</h2>
       )}
     </div>
   );

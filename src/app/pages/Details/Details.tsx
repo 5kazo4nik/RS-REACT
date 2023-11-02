@@ -19,14 +19,14 @@ const Details = () => {
   const { detail } = queryString.parse(location.search) as DetailsQuery;
   const paramsNavigate = useParamsNavigator();
 
-  const [getPlanet, isLoading, message, searchResult] = useFetch(async () => {
-    const res = await AnimeService.getPlanet(detail);
+  const [getAnime, isLoading, message, searchResult] = useFetch(async () => {
+    const res = await AnimeService.getAnime(detail);
     return res;
   }) as [(...args: unknown[]) => Promise<void>, boolean, string, IAnimeData | null];
 
   useEffect(() => {
     const { detail } = queryString.parse(location.search) as DetailsQuery;
-    getPlanet(detail);
+    getAnime(detail);
   }, [location.search]);
 
   const onButtonClose = () => {
