@@ -6,10 +6,11 @@ import { useParamsNavigator } from '../../hooks/useNavigator';
 
 export function Pagination() {
   const { result } = useAppSelector((state) => state.search);
-  const previous = result?.previous;
-  const next = result?.next;
-
   const { page } = useAppSelector((state) => state.query);
+
+  const hasNext = result?.pagination.has_next_page;
+  const hasPrev = result?.data.length && page > 1;
+
   const [p, setP] = useState(page);
   const paramsNavigate = useParamsNavigator();
 
@@ -33,13 +34,17 @@ export function Pagination() {
     <div className={styles.pagination}>
       <button
         className={`${styles.pagination__button} ${styles.button_prev}`}
-        disabled={!previous}
+        disabled={!hasPrev}
         onClick={getPrevPage}
       >
         {'<'}
       </button>
       <div className={styles.pagination__page}>{page}</div>
-      <button className={`${styles.pagination__button} ${styles.button_next}`} disabled={!next} onClick={getNextPage}>
+      <button
+        className={`${styles.pagination__button} ${styles.button_next}`}
+        disabled={!hasNext}
+        onClick={getNextPage}
+      >
         {'>'}
       </button>
     </div>

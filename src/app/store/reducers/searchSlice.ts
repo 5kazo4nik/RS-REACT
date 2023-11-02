@@ -1,14 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ISearchData } from '../../types/PlanetsData';
+import { ISearchData } from '../../types/AnimeData';
 
 export interface ISearchState {
   result: ISearchData | null;
   search: string;
+  limit: string;
 }
 
 const initialState: ISearchState = {
   result: null,
   search: localStorage.getItem('search') || '',
+  limit: '5',
 };
 
 const searchSlice = createSlice({
@@ -23,8 +25,12 @@ const searchSlice = createSlice({
     setResult(state, action: PayloadAction<ISearchData | null>) {
       state.result = action.payload;
     },
+
+    setLimit(state, action: PayloadAction<string>) {
+      state.limit = action.payload;
+    },
   },
 });
 
 export default searchSlice.reducer;
-export const { setSearchValue, setResult } = searchSlice.actions;
+export const { setSearchValue, setResult, setLimit } = searchSlice.actions;

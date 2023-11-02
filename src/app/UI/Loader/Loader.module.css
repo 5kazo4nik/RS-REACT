@@ -27,6 +27,12 @@
   animation: rotate 1.5s infinite linear;
 }
 
+.loader__spin_details {
+  position: fixed;
+  top: 45%;
+  left: 72.5%;
+}
+
 @keyframes rotate {
   0% {
     rotate: 0deg;

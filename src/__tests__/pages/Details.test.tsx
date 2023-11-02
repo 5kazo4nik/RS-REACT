@@ -22,18 +22,16 @@ describe('test Details page component', () => {
   test('should display elements with correct data', async () => {
     renderWithProviders(<Details />, { preloadedState: { query: { detail: '1', page: 1 } } });
 
-    expect(await screen.findByText('Tatooine')).toBeInTheDocument();
-    expect(await screen.findByText(/Diameter/)).toBeInTheDocument();
-    expect(await screen.findByText('304 days.')).toBeInTheDocument();
-    expect(await screen.findByText('200000 units.')).toBeInTheDocument();
-    expect(await screen.findByText(/arid/)).toBeInTheDocument();
-    expect(await screen.findByText('desert.')).toBeInTheDocument();
-    expect(await screen.findByText(/Rotation period/)).toBeInTheDocument();
-    expect(await screen.findByRole('button')).toBeInTheDocument();
+    expect(await screen.findByText('Cowboy')).toBeInTheDocument();
+    expect(await screen.findByText(/violence & profanity/i)).toBeInTheDocument();
+    expect(await screen.findByText('8.75')).toBeInTheDocument();
+    expect(await screen.findByText(/Finished Airing/i)).toBeInTheDocument();
+    expect(await screen.findByText(/1998/)).toBeInTheDocument();
+    expect(await screen.findByText(/episodes/i)).toBeInTheDocument();
   });
 
   test('should display error message if error', async () => {
-    server.use(http.get('https://swapi.dev/api/planets/1/', () => HttpResponse.error()));
+    server.use(http.get('https://api.jikan.moe/v4/anime/1', () => HttpResponse.error()));
 
     renderWithProviders(<Details />, { preloadedState: { query: { detail: '1', page: 1 } } });
 

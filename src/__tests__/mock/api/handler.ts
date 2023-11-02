@@ -1,20 +1,16 @@
 import { http, HttpResponse } from 'msw';
 
-const planet = {
-  climate: 'arid',
-  created: '1.1.1',
-  diameter: '10465',
-  edited: '1.1.1',
-  films: [],
-  gravity: '1 standard',
-  name: 'Tatooine',
-  orbital_period: '304',
-  population: '200000',
-  residents: [],
-  rotation_period: '23',
-  surface_water: '',
-  terrain: 'desert',
-  url: 'https://swapi.dev/api/planets/1/',
+const anime = {
+  data: {
+    mal_id: 1,
+    rating: 'R - 17+ (violence & profanity)',
+    score: 8.75,
+    status: 'Finished Airing',
+    title: 'Cowboy',
+    title_english: 'Cowboy',
+    year: 1998,
+    episodes: 26,
+  },
 };
 
-export const handlers = [http.get('https://swapi.dev/api/planets/1/', () => HttpResponse.json(planet))];
+export const handlers = [http.get('https://api.jikan.moe/v4/anime/1', () => HttpResponse.json(anime))];

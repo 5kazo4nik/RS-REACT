@@ -2,11 +2,11 @@
 import { useEffect } from 'react';
 import { Loader } from '../../UI/Loader/Loader';
 import { Search } from '../../components/Search/Search';
-import { PlanetList } from '../../components/PlanetList/PlanetList';
+import { AnimeList } from '../../components/AnimeList/AnimeList';
 import { Pagination } from '../../UI/Pagination/Pagination';
 import { useParamsNavigator } from '../../hooks/useNavigator';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { planetApi } from '../../store/reducers/planetsApi';
+import { animeApi } from '../../store/reducers/animeApi';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { setResult } from '../../store/reducers/searchSlice';
 
@@ -15,8 +15,12 @@ function Home() {
   const paramsNavigate = useParamsNavigator();
   const dispatch = useAppDispatch();
 
-  const { search } = useAppSelector((state) => state.search);
-  const { isFetching: isLoading, isError, data: searchResult } = planetApi.useGetPlanetsQuery({ search, page });
+  const { search, limit } = useAppSelector((state) => state.search);
+  const {
+    isFetching: isLoading,
+    isError,
+    data: searchResult,
+  } = animeApi.useGetAllAnimeQuery({ q: search, page, limit });
 
   useEffect(() => {
     dispatch(setResult(searchResult || null));
@@ -27,9 +31,9 @@ function Home() {
       {isLoading && <Loader />}
       <Search />
 
-      {isError ? <h2 className='error-message'>Oops... Something went wrong...</h2> : <PlanetList />}
+      {isError ? <h2 className='error-message'>Oops... Something went wrong...</h2> : <AnimeList />}
 
-      {!!searchResult?.results?.length && <Pagination />}
+      {!!searchResult?.data?.length && <Pagination />}
     </div>
   );
 }

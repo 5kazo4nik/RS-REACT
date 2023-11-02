@@ -2,18 +2,18 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import type { PreloadedState } from '@reduxjs/toolkit';
 import query from './reducers/querySlice';
 import search from './reducers/searchSlice';
-import { planetApi } from './reducers/planetsApi';
+import { animeApi } from './reducers/animeApi';
 
 const rootReducer = combineReducers({
   query,
   search,
-  [planetApi.reducerPath]: planetApi.reducer,
+  [animeApi.reducerPath]: animeApi.reducer,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
   return configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(planetApi.middleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(animeApi.middleware),
     preloadedState,
   });
 };
