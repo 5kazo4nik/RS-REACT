@@ -1,4 +1,3 @@
-// import { IPlanetData } from '../../types/PlanetsData';
 import { Anime } from '@tutkli/jikan-ts';
 import { AnimeItem } from '../PlanetItem/AnimeItem';
 
