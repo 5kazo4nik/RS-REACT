@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ISearchData } from '../types/PlanetsData';
+import { ISearchData } from '../types/AnimeData';
 
 type ISearchResult = ISearchData | null;
 type UseFetchingReturn = [(...args: unknown[]) => Promise<void>, boolean, string, ISearchData | null];

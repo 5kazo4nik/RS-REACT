@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-import { PlanetsService } from '../../API/PlanetsService';
+import { AnimeService } from '../../API/AnimeService';
 import { Loader } from '../../UI/Loader/Loader';
 import { Search } from '../../components/Search/Search';
-import { PlanetList } from '../../components/PlanetList/PlanetList';
+import { AnimeList } from '../../components/PlanetList/AnimeList';
 import { Pagination } from '../../UI/Pagination/Pagination';
 import { useFetch } from '../../hooks/useFetch';
 import { useParamsNavigator } from '../../hooks/useNavigator';
@@ -17,9 +17,10 @@ function Home({ pageQuery = 1 }: IHomeProps) {
   const paramsNavigate = useParamsNavigator();
   const [searchQuery, setSearchQuery] = useState(localStorage.getItem('search') || '');
   const [page, setPage] = useState(pageQuery);
-  const [getPlanets, isLoading, message, searchResult] = useFetch(async () => {
+  const [limit, setLimit] = useState('5');
+  const [getAllAnime, isLoading, message, searchResult] = useFetch(async () => {
     setPage(pageQuery);
-    const res = await PlanetsService.getPlanets(searchQuery, pageQuery);
+    const res = await AnimeService.getAllAnime(searchQuery, pageQuery, limit);
     return res;
   });
 
@@ -31,23 +32,28 @@ function Home({ pageQuery = 1 }: IHomeProps) {
     setSearchQuery(value);
   };
 
+  const changeLimit = (limit: string) => {
+    paramsNavigate(null, 1);
+    setLimit(limit);
+  };
+
   useEffect(() => {
-    getPlanets();
-  }, [searchQuery, pageQuery]);
+    getAllAnime();
+  }, [searchQuery, pageQuery, limit]);
 
   useEffect(() => {
     paramsNavigate(null, page);
   }, [page]);
 
   return (
-    <SearchContext.Provider value={{ search: searchQuery, setSearch, searchResult }}>
+    <SearchContext.Provider value={{ search: searchQuery, setSearch, searchResult, limit, changeLimit }}>
       <div onClick={() => paramsNavigate('..', null, null)}>
         {isLoading && <Loader />}
         <Search />
 
-        {message ? <h2 className='error-message'>Error: {message}</h2> : <PlanetList />}
+        {message ? <h2 className='error-message'>Error: {message}</h2> : <AnimeList />}
 
-        {!!searchResult?.results?.length && <Pagination page={pageQuery} changePage={changePage} />}
+        {!!searchResult?.data?.length && <Pagination page={pageQuery} changePage={changePage} />}
       </div>
     </SearchContext.Provider>
   );

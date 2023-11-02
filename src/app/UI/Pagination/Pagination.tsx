@@ -9,8 +9,8 @@ interface IPaginationProps {
 
 export function Pagination({ page, changePage }: IPaginationProps) {
   const { searchResult } = useContext(SearchContext);
-  const previous = searchResult?.previous;
-  const next = searchResult?.next;
+  const hasNext = searchResult?.pagination.has_next_page;
+  const hasPrev = searchResult?.data.length && page > 1;
 
   const getNextPage = () => {
     changePage(1);
@@ -24,13 +24,17 @@ export function Pagination({ page, changePage }: IPaginationProps) {
     <div className={styles.pagination}>
       <button
         className={`${styles.pagination__button} ${styles.button_prev}`}
-        disabled={!previous}
+        disabled={!hasPrev}
         onClick={getPrevPage}
       >
         {'<'}
       </button>
       <div className={styles.pagination__page}>{page}</div>
-      <button className={`${styles.pagination__button} ${styles.button_next}`} disabled={!next} onClick={getNextPage}>
+      <button
+        className={`${styles.pagination__button} ${styles.button_next}`}
+        disabled={!hasNext}
+        onClick={getNextPage}
+      >
         {'>'}
       </button>
     </div>

@@ -3,8 +3,14 @@ import styles from './Search.module.css';
 import { useParamsNavigator } from '../../hooks/useNavigator';
 import { SearchContext } from '../../context/SearchContext';
 
+// interface ISearchProps {
+//   value: string;
+//   limit: string;
+//   changeLimit: (limit: string) => void;
+// }
+
 export function Search() {
-  const { search, setSearch } = useContext(SearchContext);
+  const { search, limit, setSearch, changeLimit } = useContext(SearchContext);
   const [searchValue, setSearchValue] = useState(search);
   const navigate = useParamsNavigator();
 
@@ -19,10 +25,20 @@ export function Search() {
     setSearchValue(e.target.value);
   };
 
+  const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    changeLimit(e.target.value);
+  };
+
   return (
     <div className={styles.search}>
-      <h1 className={styles.searchHeading}>Find any Star Wars planet!</h1>
+      <h1 className={styles.searchHeading}>Find any anime!</h1>
       <form className={styles.searchForm} onSubmit={onSubmit}>
+        <select defaultValue={limit} onChange={onSelectChange}>
+          <option value='5'>5</option>
+          <option value='10'>10</option>
+          <option value='15'>15</option>
+          <option value='20'>20</option>
+        </select>
         <input value={searchValue} className={styles.searchInput} type='text' onChange={onInputChange} />
         <button className={styles.searchButton}>Search</button>
       </form>
