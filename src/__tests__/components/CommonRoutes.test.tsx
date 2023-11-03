@@ -2,10 +2,16 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, test } from 'vitest';
 import CommonRoutes from '../../app/components/Router/CommonRoutes';
+import { renderWithProviders } from '../redux/renderWithProviders';
 
 describe('test CommonRoutes component', () => {
   test('should render Main page', () => {
-    render(
+    // render(
+    //   <MemoryRouter initialEntries={['/']}>
+    //     <CommonRoutes />
+    //   </MemoryRouter>
+    // );
+    renderWithProviders(
       <MemoryRouter initialEntries={['/']}>
         <CommonRoutes />
       </MemoryRouter>
