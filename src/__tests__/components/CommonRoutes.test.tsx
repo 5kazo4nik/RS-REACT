@@ -6,11 +6,6 @@ import { renderWithProviders } from '../redux/renderWithProviders';
 
 describe('test CommonRoutes component', () => {
   test('should render Main page', () => {
-    // render(
-    //   <MemoryRouter initialEntries={['/']}>
-    //     <CommonRoutes />
-    //   </MemoryRouter>
-    // );
     renderWithProviders(
       <MemoryRouter initialEntries={['/']}>
         <CommonRoutes />

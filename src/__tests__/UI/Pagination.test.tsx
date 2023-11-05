@@ -4,9 +4,6 @@ import { Pagination } from '../../app/UI/Pagination/Pagination';
 import { ISearchData } from '../../app/types/AnimeData';
 import { renderWithProviders } from '../redux/renderWithProviders';
 
-const getAnimeMock = vi.hoisted(() => vi.fn());
-vi.mock('../../app/API/AnimeService', () => ({ AnimeService: { getAllAnime: getAnimeMock } }));
-
 const paramsNavigateMock = vi.fn();
 vi.mock('../../app/hooks/useNavigator', () => ({
   useParamsNavigator: vi.fn(() => paramsNavigateMock),
