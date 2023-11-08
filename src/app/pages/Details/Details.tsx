@@ -30,6 +30,25 @@ const Details = () => {
     paramsNavigate('..', null, null);
   };
 
+  const detailItemLi = [
+    {
+      title: 'Episodes:',
+      value: searchResult?.data?.episodes || 'Between 1 and infinity',
+    },
+    {
+      title: 'Status:',
+      value: searchResult?.data?.status || 'Got lost on the way',
+    },
+    {
+      title: 'Rating:',
+      value: searchResult?.data?.rating || 'Underestimated',
+    },
+    {
+      title: 'Year:',
+      value: searchResult?.data?.year || 'Who knows...',
+    },
+  ];
+
   return (
     <div className={styles.details}>
       {isLoading && <Loader absolute details />}
@@ -41,18 +60,11 @@ const Details = () => {
               Score of this anime is <strong>{searchResult?.data.score}</strong>
             </p>
             <ul className={styles.details__list}>
-              <li>
-                <strong>Episodes:</strong> {searchResult?.data.episodes}.
-              </li>
-              <li>
-                <strong>Status:</strong> {searchResult?.data.status}.
-              </li>
-              <li>
-                <strong>Rating:</strong> {searchResult?.data.rating}.
-              </li>
-              <li>
-                <strong>Year:</strong> {searchResult?.data.year || 'Who knows...'}.
-              </li>
+              {detailItemLi.map((item, index) => (
+                <li key={index}>
+                  <strong>{item.title}</strong> {item.value}
+                </li>
+              ))}
             </ul>
             <h2 className={styles.details__heading}>Synopsis</h2>
             <p className={styles.details__sinopsis}>{searchResult?.data.synopsis || 'No such thing'}</p>

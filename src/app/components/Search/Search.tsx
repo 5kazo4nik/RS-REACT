@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import styles from './Search.module.css';
 import { useParamsNavigator } from '../../hooks/useNavigator';
 import { SearchContext } from '../../context/SearchContext';
+import { searchOptions } from './../../RenderList/searchOptions';
 
 export function Search() {
   const { search, limit, setSearch, changeLimit } = useContext(SearchContext);
@@ -28,10 +29,11 @@ export function Search() {
       <h1 className={styles.searchHeading}>Find any anime!</h1>
       <form className={styles.searchForm} onSubmit={onSubmit}>
         <select defaultValue={limit} onChange={onSelectChange}>
-          <option value='5'>5</option>
-          <option value='10'>10</option>
-          <option value='15'>15</option>
-          <option value='20'>20</option>
+          {searchOptions.map((option) => (
+            <option key={option.id} value={option.value}>
+              {option.title}
+            </option>
+          ))}
         </select>
         <input value={searchValue} className={styles.searchInput} type='text' onChange={onInputChange} />
         <button className={styles.searchButton}>Search</button>
