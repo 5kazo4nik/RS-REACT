@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import queryString from 'query-string';
 import { Outlet, useLocation } from 'react-router-dom';
 import Home from '../Home/Home';
@@ -14,9 +15,17 @@ function Main() {
   const location = useLocation();
   const parsedQuery = queryString.parse(location.search) as IMainQuery;
 
+  const containerClassname = classNames('app', {
+    app__splitted: !!parsedQuery.detail && location.pathname.includes('details'),
+  });
+
+  const homeClassname = classNames('home', {
+    home__splitted: !!parsedQuery.detail && location.pathname.includes('details'),
+  });
+
   return (
-    <div className={`app ${!!parsedQuery.detail && location.pathname.includes('details') ? 'app__splitted' : ''}`}>
-      <div className={`home ${!!parsedQuery.detail && location.pathname.includes('details') ? 'home__splitted' : ''}`}>
+    <div className={containerClassname}>
+      <div className={homeClassname}>
         <Home pageQuery={Number(parsedQuery.page) || 1} />
       </div>
       <Outlet context={{ detail: parsedQuery.detail }} />
