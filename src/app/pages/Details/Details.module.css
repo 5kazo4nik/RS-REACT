@@ -1,7 +1,7 @@
 .details {
   position: relative;
-  width: 50%;
-  min-height: 100vh;
+  inline-size: 50%;
+  min-block-size: 100vh;
   display: flex;
   justify-content: center;
   background-color: aquamarine;
@@ -9,11 +9,11 @@
 
 .details__wrapper {
   position: fixed;
-  left: 60%;
-  top: 5%;
-  max-width: 400px;
+  inset-inline-start: 60%;
+  inset-block-start: 5%;
+  max-inline-size: 400px;
   background-color: rgb(241, 168, 115);
-  height: fit-content;
+  block-size: fit-content;
   padding-block: 15px;
   padding-inline: 15px;
   border-radius: 10px;
@@ -42,7 +42,7 @@
   display: block;
   padding-block: 10px;
   padding-inline: 10px;
-  width: 100%;
+  inline-size: 100%;
   margin-inline: auto;
   background-color: rgb(159, 243, 2);
   border-block: 1px solid black;

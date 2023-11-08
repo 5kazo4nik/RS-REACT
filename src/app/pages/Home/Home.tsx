@@ -17,7 +17,7 @@ function Home({ pageQuery = 1 }: IHomeProps) {
   const paramsNavigate = useParamsNavigator();
   const [searchQuery, setSearchQuery] = useState(localStorage.getItem('search') || '');
   const [page, setPage] = useState(pageQuery);
-  const [limit, setLimit] = useState('5');
+  const [limit, setLimit] = useState(5);
   const [getAllAnime, isLoading, message, searchResult] = useFetch(async () => {
     setPage(pageQuery);
     const res = await AnimeService.getAllAnime(searchQuery, pageQuery, limit);
@@ -34,7 +34,7 @@ function Home({ pageQuery = 1 }: IHomeProps) {
 
   const changeLimit = (limit: string) => {
     paramsNavigate(null, 1);
-    setLimit(limit);
+    setLimit(+limit);
   };
 
   useEffect(() => {

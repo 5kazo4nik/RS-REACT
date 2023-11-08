@@ -3,12 +3,6 @@ import styles from './Search.module.css';
 import { useParamsNavigator } from '../../hooks/useNavigator';
 import { SearchContext } from '../../context/SearchContext';
 
-// interface ISearchProps {
-//   value: string;
-//   limit: string;
-//   changeLimit: (limit: string) => void;
-// }
-
 export function Search() {
   const { search, limit, setSearch, changeLimit } = useContext(SearchContext);
   const [searchValue, setSearchValue] = useState(search);

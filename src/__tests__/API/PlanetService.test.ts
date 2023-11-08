@@ -18,7 +18,7 @@ describe('test AnimeService', () => {
       expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}?page=2&limit=5`);
       AnimeService.getAllAnime('hello', 2);
       expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}?q=hello&page=2&limit=5`);
-      AnimeService.getAllAnime('', 2, '10');
+      AnimeService.getAllAnime('', 2, 10);
       expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}?page=2&limit=5`);
     });
   });

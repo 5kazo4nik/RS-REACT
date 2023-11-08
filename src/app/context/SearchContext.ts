@@ -5,7 +5,7 @@ interface ISearchContext {
   search: string;
   setSearch: (val: string) => void;
   searchResult: ISearchData | null;
-  limit: string;
+  limit: number;
   changeLimit: (val: string) => void;
 }
 
@@ -13,6 +13,6 @@ export const SearchContext = createContext<ISearchContext>({
   search: '',
   setSearch: () => {},
   searchResult: null,
-  limit: '5',
+  limit: 5,
   changeLimit: () => {},
 });

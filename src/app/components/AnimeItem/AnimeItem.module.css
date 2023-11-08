@@ -1,7 +1,7 @@
 .anime {
   box-sizing: border-box;
-  width: 180px;
-  min-height: 180px;
+  inline-size: 180px;
+  min-block-size: 180px;
   padding-block: 10px;
   padding-inline: 10px;
   border-radius: 50%;
