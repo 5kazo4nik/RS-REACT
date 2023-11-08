@@ -4,6 +4,7 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { setLimit, setSearchValue } from '../../store/reducers/searchSlice';
 import { useState } from 'react';
+import { searchOptions } from './searchOptions';
 
 export function Search() {
   const { search, limit } = useAppSelector((state) => state.search);
@@ -31,10 +32,11 @@ export function Search() {
       <h1 className={styles.searchHeading}>Find any anime!</h1>
       <form className={styles.searchForm} onSubmit={onSubmit}>
         <select defaultValue={limit} onChange={onSelectChange}>
-          <option value='5'>5</option>
-          <option value='10'>10</option>
-          <option value='15'>15</option>
-          <option value='20'>20</option>
+          {searchOptions.map((option) => (
+            <option key={option.id} value={option.value}>
+              {option.title}
+            </option>
+          ))}
         </select>
         <input value={inputValue} className={styles.searchInput} type='text' onChange={onInputChange} />
         <button className={styles.searchButton}>Search</button>
