@@ -1,3 +1,7 @@
+:root {
+  --color-blue-light: rgb(197, 197, 255);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +15,7 @@ select {
 .app {
   block-size: 100%;
   min-block-size: 100vh;
-  background-color: rgb(197, 197, 255);
+  background-color: var(--color-blue-light);
 }
 
 .app__splitted {

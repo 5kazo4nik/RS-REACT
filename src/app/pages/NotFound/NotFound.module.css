@@ -1,3 +1,7 @@
+:root {
+  --color-yellow: rgb(224, 224, 1);
+}
+
 .notFound {
   background-color: black;
   inline-size: 100%;
@@ -6,7 +10,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: rgb(224, 224, 1);
+  color: var(--color-yellow);
 }
 
 .notFound__button {
