@@ -1,3 +1,8 @@
+:root {
+  --color-beige: rgb(241, 168, 115);
+  --color-green-light: rgb(159, 243, 2);
+}
+
 .details {
   position: relative;
   width: 50%;
@@ -9,11 +14,11 @@
 
 .details__wrapper {
   position: fixed;
-  left: 60%;
-  top: 5%;
-  max-width: 400px;
-  background-color: rgb(241, 168, 115);
-  height: fit-content;
+  inset-inline-start: 60%;
+  inset-block-start: 5%;
+  max-inline-size: 400px;
+  background-color: var(--color-beige);
+  block-size: fit-content;
   padding-block: 15px;
   padding-inline: 15px;
   border-radius: 10px;
@@ -25,7 +30,7 @@
   padding-inline: 10px;
   width: 100%;
   margin-inline: auto;
-  background-color: rgb(159, 243, 2);
+  background-color: var(--color-green-light);
   border-block: 1px solid black;
   border-inline: 1px solid black;
   border-radius: 5px;

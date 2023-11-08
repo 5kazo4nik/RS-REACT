@@ -1,3 +1,8 @@
+:root {
+  --color-green: rgb(7, 202, 0);
+  --color-red-dark: rgb(179, 21, 0);
+}
+
 .search {
   padding-block: 100px;
   background-color: blueviolet;
@@ -28,7 +33,7 @@
 .searchButton {
   padding-block: 10px;
   padding-inline: 10px;
-  background-color: rgb(7, 202, 0);
+  background-color: var(--color-green);
   border-block: 1px solid red;
   border-inline: 1px solid red;
   border-inline-end: none;
@@ -41,7 +46,7 @@
 
 .searchButton:hover {
   color: white;
-  background-color: rgb(179, 21, 0);
+  background-color: var(--color-red-dark);
 }
 
 .searchError {
