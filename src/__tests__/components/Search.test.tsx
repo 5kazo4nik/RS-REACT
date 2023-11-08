@@ -4,6 +4,7 @@ import { afterEach, describe, expect, test, vi } from 'vitest';
 import { SearchContext } from '../../app/context/SearchContext';
 import { Search } from '../../app/components/Search/Search';
 import Home from '../../app/pages/Home/Home';
+import { ISearchData } from '../../app/types/AnimeData';
 
 const navigateMock = vi.fn();
 vi.mock('../../app/hooks/useNavigator', () => ({
@@ -12,15 +13,21 @@ vi.mock('../../app/hooks/useNavigator', () => ({
 
 describe('test Search component', () => {
   localStorage.setItem('search', 't');
+
   const data = {
     search: localStorage.getItem('search') || '',
-    searchResult: {
-      count: 0,
-      next: null,
-      previous: null,
-      results: [],
-    },
     setSearch: () => {},
+    limit: 5,
+    changeLimit: () => {},
+    searchResult: {
+      pagination: {
+        has_next_page: false,
+        items: {
+          total: 0,
+        },
+      },
+      data: [],
+    } as unknown as ISearchData,
   };
 
   afterEach(() => {

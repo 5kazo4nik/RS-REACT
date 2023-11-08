@@ -17,10 +17,15 @@ const Details = () => {
   const { detail } = useOutletContext<IDetailsContext>();
   const paramsNavigate = useParamsNavigator();
 
-  const [getAnime, isLoading, message, searchResult] = useFetch(async () => {
+  const {
+    getData: getAnime,
+    isLoading,
+    message,
+    searchResult,
+  } = useFetch<IAnimeData>(async () => {
     const res = await AnimeService.getAnime(detail);
     return res;
-  }) as [(...args: unknown[]) => Promise<void>, boolean, string, IAnimeData | null];
+  });
 
   useEffect(() => {
     getAnime(detail);

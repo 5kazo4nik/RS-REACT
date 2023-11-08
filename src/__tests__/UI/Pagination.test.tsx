@@ -59,7 +59,7 @@ describe('test Pagination component', () => {
 
     render(
       <SearchContext.Provider
-        value={{ changeLimit: () => {}, search: '', limit: '5', searchResult: searchResult, setSearch: () => {} }}
+        value={{ changeLimit: () => {}, search: '', limit: 5, searchResult: searchResult, setSearch: () => {} }}
       >
         <Pagination page={page} changePage={changePage} />
       </SearchContext.Provider>
@@ -87,7 +87,7 @@ describe('test Pagination component', () => {
 
     render(
       <SearchContext.Provider
-        value={{ changeLimit: () => {}, search: '', limit: '5', searchResult: searchResult, setSearch: () => {} }}
+        value={{ changeLimit: () => {}, search: '', limit: 5, searchResult: searchResult, setSearch: () => {} }}
       >
         <Pagination page={page} changePage={changePage} />
       </SearchContext.Provider>

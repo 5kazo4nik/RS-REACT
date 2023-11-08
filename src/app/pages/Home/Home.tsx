@@ -8,6 +8,7 @@ import { Pagination } from '../../UI/Pagination/Pagination';
 import { useFetch } from '../../hooks/useFetch';
 import { useParamsNavigator } from '../../hooks/useNavigator';
 import { SearchContext } from '../../context/SearchContext';
+import { ISearchData } from '../../types/AnimeData';
 
 interface IHomeProps {
   pageQuery: number;
@@ -18,7 +19,12 @@ function Home({ pageQuery = 1 }: IHomeProps) {
   const [searchQuery, setSearchQuery] = useState(localStorage.getItem('search') || '');
   const [page, setPage] = useState(pageQuery);
   const [limit, setLimit] = useState(5);
-  const [getAllAnime, isLoading, message, searchResult] = useFetch(async () => {
+  const {
+    getData: getAllAnime,
+    isLoading,
+    message,
+    searchResult,
+  } = useFetch<ISearchData>(async () => {
     setPage(pageQuery);
     const res = await AnimeService.getAllAnime(searchQuery, pageQuery, limit);
     return res;

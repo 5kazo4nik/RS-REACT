@@ -1,11 +1,14 @@
 import { useState } from 'react';
-import { ISearchData } from '../types/AnimeData';
 
-type ISearchResult = ISearchData | null;
-type UseFetchingReturn = [(...args: unknown[]) => Promise<void>, boolean, string, ISearchData | null];
+type UseFetchingReturn<T> = {
+  getData: (...args: unknown[]) => Promise<void>;
+  isLoading: boolean;
+  message: string;
+  searchResult: T | null;
+};
 
-export const useFetch = (callback: (...args: unknown[]) => unknown): UseFetchingReturn => {
-  const [searchResult, setSearchResult] = useState<ISearchData | null>(null);
+export const useFetch = <T>(callback: (...args: unknown[]) => unknown): UseFetchingReturn<T> => {
+  const [searchResult, setSearchResult] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -13,7 +16,7 @@ export const useFetch = (callback: (...args: unknown[]) => unknown): UseFetching
     try {
       setIsLoading(true);
       setMessage('');
-      const data = (await callback(...args)) as ISearchResult;
+      const data = (await callback(...args)) as T;
       setSearchResult(data);
     } catch (e) {
       const message = (e as Error).message;
@@ -24,5 +27,10 @@ export const useFetch = (callback: (...args: unknown[]) => unknown): UseFetching
     }
   };
 
-  return [fetching, isLoading, message, searchResult];
+  return {
+    getData: fetching,
+    isLoading,
+    message,
+    searchResult,
+  };
 };

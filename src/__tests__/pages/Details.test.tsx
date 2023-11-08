@@ -35,7 +35,7 @@ vi.mock('react-router-dom', async () => {
 
 describe('test Details page component', () => {
   test('should display elements with correct data', () => {
-    useFetchMock.mockReturnValue([vi.fn(), false, '', data]);
+    useFetchMock.mockReturnValue({ getData: vi.fn(), isLoading: false, message: '', searchResult: data });
     render(
       <MemoryRouter>
         <Details />
@@ -51,7 +51,8 @@ describe('test Details page component', () => {
   });
 
   test('should display error message if error', () => {
-    useFetchMock.mockReturnValue([vi.fn(), false, 'error 404', {}]);
+    useFetchMock.mockReturnValue({ getData: vi.fn(), isLoading: false, message: 'error 404', searchResult: {} });
+
     render(
       <MemoryRouter>
         <Details />

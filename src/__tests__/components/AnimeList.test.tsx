@@ -9,7 +9,7 @@ describe('test AnimeList component', () => {
   const data = {
     search: '',
     setSearch: () => {},
-    limit: '5',
+    limit: 5,
     changeLimit: () => {},
     searchResult: {
       pagination: {
@@ -46,7 +46,7 @@ describe('test AnimeList component', () => {
   const emptyData = {
     search: '',
     setSearch: () => {},
-    limit: '5',
+    limit: 5,
     changeLimit: () => {},
     searchResult: {
       pagination: {
