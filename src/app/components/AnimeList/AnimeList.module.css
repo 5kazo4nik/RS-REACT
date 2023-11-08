@@ -3,7 +3,7 @@
 }
 
 .anime__list {
-  max-width: 90%;
+  max-inline-size: 90%;
   padding-inline: 20px;
   margin-inline: auto;
   display: flex;

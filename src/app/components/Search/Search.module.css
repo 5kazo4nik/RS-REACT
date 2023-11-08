@@ -9,7 +9,7 @@
 }
 
 .searchHeading {
-  width: fit-content;
+  inline-size: fit-content;
   margin-block-end: 30px;
   margin-inline: auto;
 }
@@ -17,13 +17,13 @@
 .searchForm {
   margin-block: 20px;
   margin-inline: auto;
-  max-width: 400px;
+  max-inline-size: 400px;
   display: flex;
   justify-content: center;
 }
 
 .searchInput {
-  width: 300px;
+  inline-size: 300px;
   font-size: 30px;
   border-block: 1px solid orange;
   border-inline: 1px solid orange;

@@ -5,8 +5,8 @@
 
 .details {
   position: relative;
-  width: 50%;
-  min-height: 100vh;
+  inline-size: 50%;
+  min-block-size: 100vh;
   display: flex;
   justify-content: center;
   background-color: aquamarine;
@@ -28,7 +28,7 @@
   display: block;
   padding-block: 10px;
   padding-inline: 10px;
-  width: 100%;
+  inline-size: 100%;
   margin-inline: auto;
   background-color: var(--color-green-light);
   border-block: 1px solid black;
