@@ -23,7 +23,7 @@ export function Search() {
   };
 
   const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setLimit(e.target.value));
+    dispatch(setLimit(+e.target.value));
   };
 
   return (

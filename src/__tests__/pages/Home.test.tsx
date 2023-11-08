@@ -65,7 +65,7 @@ describe('test Home component', () => {
   test('should render items and pagination', async () => {
     server.use(http.get('https://api.jikan.moe/v4/anime', () => HttpResponse.json(data)));
 
-    renderWithProviders(<Home />, { preloadedState: { search: { result: null, search: 'a', limit: '5' } } });
+    renderWithProviders(<Home />, { preloadedState: { search: { result: null, search: 'a', limit: 5 } } });
 
     expect(await screen.findByText(/Cowboy/i)).toBeInTheDocument();
     expect(await screen.findByText(/Bebop/i)).toBeInTheDocument();

@@ -10,7 +10,7 @@ vi.mock('../../app/hooks/useNavigator', () => ({
 
 describe('test Search component', () => {
   test('should render input with correct search and select value', () => {
-    renderWithProviders(<Search />, { preloadedState: { search: { limit: '10', search: 't', result: null } } });
+    renderWithProviders(<Search />, { preloadedState: { search: { limit: 10, search: 't', result: null } } });
 
     expect(screen.getByDisplayValue('t')).toBeInTheDocument();
     expect(screen.getByDisplayValue('10')).toBeInTheDocument();
@@ -26,7 +26,7 @@ describe('test Search component', () => {
   });
 
   test('should save search value in local storage', () => {
-    renderWithProviders(<Search />, { preloadedState: { search: { limit: '10', search: 't', result: null } } });
+    renderWithProviders(<Search />, { preloadedState: { search: { limit: 10, search: 't', result: null } } });
 
     const input = screen.getByDisplayValue('t');
     fireEvent.change(input, { target: { value: 'hoho' } });

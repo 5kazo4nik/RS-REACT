@@ -52,7 +52,7 @@ describe('test AnimeList component', () => {
       <MemoryRouter>
         <AnimeList />
       </MemoryRouter>,
-      { preloadedState: { search: { limit: '', search: '', result: searchResult } } }
+      { preloadedState: { search: { limit: 5, search: '', result: searchResult } } }
     );
 
     expect(screen.getByText(/Cowboy/i)).toBeInTheDocument();
@@ -65,7 +65,7 @@ describe('test AnimeList component', () => {
       <MemoryRouter>
         <AnimeList />
       </MemoryRouter>,
-      { preloadedState: { search: { limit: '', search: '', result: emptyData } } }
+      { preloadedState: { search: { limit: 5, search: '', result: emptyData } } }
     );
 
     expect(screen.getByText(/There are no anime with that name/i)).toBeInTheDocument();

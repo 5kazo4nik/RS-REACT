@@ -19,7 +19,7 @@ describe('test Pagination component', () => {
       data: [, , ,],
     } as unknown as ISearchData;
     renderWithProviders(<Pagination />, {
-      preloadedState: { search: { result: searchResult, limit: '', search: '' }, query: { page } },
+      preloadedState: { search: { result: searchResult, limit: 5, search: '' }, query: { page } },
     });
     const btnNext = screen.getByText('>') as HTMLButtonElement;
     const btnPrev = screen.getByText('<') as HTMLButtonElement;
@@ -40,7 +40,7 @@ describe('test Pagination component', () => {
     } as unknown as ISearchData;
 
     renderWithProviders(<Pagination />, {
-      preloadedState: { search: { result: searchResult, limit: '', search: '' }, query: { page } },
+      preloadedState: { search: { result: searchResult, limit: 5, search: '' }, query: { page } },
     });
 
     const btnNext = screen.getByText('>') as HTMLButtonElement;

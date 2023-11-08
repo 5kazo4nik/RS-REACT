@@ -4,13 +4,13 @@ import { ISearchData } from '../../types/AnimeData';
 export interface ISearchState {
   result: ISearchData | null;
   search: string;
-  limit: string;
+  limit: number;
 }
 
 const initialState: ISearchState = {
   result: null,
   search: localStorage.getItem('search') || '',
-  limit: '5',
+  limit: 5,
 };
 
 const searchSlice = createSlice({
@@ -26,7 +26,7 @@ const searchSlice = createSlice({
       state.result = action.payload;
     },
 
-    setLimit(state, action: PayloadAction<string>) {
+    setLimit(state, action: PayloadAction<number>) {
       state.limit = action.payload;
     },
   },

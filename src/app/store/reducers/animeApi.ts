@@ -4,7 +4,7 @@ import { IAnimeData, ISearchData } from '../../types/AnimeData';
 interface IGetAllAnimeParams {
   q?: string;
   page?: number;
-  limit?: string;
+  limit?: number;
 }
 
 export const animeApi = createApi({
