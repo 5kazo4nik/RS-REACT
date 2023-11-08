@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import styles from './Loader.module.css';
 
 interface ILoaderProps {
@@ -6,8 +7,13 @@ interface ILoaderProps {
 }
 
 export function Loader({ absolute, details }: ILoaderProps) {
-  const loaderClassname = `${styles.loader} ${absolute ? styles.loader_absolute : ''}`;
-  const spinClassname = `${styles.loader__spin} ${details ? styles.loader__spin_details : ''}`;
+  const loaderClassname = classNames(styles.loader, {
+    [styles.loader_absolute]: !!absolute,
+  });
+
+  const spinClassname = classNames(styles.loader__spin, {
+    [styles.loader__spin_details]: !!details,
+  });
 
   return (
     <div className={loaderClassname}>
