@@ -1,0 +1,43 @@
+import { useContext, useState } from 'react';
+import styles from './Search.module.css';
+import { useParamsNavigator } from '../../hooks/useNavigator';
+import { SearchContext } from '../../context/SearchContext';
+import { searchOptions } from './../../RenderList/searchOptions';
+
+export function Search() {
+  const { search, limit, setSearch, changeLimit } = useContext(SearchContext);
+  const [searchValue, setSearchValue] = useState(search);
+  const navigate = useParamsNavigator();
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    localStorage.setItem('search', searchValue);
+    setSearch(searchValue);
+    navigate(null, 1);
+  };
+
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
+
+  const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    changeLimit(e.target.value);
+  };
+
+  return (
+    <div className={styles.search}>
+      <h1 className={styles.searchHeading}>Find any anime!</h1>
+      <form className={styles.searchForm} onSubmit={onSubmit}>
+        <select defaultValue={limit} onChange={onSelectChange}>
+          {searchOptions.map((option) => (
+            <option key={option.id} value={option.value}>
+              {option.title}
+            </option>
+          ))}
+        </select>
+        <input value={searchValue} className={styles.searchInput} type='text' onChange={onInputChange} />
+        <button className={styles.searchButton}>Search</button>
+      </form>
+    </div>
+  );
+}
