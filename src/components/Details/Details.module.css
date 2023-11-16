@@ -1,0 +1,38 @@
+/* :root {
+  --color-beige: rgb(241, 168, 115);
+  --color-green-light: rgb(159, 243, 2);
+} */
+
+.details {
+  position: relative;
+  inline-size: 50%;
+  min-block-size: 100vh;
+  display: flex;
+  justify-content: center;
+  background-color: aquamarine;
+}
+
+.details__wrapper {
+  position: fixed;
+  inset-inline-start: 60%;
+  inset-block-start: 5%;
+  max-inline-size: 400px;
+  background-color: rgb(241, 168, 115);
+  block-size: fit-content;
+  padding-block: 15px;
+  padding-inline: 15px;
+  border-radius: 10px;
+}
+
+.button__close {
+  display: block;
+  padding-block: 10px;
+  padding-inline: 10px;
+  inline-size: 100%;
+  margin-inline: auto;
+  background-color: rgb(159, 243, 2);
+  border-block: 1px solid black;
+  border-inline: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+}
