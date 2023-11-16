@@ -5,7 +5,7 @@ const NotFound = () => {
   const paramsNavigate = useParamsNavigator();
 
   const onClickButton = () => {
-    paramsNavigate('..', null, null, null);
+    paramsNavigate('..', null, null);
   };
 
   return (

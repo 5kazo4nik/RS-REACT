@@ -29,6 +29,6 @@ describe('test NotFound component page', () => {
     const btn = screen.getByRole('button');
     fireEvent.click(btn);
 
-    expect(paramsNavigateMock).toHaveBeenCalledWith('..', null, null, null);
+    expect(paramsNavigateMock).toHaveBeenCalledWith('..', null, null);
   });
 });
