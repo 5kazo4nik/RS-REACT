@@ -1,0 +1,22 @@
+:root {
+  --color-sand: rgb(255, 178, 85);
+}
+
+.anime {
+  box-sizing: border-box;
+  inline-size: 180px;
+  min-block-size: 180px;
+  padding-block: 10px;
+  padding-inline: 10px;
+  border-radius: 50%;
+  background-color: var(--color-sand);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.anime__heading {
+  text-align: center;
+}

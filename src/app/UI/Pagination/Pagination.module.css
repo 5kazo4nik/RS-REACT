@@ -1,0 +1,38 @@
+.pagination {
+  max-inline-size: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 30px;
+  margin-inline: auto;
+}
+
+.pagination__button {
+  padding-block: 16px;
+  padding-inline: 22px;
+  background-color: coral;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 20px;
+  border-block: none;
+  border-inline: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.button_next:active:not([disabled]) {
+  transform: translateX(10px);
+}
+
+.button_prev:active:not([disabled]) {
+  transform: translateX(-10px);
+}
+
+.pagination__button:hover:not([disabled]) {
+  background-color: chocolate;
+}
+
+.pagination__page {
+  font-size: 25px;
+  font-weight: bold;
+}
