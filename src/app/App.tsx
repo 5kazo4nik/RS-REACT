@@ -1,8 +1,13 @@
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
-import Router from './components/Router/Router';
+import CommonRoutes from './components/Router/CommonRoutes';
 
 function App() {
-  return <Router />;
+  return (
+    <BrowserRouter>
+      <CommonRoutes />
+    </BrowserRouter>
+  );
 }
 
 export default App;

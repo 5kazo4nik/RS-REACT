@@ -33,8 +33,8 @@ export function Search() {
       <form className={styles.searchForm} onSubmit={onSubmit}>
         <select defaultValue={limit} onChange={onSelectChange}>
           {searchOptions.map((option) => (
-            <option key={option.id} value={option.value}>
-              {option.title}
+            <option key={option.value} value={option.value}>
+              {option.value}
             </option>
           ))}
         </select>
