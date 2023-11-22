@@ -1,34 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
 import styles from './Pagination.module.css';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useParamsNavigator } from '../../hooks/useNavigator';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { setQuery } from '../../store/reducers/querySlice';
 
 export function Pagination() {
-  const { result } = useAppSelector((state) => state.search);
-  const { page } = useAppSelector((state) => state.query);
+  const { animeData } = useAppSelector((state) => state.data);
+  const { page, limit, search } = useAppSelector((state) => state.query);
 
-  const hasNext = result?.pagination.has_next_page;
-  const hasPrev = result?.data.length && page > 1;
+  const hasNext = animeData?.pagination.has_next_page;
+  const hasPrev = animeData?.data.length && page > 1;
 
-  const dispatch = useAppDispatch();
   const paramsNavigate = useParamsNavigator();
 
-  const getNextPage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    dispatch(setQuery({ page: page + 1 }));
+  const getNextPage = () => {
+    paramsNavigate(null, page + 1, '', search, limit || null);
   };
 
-  const getPrevPage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    dispatch(setQuery({ page: page - 1 }));
+  const getPrevPage = () => {
+    paramsNavigate(null, page - 1, '', search, limit || null);
   };
-
-  useEffect(() => {
-    paramsNavigate(null, page);
-  }, [page]);
 
   return (
     <div className={styles.pagination}>

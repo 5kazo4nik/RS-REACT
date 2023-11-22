@@ -10,9 +10,8 @@ interface IAnimeItemProps {
 export function AnimeItem({ anime }: IAnimeItemProps) {
   const navigate = useParamsNavigator();
 
-  const onClickHandler = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    navigate('details', null, String(anime.mal_id));
+  const onClickHandler = () => {
+    navigate('details', null, String(anime.mal_id), null, null);
   };
 
   return (

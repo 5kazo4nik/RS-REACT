@@ -1,14 +1,11 @@
 import styles from './Search.module.css';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { setLimit, setSearchValue } from '../../store/reducers/searchSlice';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { searchOptions } from './searchOptions';
 import { useParamsNavigator } from '../../hooks/useNavigator';
 
 export function Search() {
-  const { search, limit } = useAppSelector((state) => state.search);
-  const dispatch = useAppDispatch();
+  const { limit, search } = useAppSelector((state) => state.query);
 
   const [inputValue, setInputValue] = useState(search);
   const navigate = useParamsNavigator();
@@ -16,8 +13,7 @@ export function Search() {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    dispatch(setSearchValue(inputValue));
-    navigate(null, 1);
+    navigate('/', 1, null, inputValue, limit || '5');
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,14 +21,18 @@ export function Search() {
   };
 
   const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setLimit(+e.target.value));
+    navigate('/', 1, null, search || '', e.target.value);
   };
+
+  useEffect(() => {
+    setInputValue(search);
+  }, [search]);
 
   return (
     <div className={styles.search}>
       <h1 className={styles.searchHeading}>Find any anime!</h1>
       <form className={styles.searchForm} onSubmit={onSubmit}>
-        <select defaultValue={limit} onChange={onSelectChange}>
+        <select value={limit} onChange={onSelectChange}>
           {searchOptions.map((option) => (
             <option key={option.id} value={option.value}>
               {option.title}

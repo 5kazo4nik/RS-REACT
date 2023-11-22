@@ -3,7 +3,7 @@ import styles from './AnimeList.module.css';
 import { useAppSelector } from '../../hooks/useAppSelector';
 
 export function AnimeList() {
-  const { result: searchResult } = useAppSelector((state) => state.search);
+  const { animeData: searchResult } = useAppSelector((state) => state.data);
 
   const data = searchResult?.data || [];
   const count = searchResult?.pagination.items.total || 0;

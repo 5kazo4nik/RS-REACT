@@ -12,7 +12,7 @@ const Details = () => {
   const { isFetching: isLoading, isError, data } = animeApi.useGetAnimeQuery(detail || '1');
 
   const onButtonClose = () => {
-    paramsNavigate('/', null, null);
+    paramsNavigate('/', null, null, null, null);
   };
 
   return (

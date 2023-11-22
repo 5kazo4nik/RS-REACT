@@ -7,32 +7,27 @@ import { Pagination } from '../../UI/Pagination/Pagination';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { animeApi } from '../../store/reducers/animeApi';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { setResult } from '../../store/reducers/searchSlice';
-import { useParamsNavigator } from '../../hooks/useNavigator';
+import { setAnimeData } from '../../store/reducers/dataSlice';
 
 function Home() {
-  const { page } = useAppSelector((state) => state.query);
-  const navigate = useParamsNavigator();
+  const { page, search, limit } = useAppSelector((state) => state.query);
+  const { animeMessage, isAnimeLoading } = useAppSelector((state) => state.loader);
 
   const dispatch = useAppDispatch();
-
-  const { search, limit } = useAppSelector((state) => state.search);
-  const {
-    isFetching: isLoading,
-    isError,
-    data: searchResult,
-  } = animeApi.useGetAllAnimeQuery({ q: search, page, limit });
+  const { data: searchResult } = animeApi.useGetAllAnimeQuery({ q: search, page, limit });
 
   useEffect(() => {
-    dispatch(setResult(searchResult || null));
+    // dispatch(setResult(searchResult || null));
+    dispatch(setAnimeData(searchResult || null));
   }, [searchResult]);
 
   return (
-    <div onClick={() => navigate('', null, null)}>
-      {isLoading && <Loader />}
+    // <div onClick={() => navigate('', null, null, null, null)}>
+    <div>
+      {isAnimeLoading && <Loader />}
       <Search />
 
-      {isError ? <h2 className='error-message'>Oops... Something went wrong...</h2> : <AnimeList />}
+      {animeMessage ? <h2 className='error-message'>Oops... Something went wrong... {animeMessage}</h2> : <AnimeList />}
 
       {!!searchResult?.data?.length && <Pagination />}
     </div>

@@ -1,13 +1,16 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import type { Action, ThunkAction } from '@reduxjs/toolkit';
-import query from './reducers/querySlice';
-import search from './reducers/searchSlice';
-import { animeApi } from './reducers/animeApi';
 import { createWrapper } from 'next-redux-wrapper';
+import type { Action, ThunkAction } from '@reduxjs/toolkit';
+
+import query from './reducers/querySlice';
+import loader from './reducers/loaderSlice';
+import data from './reducers/dataSlice';
+import { animeApi } from './reducers/animeApi';
 
 const rootReducer = combineReducers({
   query,
-  search,
+  loader,
+  data,
   [animeApi.reducerPath]: animeApi.reducer,
 });
 
@@ -17,6 +20,7 @@ export const setupStore = () => {
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(animeApi.middleware),
   });
 };
+
 // export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
 //   return configureStore({
 //     reducer: rootReducer,

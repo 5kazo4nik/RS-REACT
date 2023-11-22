@@ -1,10 +1,19 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import { IAnimeData, ISearchData } from '../../types/AnimeData';
+import { setAnimeMessage, setIsAnimeLoading } from './loaderSlice';
 
 interface IGetAllAnimeParams {
   q?: string;
   page?: number;
-  limit?: number;
+  limit?: string;
+}
+
+interface IRtkQueryError {
+  error: {
+    data: {
+      message: string;
+    };
+  };
 }
 
 export const animeApi = createApi({
@@ -20,6 +29,19 @@ export const animeApi = createApi({
           limit,
         },
       }),
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        dispatch(setAnimeMessage(''));
+        dispatch(setIsAnimeLoading(true));
+        try {
+          const { data } = await queryFulfilled;
+          // console.log(data);
+          // dispatch(setAnimeData(data));
+        } catch (e) {
+          dispatch(setAnimeMessage((e as IRtkQueryError).error.data.message));
+        } finally {
+          dispatch(setIsAnimeLoading(false));
+        }
+      },
     }),
     getAnime: build.query<IAnimeData, string | undefined>({
       query: (value) => ({
