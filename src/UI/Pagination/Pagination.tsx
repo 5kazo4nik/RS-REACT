@@ -2,6 +2,8 @@
 import styles from './Pagination.module.css';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useParamsNavigator } from '../../hooks/useNavigator';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { setIsAnimeLoading } from '../../store/reducers/loaderSlice';
 
 export function Pagination() {
   const { animeData } = useAppSelector((state) => state.data);
@@ -11,13 +13,16 @@ export function Pagination() {
   const hasPrev = animeData?.data.length && page > 1;
 
   const paramsNavigate = useParamsNavigator();
+  const dispatch = useAppDispatch();
 
   const getNextPage = () => {
     paramsNavigate(null, page + 1, '', search, limit || null);
+    dispatch(setIsAnimeLoading(true));
   };
 
   const getPrevPage = () => {
     paramsNavigate(null, page - 1, '', search, limit || null);
+    dispatch(setIsAnimeLoading(true));
   };
 
   return (

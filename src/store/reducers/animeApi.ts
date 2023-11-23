@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import { IAnimeData, ISearchData } from '../../types/AnimeData';
-import { setAnimeMessage, setIsAnimeLoading } from './loaderSlice';
+import { setAnimeMessage, setDetailMessage, setIsAnimeLoading, setIsDetailLoading } from './loaderSlice';
+import { setAnimeData, setDetailData } from './dataSlice';
 
 interface IGetAllAnimeParams {
   q?: string;
@@ -34,8 +35,7 @@ export const animeApi = createApi({
         dispatch(setIsAnimeLoading(true));
         try {
           const { data } = await queryFulfilled;
-          // console.log(data);
-          // dispatch(setAnimeData(data));
+          dispatch(setAnimeData(data));
         } catch (e) {
           dispatch(setAnimeMessage((e as IRtkQueryError).error.data.message));
         } finally {
@@ -47,11 +47,18 @@ export const animeApi = createApi({
       query: (value) => ({
         url: `/${value}`,
       }),
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        dispatch(setDetailMessage(''));
+        dispatch(setIsDetailLoading(true));
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setDetailData(data));
+        } catch (e) {
+          dispatch(setDetailMessage((e as IRtkQueryError).error.data.message));
+        } finally {
+          dispatch(setIsDetailLoading(false));
+        }
+      },
     }),
   }),
-  // extractRehydrationInfo(action, { reducerPath }) {
-  //   if (action.type === HYDRATE) {
-  //     return action.payload[reducerPath];
-  //   }
-  // },
 });

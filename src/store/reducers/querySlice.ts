@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { HYDRATE } from 'next-redux-wrapper';
 
 export interface IQueryParamsState {
   detail?: string;
@@ -25,20 +26,20 @@ const queryParamsSlice = createSlice({
   initialState,
   reducers: {
     setQuery(state, action: PayloadAction<IQueryParams>) {
-      state.detail = action.payload.detail;
+      if (action.payload.detail) state.detail = action.payload.detail;
       state.page = Number(action.payload.page) || 1;
       state.limit = action.payload.limit || '5';
       state.search = action.payload.search || '';
     },
   },
-  // extraReducers: {
-  //   [HYDRATE]: (state, action) => {
-  //     return {
-  //       ...state,
-  //       ...action.payload,
-  //     };
-  //   },
-  // },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload.query,
+      };
+    },
+  },
 });
 
 export default queryParamsSlice.reducer;

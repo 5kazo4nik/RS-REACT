@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { HYDRATE } from 'next-redux-wrapper';
 
 interface ILoaderState {
   isAnimeLoading: boolean;
@@ -32,6 +33,14 @@ const loaderSlice = createSlice({
 
     setDetailMessage(state, action: PayloadAction<string>) {
       state.animeMessage = action.payload;
+    },
+  },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload.loader,
+      };
     },
   },
 });

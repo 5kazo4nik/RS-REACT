@@ -25,7 +25,7 @@ export const useParamsNavigator = () => {
     const searchPath =
       typeof search === 'object' && query.search ? `&search=${query.search}` : !search ? '' : `&search=${search}`;
 
-    const limitPath = typeof limit === 'object' ? `&limit=${query.limit}` : `&limit=${limit}`;
+    const limitPath = typeof limit === 'object' ? `&limit=${query.limit || 5}` : `&limit=${limit}`;
 
     push(`${pathValue}${pagePath}${searchPath}${limitPath}${detailPath}`);
   };

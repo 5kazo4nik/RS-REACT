@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IAnimeData, ISearchData } from '../../types/AnimeData';
+import { HYDRATE } from 'next-redux-wrapper';
 
 interface IDataState {
   animeData: ISearchData | null;
@@ -23,11 +24,14 @@ const dataSlice = createSlice({
       state.detailData = action.payload;
     },
   },
-  // extraReducers: {
-  //   [HYDRATE]: (state, action) => {
-  //     state.result = action.payload.data;
-  //   },
-  // },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload.data,
+      };
+    },
+  },
 });
 
 export default dataSlice.reducer;

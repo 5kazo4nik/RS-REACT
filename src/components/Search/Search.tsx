@@ -3,16 +3,19 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 import { useEffect, useState } from 'react';
 import { searchOptions } from './searchOptions';
 import { useParamsNavigator } from '../../hooks/useNavigator';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { setIsAnimeLoading } from '../../store/reducers/loaderSlice';
 
 export function Search() {
   const { limit, search } = useAppSelector((state) => state.query);
-
   const [inputValue, setInputValue] = useState(search);
+
   const navigate = useParamsNavigator();
+  const dispatch = useAppDispatch();
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    e.stopPropagation();
+    dispatch(setIsAnimeLoading(true));
     navigate('/', 1, null, inputValue, limit || '5');
   };
 
@@ -21,6 +24,7 @@ export function Search() {
   };
 
   const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(setIsAnimeLoading(true));
     navigate('/', 1, null, search || '', e.target.value);
   };
 
