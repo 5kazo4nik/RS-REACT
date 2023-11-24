@@ -17,7 +17,7 @@ export const useParamsNavigator = () => {
   ) => {
     const pathValue = typeof path === 'object' ? curPath : path ? `${path}` : '/';
 
-    const pagePath = page ? `?page=${page}` : `?page=${query.page}`;
+    const pagePath = page ? `?page=${page}` : `?page=${query.page || 1}`;
 
     const detailPath =
       typeof detail === 'object' ? '' : detail ? `&detail=${detail}` : query.detail ? `&detail=${query.detail}` : '';

@@ -18,7 +18,6 @@ const DetailsPage = () => {
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
   const { query } = ctx;
-  store.dispatch(setQuery(query));
 
   const { search, page, limit, detail } = query;
   const q = (search as string | undefined) ?? '';
@@ -29,6 +28,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   await store.dispatch(animeApi.endpoints.getAllAnime.initiate({ q, page: +p, limit: l }));
   await store.dispatch(animeApi.endpoints.getAnime.initiate(d));
   await Promise.all(store.dispatch(animeApi.util.getRunningQueriesThunk()));
+  store.dispatch(setQuery(query));
 
   return { props: {} };
 });

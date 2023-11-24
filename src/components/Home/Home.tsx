@@ -4,22 +4,17 @@ import { Search } from '../Search/Search';
 import { AnimeList } from '../AnimeList/AnimeList';
 import { Pagination } from '../../UI/Pagination/Pagination';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useEffect } from 'react';
-import { setIsAnimeLoading } from '../../store/reducers/loaderSlice';
 
 function Home() {
   const { animeMessage, isAnimeLoading } = useAppSelector((state) => state.loader);
   const { animeData: searchResult } = useAppSelector((state) => state.data);
 
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(setIsAnimeLoading(false));
-  }, [searchResult]);
+  // const dispatch = useAppDispatch();
+  // useEffect(() => {
+  //   dispatch(setQuery(data.query));
+  // }, [data]);
 
   return (
-    // <div onClick={() => navigate('', null, null, null, null)}>
     <div>
       {isAnimeLoading && <Loader />}
       <Search />

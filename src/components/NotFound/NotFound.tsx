@@ -1,11 +1,11 @@
-// import { useParamsNavigator } from '../../hooks/useNavigator';
+import { useRouter } from 'next/router';
 import styles from './NotFound.module.css';
 
 const NotFound = () => {
-  // const paramsNavigate = useParamsNavigator();
+  const { push } = useRouter();
 
   const onClickButton = () => {
-    // paramsNavigate('..', null, null);
+    push('/');
   };
 
   return (

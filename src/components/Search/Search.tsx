@@ -37,9 +37,9 @@ export function Search() {
       <h1 className={styles.searchHeading}>Find any anime!</h1>
       <form className={styles.searchForm} onSubmit={onSubmit}>
         <select value={limit} onChange={onSelectChange}>
-          {searchOptions.map((option) => (
-            <option key={option.id} value={option.value}>
-              {option.title}
+          {searchOptions.map((value) => (
+            <option key={value} value={value}>
+              {value}
             </option>
           ))}
         </select>

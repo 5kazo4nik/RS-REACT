@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import { IAnimeData, ISearchData } from '../../types/AnimeData';
-import { setAnimeMessage, setDetailMessage, setIsAnimeLoading, setIsDetailLoading } from './loaderSlice';
+import { setAnimeMessage, setDetailMessage } from './loaderSlice';
 import { setAnimeData, setDetailData } from './dataSlice';
 
 interface IGetAllAnimeParams {
@@ -32,14 +32,11 @@ export const animeApi = createApi({
       }),
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         dispatch(setAnimeMessage(''));
-        dispatch(setIsAnimeLoading(true));
         try {
           const { data } = await queryFulfilled;
           dispatch(setAnimeData(data));
         } catch (e) {
           dispatch(setAnimeMessage((e as IRtkQueryError).error.data.message));
-        } finally {
-          dispatch(setIsAnimeLoading(false));
         }
       },
     }),
@@ -49,14 +46,11 @@ export const animeApi = createApi({
       }),
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         dispatch(setDetailMessage(''));
-        dispatch(setIsDetailLoading(true));
         try {
           const { data } = await queryFulfilled;
           dispatch(setDetailData(data));
         } catch (e) {
           dispatch(setDetailMessage((e as IRtkQueryError).error.data.message));
-        } finally {
-          dispatch(setIsDetailLoading(false));
         }
       },
     }),

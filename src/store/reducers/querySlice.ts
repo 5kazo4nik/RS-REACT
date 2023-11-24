@@ -8,7 +8,7 @@ export interface IQueryParamsState {
   limit: string;
 }
 
-interface IQueryParams {
+export interface IQueryParams {
   detail?: string;
   page?: number;
   search?: string;

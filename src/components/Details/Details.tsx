@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from './Details.module.css';
 import { Loader } from '../../UI/Loader/Loader';
 import { useAppSelector } from '../../hooks/useAppSelector';
@@ -21,7 +22,7 @@ const Details = () => {
 
   useEffect(() => {
     dispatch(setIsDetailLoading(false));
-  }, [data, dispatch]);
+  }, [data]);
 
   return (
     <>

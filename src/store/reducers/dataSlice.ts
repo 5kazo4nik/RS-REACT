@@ -24,6 +24,7 @@ const dataSlice = createSlice({
       state.detailData = action.payload;
     },
   },
+
   extraReducers: {
     [HYDRATE]: (state, action) => {
       return {

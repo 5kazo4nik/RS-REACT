@@ -4,14 +4,9 @@ import { setQuery } from '../store/reducers/querySlice';
 import { GetServerSideProps } from 'next';
 import { wrapper } from '../store/store';
 import { animeApi } from '../store/reducers/animeApi';
+import { IHomePageProps } from '../types/ServerSideProps';
 
-export type IMainQuery = {
-  search: string | undefined;
-  page: string | undefined;
-  detail: string | undefined;
-};
-
-export default function HomePage() {
+export default function HomePage(data: IHomePageProps) {
   return <Home />;
 }
 
@@ -24,8 +19,18 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   const p = (page as string | undefined) ?? '1';
   const l = (limit as string | undefined) ?? '5';
 
-  await store.dispatch(animeApi.endpoints.getAllAnime.initiate({ q, page: +p, limit: l }));
+  const data = await store.dispatch(animeApi.endpoints.getAllAnime.initiate({ q, page: +p, limit: l }));
   await Promise.all(store.dispatch(animeApi.util.getRunningQueriesThunk()));
 
-  return { props: {} };
+  // if (data.status === 'rejected') {
+  //   message = data.error.data.message;
+  // }
+
+  return {
+    props: {
+      animeData: data,
+      query,
+      // animeMessage: message,
+    },
+  };
 });
