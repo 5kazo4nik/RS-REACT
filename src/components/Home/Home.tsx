@@ -9,11 +9,6 @@ function Home() {
   const { animeMessage, isAnimeLoading } = useAppSelector((state) => state.loader);
   const { animeData: searchResult } = useAppSelector((state) => state.data);
 
-  // const dispatch = useAppDispatch();
-  // useEffect(() => {
-  //   dispatch(setQuery(data.query));
-  // }, [data]);
-
   return (
     <div>
       {isAnimeLoading && <Loader />}

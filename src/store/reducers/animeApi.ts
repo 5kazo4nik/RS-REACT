@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import { IAnimeData, ISearchData } from '../../types/AnimeData';
 import { setAnimeMessage, setDetailMessage } from './loaderSlice';
 import { setAnimeData, setDetailData } from './dataSlice';
+import { HYDRATE } from 'next-redux-wrapper';
 
 interface IGetAllAnimeParams {
   q?: string;
@@ -55,4 +56,9 @@ export const animeApi = createApi({
       },
     }),
   }),
+  extractRehydrationInfo(action, { reducerPath }) {
+    if (action.type === HYDRATE) {
+      return action.payload[reducerPath];
+    }
+  },
 });
