@@ -1,28 +1,27 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import styles from './Pagination.module.css';
-import { useAppSelector } from '../../hooks/useAppSelector';
 import { useParamsNavigator } from '../../hooks/useNavigator';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { setIsAnimeLoading } from '../../store/reducers/loaderSlice';
+import { ISearchData } from '../../types/AnimeData';
+import { ServerQueryParams } from '../../utils/getServerSideParams';
 
-export function Pagination() {
-  const { animeData } = useAppSelector((state) => state.data);
-  const { page, limit, search } = useAppSelector((state) => state.query);
+interface IPaginationProps {
+  animeData: ISearchData | null;
+  query: ServerQueryParams;
+}
+
+export function Pagination({ animeData, query }: IPaginationProps) {
+  const { page, limit, search } = query;
 
   const hasNext = animeData?.pagination.has_next_page;
-  const hasPrev = animeData?.data.length && page > 1;
+  const hasPrev = animeData?.data.length && +page > 1;
 
   const paramsNavigate = useParamsNavigator();
-  const dispatch = useAppDispatch();
 
   const getNextPage = () => {
-    paramsNavigate(null, page + 1, '', search, limit || null);
-    dispatch(setIsAnimeLoading(true));
+    paramsNavigate(null, +page + 1, '', search, limit || null);
   };
 
   const getPrevPage = () => {
-    paramsNavigate(null, page - 1, '', search, limit || null);
-    dispatch(setIsAnimeLoading(true));
+    paramsNavigate(null, +page - 1, '', search, limit || null);
   };
 
   return (

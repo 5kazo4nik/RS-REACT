@@ -1,10 +1,12 @@
 import { AnimeItem } from '../AnimeItem/AnimeItem';
 import styles from './AnimeList.module.css';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { ISearchData } from '../../types/AnimeData';
 
-export function AnimeList() {
-  const { animeData: searchResult } = useAppSelector((state) => state.data);
+interface IAnimeListProps {
+  searchResult: ISearchData | null;
+}
 
+export function AnimeList({ searchResult }: IAnimeListProps) {
   const data = searchResult?.data || [];
   const count = searchResult?.pagination.items.total || 0;
 

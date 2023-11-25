@@ -1,21 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import { IAnimeData, ISearchData } from '../../types/AnimeData';
-import { setAnimeMessage, setDetailMessage } from './loaderSlice';
-import { setAnimeData, setDetailData } from './dataSlice';
 import { HYDRATE } from 'next-redux-wrapper';
 
 interface IGetAllAnimeParams {
   q?: string;
   page?: number;
   limit?: string;
-}
-
-interface IRtkQueryError {
-  error: {
-    data: {
-      message: string;
-    };
-  };
 }
 
 export const animeApi = createApi({
@@ -31,29 +21,11 @@ export const animeApi = createApi({
           limit,
         },
       }),
-      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-        dispatch(setAnimeMessage(''));
-        try {
-          const { data } = await queryFulfilled;
-          dispatch(setAnimeData(data));
-        } catch (e) {
-          dispatch(setAnimeMessage((e as IRtkQueryError).error.data.message));
-        }
-      },
     }),
     getAnime: build.query<IAnimeData, string | undefined>({
       query: (value) => ({
         url: `/${value}`,
       }),
-      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-        dispatch(setDetailMessage(''));
-        try {
-          const { data } = await queryFulfilled;
-          dispatch(setDetailData(data));
-        } catch (e) {
-          dispatch(setDetailMessage((e as IRtkQueryError).error.data.message));
-        }
-      },
     }),
   }),
   extractRehydrationInfo(action, { reducerPath }) {

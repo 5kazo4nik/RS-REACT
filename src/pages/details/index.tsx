@@ -2,35 +2,42 @@ import Home from '../../components/Home/Home';
 import Details from '../../components/Details/Details';
 import { GetServerSideProps } from 'next';
 import { wrapper } from '../../store/store';
-import { setQuery } from '../../store/reducers/querySlice';
 import { animeApi } from '../../store/reducers/animeApi';
+import { getServerSideParams } from '../../utils/getServerSideParams';
+import { getServerSideData } from '../../utils/getServerSideData';
+import { IDetailPageProps, IRTKResp } from '../../types/ServerSideProps';
 
-const DetailsPage = () => {
+const DetailsPage = (data: IDetailPageProps) => {
   return (
     <div className='app__splitted'>
       <div className='home__splitted'>
-        <Home />
+        <Home data={data} />
       </div>
-      <Details />
+      <Details data={data} />
     </div>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
-  const { query } = ctx;
-
+  const query = getServerSideParams(ctx);
   const { search, page, limit, detail } = query;
-  const q = (search as string | undefined) ?? '';
-  const p = (page as string | undefined) ?? '1';
-  const l = (limit as string | undefined) ?? '5';
-  const d = (detail as string | undefined) ?? '1';
 
-  await store.dispatch(animeApi.endpoints.getAllAnime.initiate({ q, page: +p, limit: l }));
-  await store.dispatch(animeApi.endpoints.getAnime.initiate(d));
+  const animeResp = await store.dispatch(animeApi.endpoints.getAllAnime.initiate({ q: search, page: +page, limit }));
+  const detailResp = await store.dispatch(animeApi.endpoints.getAnime.initiate(detail));
   await Promise.all(store.dispatch(animeApi.util.getRunningQueriesThunk()));
-  store.dispatch(setQuery(query));
 
-  return { props: {} };
+  const { data: animeData, message: animeMessage } = getServerSideData(animeResp as unknown as IRTKResp);
+  const { data: detailData, message: detailMessage } = getServerSideData(detailResp as unknown as IRTKResp);
+
+  return {
+    props: {
+      query,
+      animeData,
+      animeMessage,
+      detailData,
+      detailMessage,
+    },
+  };
 });
 
 export default DetailsPage;

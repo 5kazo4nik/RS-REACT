@@ -1,22 +1,26 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Loader } from '../../UI/Loader/Loader';
 import { Search } from '../Search/Search';
 import { AnimeList } from '../AnimeList/AnimeList';
 import { Pagination } from '../../UI/Pagination/Pagination';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { IHomePageProps } from '../../types/ServerSideProps';
 
-function Home() {
-  const { animeMessage, isAnimeLoading } = useAppSelector((state) => state.loader);
-  const { animeData: searchResult } = useAppSelector((state) => state.data);
+interface IHomeProps {
+  data: IHomePageProps;
+}
+
+function Home({ data }: IHomeProps) {
+  const { animeData: searchResult, animeMessage, query } = data;
 
   return (
     <div>
-      {isAnimeLoading && <Loader />}
-      <Search />
+      <Search query={query} />
 
-      {animeMessage ? <h2 className='error-message'>Oops... Something went wrong... {animeMessage}</h2> : <AnimeList />}
+      {animeMessage ? (
+        <h2 className='error-message'>Oops... Something went wrong... {animeMessage}</h2>
+      ) : (
+        <AnimeList searchResult={searchResult} />
+      )}
 
-      {!!searchResult?.data?.length && <Pagination />}
+      {!!searchResult?.data?.length && <Pagination animeData={searchResult} query={query} />}
     </div>
   );
 }

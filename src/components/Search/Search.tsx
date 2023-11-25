@@ -1,22 +1,22 @@
 import styles from './Search.module.css';
-import { useAppSelector } from '../../hooks/useAppSelector';
 import { useEffect, useState } from 'react';
 import { searchOptions } from './searchOptions';
 import { useParamsNavigator } from '../../hooks/useNavigator';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { setIsAnimeLoading } from '../../store/reducers/loaderSlice';
+import { ServerQueryParams } from '../../utils/getServerSideParams';
 
-export function Search() {
-  const { limit, search } = useAppSelector((state) => state.query);
+interface ISearchProps {
+  query: ServerQueryParams;
+}
+
+export function Search({ query }: ISearchProps) {
+  const { limit, search } = query;
   const [inputValue, setInputValue] = useState(search);
 
   const navigate = useParamsNavigator();
-  const dispatch = useAppDispatch();
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(setIsAnimeLoading(true));
-    navigate('/', 1, null, inputValue, limit || '5');
+    navigate('/', 1, null, inputValue, limit);
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,8 +24,7 @@ export function Search() {
   };
 
   const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setIsAnimeLoading(true));
-    navigate('/', 1, null, search || '', e.target.value);
+    navigate('/', 1, null, search, e.target.value);
   };
 
   useEffect(() => {
