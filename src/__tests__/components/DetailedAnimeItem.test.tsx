@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
-import { IAnimeData } from '../../app/types/AnimeData';
 import { render, screen } from '@testing-library/react';
-import DetailedAnimeItem from '../../app/components/DetailedAnimeItem/DetailedAnimeItem';
+import { IAnimeData } from '../../types/AnimeData';
+import DetailedAnimeItem from '../../components/DetailedAnimeItem/DetailedAnimeItem';
 
 describe('test DetailedAnimeItem component', () => {
   const data = {

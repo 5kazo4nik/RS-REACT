@@ -3,7 +3,7 @@ import { useParamsNavigator } from '../../hooks/useNavigator';
 import { ISearchData } from '../../types/AnimeData';
 import { ServerQueryParams } from '../../utils/getServerSideParams';
 
-interface IPaginationProps {
+export interface IPaginationProps {
   animeData: ISearchData | null;
   query: ServerQueryParams;
 }

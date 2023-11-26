@@ -1,9 +1,9 @@
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
-import { AnimeList } from '../../app/components/AnimeList/AnimeList';
-import { MemoryRouter } from 'react-router-dom';
-import { ISearchData } from '../../app/types/AnimeData';
-import { renderWithProviders } from '../redux/renderWithProviders';
+import { ISearchData } from '../../types/AnimeData';
+import { AnimeList } from '../../components/AnimeList/AnimeList';
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
+import { createMockRouter } from '../testUtils/createMockRouter';
 
 describe('test AnimeList component', () => {
   const searchResult = {
@@ -48,11 +48,10 @@ describe('test AnimeList component', () => {
   } as unknown as ISearchData;
 
   test('should render correct count of items', () => {
-    renderWithProviders(
-      <MemoryRouter>
-        <AnimeList />
-      </MemoryRouter>,
-      { preloadedState: { search: { limit: 5, search: '', result: searchResult } } }
+    render(
+      <RouterContext.Provider value={createMockRouter({})}>
+        <AnimeList searchResult={searchResult} />
+      </RouterContext.Provider>
     );
 
     expect(screen.getByText(/Cowboy/i)).toBeInTheDocument();
@@ -61,11 +60,10 @@ describe('test AnimeList component', () => {
   });
 
   test('should render correct message if items not found', () => {
-    renderWithProviders(
-      <MemoryRouter>
-        <AnimeList />
-      </MemoryRouter>,
-      { preloadedState: { search: { limit: 5, search: '', result: emptyData } } }
+    render(
+      <RouterContext.Provider value={createMockRouter({})}>
+        <AnimeList searchResult={emptyData} />
+      </RouterContext.Provider>
     );
 
     expect(screen.getByText(/There are no anime with that name/i)).toBeInTheDocument();

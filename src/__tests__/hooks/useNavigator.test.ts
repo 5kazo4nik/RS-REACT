@@ -1,11 +1,15 @@
 import { afterEach, describe, expect, test, vi } from 'vitest';
-import { useParamsNavigator } from '../../app/hooks/useNavigator';
+import { useParamsNavigator } from '../../hooks/useNavigator';
 
 const mockNavigate = vi.fn();
-const mockLocation = vi.fn().mockReturnValue({ search: '?search=test&page=3' });
-vi.mock('react-router-dom', () => ({
-  useNavigate: () => mockNavigate,
-  useLocation: () => mockLocation,
+const mockAsPath = '?search=test&page=3';
+vi.mock('next/router', () => ({
+  useRouter: () => {
+    return {
+      push: mockNavigate,
+      asPath: mockAsPath,
+    };
+  },
 }));
 
 describe('test useParamsNavigator custom hook', () => {
@@ -16,16 +20,25 @@ describe('test useParamsNavigator custom hook', () => {
   test('should navigate to correct path', () => {
     const navigate = useParamsNavigator();
 
-    navigate(null, 2);
-    expect(mockNavigate).toHaveBeenCalledWith('?page=2');
+    navigate(null, 2, null, null, null);
+    expect(mockNavigate).toHaveBeenCalledWith('?page=2&search=test&limit=5');
 
-    navigate('test', 2);
-    expect(mockNavigate).toHaveBeenCalledWith('test/?page=2');
+    navigate('/detail', 2, null, null, null);
+    expect(mockNavigate).toHaveBeenCalledWith('/detail?page=2&search=test&limit=5');
 
-    navigate(null, 4, '3');
-    expect(mockNavigate).toHaveBeenCalledWith('?page=4&detail=3');
+    navigate(null, null, null, null, null);
+    expect(mockNavigate).toHaveBeenCalledWith('?page=3&search=test&limit=5');
 
-    navigate(null, 5, null);
-    expect(mockNavigate).toHaveBeenCalledWith('?page=5');
+    navigate(null, null, null, '', null);
+    expect(mockNavigate).toHaveBeenCalledWith('?page=3&limit=5');
+
+    navigate(null, null, null, 'cow', null);
+    expect(mockNavigate).toHaveBeenCalledWith('?page=3&search=cow&limit=5');
+
+    navigate(null, null, null, null, '15');
+    expect(mockNavigate).toHaveBeenCalledWith('?page=3&search=test&limit=15');
+
+    navigate(null, null, '3', null, null);
+    expect(mockNavigate).toHaveBeenCalledWith('?page=3&search=test&limit=5&detail=3');
   });
 });

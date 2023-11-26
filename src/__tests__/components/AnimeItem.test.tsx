@@ -1,13 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, test, vi } from 'vitest';
-import { AnimeItem } from '../../app/components/AnimeItem/AnimeItem';
-import { MemoryRouter } from 'react-router-dom';
+import { describe, expect, test } from 'vitest';
 import { Anime } from '@tutkli/jikan-ts';
-
-const navigateMock = vi.fn();
-vi.mock('../../app/hooks/useNavigator', () => ({
-  useParamsNavigator: vi.fn(() => navigateMock),
-}));
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
+import { createMockRouter } from '../testUtils/createMockRouter';
+import { AnimeItem } from '../../components/AnimeItem/AnimeItem';
 
 describe('test AnimeItem component', () => {
   const data = {
@@ -34,31 +30,33 @@ describe('test AnimeItem component', () => {
 
   test('should contain correct name', () => {
     render(
-      <MemoryRouter>
+      <RouterContext.Provider value={createMockRouter({})}>
         <AnimeItem anime={data} />
-      </MemoryRouter>
+      </RouterContext.Provider>
     );
 
     expect(screen.getByText(/Cowboy/i)).toBeInTheDocument();
 
     render(
-      <MemoryRouter>
+      <RouterContext.Provider value={createMockRouter({})}>
         <AnimeItem anime={data2} />
-      </MemoryRouter>
+      </RouterContext.Provider>
     );
 
     expect(screen.getByText(/bebop/i)).toBeInTheDocument();
   });
 
   test('should navigate to correct path after click', () => {
+    const router = createMockRouter({});
+
     render(
-      <MemoryRouter>
+      <RouterContext.Provider value={router}>
         <AnimeItem anime={data} />
-      </MemoryRouter>
+      </RouterContext.Provider>
     );
     const item = screen.getByText(/Cowboy/i);
     fireEvent.click(item);
 
-    expect(navigateMock).toHaveBeenCalledWith('details', null, '1');
+    expect(router.push).toHaveBeenCalledWith('details?page=1&limit=5&detail=1');
   });
 });
