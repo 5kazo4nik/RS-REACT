@@ -7,9 +7,9 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="controlled" element={<ControlledForm />} />
-        <Route path="uncontrolled" element={<UncontrolledForm />} />
+        <Route path='/' element={<Home />} />
+        <Route path='controlled' element={<ControlledForm />} />
+        <Route path='uncontrolled' element={<UncontrolledForm />} />
       </Routes>
     </BrowserRouter>
   );
