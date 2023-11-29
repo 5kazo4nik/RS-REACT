@@ -3,7 +3,7 @@ import styles from './Home.module.css';
 
 const Home = () => {
   return (
-    <div className={styles.home}>
+    <div className={`${styles.home} page`}>
       <div className={styles.home__wrapper}>
         <Link className={styles.home__link} to='/controlled'>
           Controlled form

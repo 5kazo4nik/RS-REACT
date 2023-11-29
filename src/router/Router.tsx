@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home/Home';
-import ControlledForm from '../pages/ControlledForm/ControlledForm';
-import UncontrolledForm from '../pages/UncontrolledForm/UncontrolledForm';
+import ControlledForm from '../pages/ControlledPage/ControlledPage';
+import UncontrolledPage from '../pages/UncontrolledPage/UncontrolledPage';
 
 const Router = () => {
   return (
@@ -9,7 +9,7 @@ const Router = () => {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='controlled' element={<ControlledForm />} />
-        <Route path='uncontrolled' element={<UncontrolledForm />} />
+        <Route path='uncontrolled' element={<UncontrolledPage />} />
       </Routes>
     </BrowserRouter>
   );

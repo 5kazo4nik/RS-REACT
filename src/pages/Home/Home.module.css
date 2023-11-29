@@ -4,7 +4,6 @@
 
 .home {
   background-color: var(--color-bg-blue-light);
-  block-size: 100vh;
 }
 
 .home__wrapper {
