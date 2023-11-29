@@ -1,6 +1,7 @@
 .input {
   padding-inline: 20px;
-  padding-block: 15px;
+  /* padding-block: 15px; */
+  padding-block-start: 15px;
   inline-size: 500px;
 }
 

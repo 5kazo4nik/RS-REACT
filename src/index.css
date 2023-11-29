@@ -55,3 +55,11 @@ select {
   margin-block-end: 15px;
   cursor: pointer;
 }
+
+.validation-message {
+  height: 12px;
+  font-size: 12px;
+  margin-inline-start: 5px;
+  margin-block-start: 5px;
+  color: red;
+}
