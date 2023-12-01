@@ -4,11 +4,13 @@
 
 .home {
   background-color: var(--color-bg-blue-light);
+  min-block-size: 100vh;
 }
 
-.home__wrapper {
+.home__links {
   max-inline-size: 400px;
   margin-inline: auto;
+  margin-block-end: 50px;
   padding-block-start: 200px;
   display: flex;
   justify-content: space-between;

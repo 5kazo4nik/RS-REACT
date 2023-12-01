@@ -16,7 +16,7 @@ export const validateUncontrolledForm = async (
   const isValidPassword = await passwordSchema.isValid(password);
   const isValidSecPassword = password === secondPassword;
   const isValidGender = await genderSchema.isValid(gender);
-  const isValidPicture = await pictureSchema.isValid(picture);
+  const isValidPicture = await pictureSchema.isValid(picture && { size: picture.size, type: picture.type });
 
   const isAllValid =
     isValidName &&

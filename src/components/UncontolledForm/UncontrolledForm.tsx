@@ -5,6 +5,10 @@ import styles from './UncontrolledForm.module.css';
 import { IRefsInputs } from '../../types/RefsInputs';
 import { validateUncontrolledForm } from '../../validation/validateUncontrolledForm';
 import { messages } from '../../data/validationMessages';
+import { useAppDispatch } from '../../store/store';
+import { setData, setIsSubmited } from '../../store/reducers/dataSlice';
+import { useNavigate } from 'react-router-dom';
+import { readAsyncPic } from '../../utils/readAsyncPic';
 
 const validInitState = {
   name: false,
@@ -22,6 +26,8 @@ const UncontrolledForm = () => {
   const inputRefs = useRef<IRefsInputs>({});
   const [validState, setValidState] = useState(validInitState);
   const [isFirstSubmit, setIsFirstSubmit] = useState(true);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,7 +49,21 @@ const UncontrolledForm = () => {
     setValidState(newValidationState);
 
     if (isAllValid) {
+      const pic = (await readAsyncPic(picture!.files![0])) as string;
+      dispatch(
+        setData({
+          nameValue: name!.value,
+          ageValue: age!.value,
+          countryValue: country!.value,
+          emailValue: email!.value,
+          genderValue: gender!.value,
+          passwordValue: password!.value,
+          pictureValue: pic
+        })
+      );
       setIsFirstSubmit(true);
+      dispatch(setIsSubmited());
+      navigate('/');
     } else {
       setIsFirstSubmit(false);
     }
