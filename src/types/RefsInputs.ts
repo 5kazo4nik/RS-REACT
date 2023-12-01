@@ -6,6 +6,6 @@ export interface IRefsInputs {
   secondPassword?: HTMLInputElement | null;
   gender?: HTMLSelectElement | null;
   picture?: HTMLInputElement | null;
-  country?: HTMLSelectElement | null;
+  country?: HTMLInputElement | null;
   tc?: HTMLInputElement | null;
 }

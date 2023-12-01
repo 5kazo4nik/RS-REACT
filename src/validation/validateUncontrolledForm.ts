@@ -1,4 +1,12 @@
-import { ageSchema, emailSchema, genderSchema, nameSchema, passwordSchema, pictureSchema } from './inputsSchema';
+import {
+  ageSchema,
+  countrySchema,
+  emailSchema,
+  genderSchema,
+  nameSchema,
+  passwordSchema,
+  pictureSchema
+} from './inputsSchema';
 
 export const validateUncontrolledForm = async (
   name: string | null | undefined,
@@ -8,7 +16,8 @@ export const validateUncontrolledForm = async (
   secondPassword: string | null | undefined,
   gender: string | null | undefined,
   picture: false | File,
-  tc: boolean | undefined
+  tc: boolean | undefined,
+  country: string | null | undefined
 ) => {
   const isValidName = await nameSchema.isValid(name);
   const isValidAge = await ageSchema.isValid(age && +age);
@@ -17,6 +26,7 @@ export const validateUncontrolledForm = async (
   const isValidSecPassword = password === secondPassword;
   const isValidGender = await genderSchema.isValid(gender);
   const isValidPicture = await pictureSchema.isValid(picture && { size: picture.size, type: picture.type });
+  const isValidCountry = await countrySchema.isValid(country);
 
   const isAllValid =
     isValidName &&
@@ -36,7 +46,7 @@ export const validateUncontrolledForm = async (
     secondPassword: isValidSecPassword,
     gender: isValidGender,
     picture: isValidPicture,
-    country: true,
+    country: isValidCountry,
     tc: !!tc,
     isAllValid
   };

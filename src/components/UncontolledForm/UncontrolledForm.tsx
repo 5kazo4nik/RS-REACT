@@ -9,6 +9,7 @@ import { useAppDispatch } from '../../store/store';
 import { setData, setIsSubmited } from '../../store/reducers/dataSlice';
 import { useNavigate } from 'react-router-dom';
 import { readAsyncPic } from '../../utils/readAsyncPic';
+import AutoInput from '../AutoInput/AutoInput';
 
 const validInitState = {
   name: false,
@@ -31,6 +32,7 @@ const UncontrolledForm = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(inputRefs);
     const {
       current: { name, age, country, email, gender, password, picture, secondPassword, tc }
     } = inputRefs;
@@ -43,7 +45,8 @@ const UncontrolledForm = () => {
       secondPassword?.value,
       gender?.value,
       !!picture?.files?.length && picture.files[0],
-      tc?.checked
+      tc?.checked,
+      country?.value
     );
 
     setValidState(newValidationState);
@@ -126,13 +129,7 @@ const UncontrolledForm = () => {
         isValid={validState.country}
         isFirstSubmit={isFirstSubmit}
       >
-        <select ref={(el) => (inputRefs.current.country = el)} className='input_select' autoComplete='country-name'>
-          {countryList.map((value, i) => (
-            <option key={i} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
+        <AutoInput link={(el) => (inputRefs.current.country = el)} items={countryList} />
       </CustomInput>
 
       <CustomInput head='Accept T&C' inline message={messages.tc} isValid={validState.tc} isFirstSubmit={isFirstSubmit}>

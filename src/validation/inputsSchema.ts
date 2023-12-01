@@ -2,6 +2,7 @@ import * as yup from 'yup';
 
 export const nameSchema = yup
   .string()
+  .trim()
   .test('is-uppercase', (name) => {
     if (!name) return false;
     return name[0] === name[0].toUpperCase();
@@ -12,6 +13,7 @@ export const ageSchema = yup.number().positive().required();
 
 export const emailSchema = yup
   .string()
+  .trim()
   .matches(
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   )
@@ -19,6 +21,7 @@ export const emailSchema = yup
 
 export const passwordSchema = yup
   .string()
+  .trim()
   .matches(/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~])/)
   .required();
 
@@ -32,3 +35,8 @@ export const pictureSchema = yup.object().shape({
     return value === 'image/jpeg' || value === 'image/png';
   })
 });
+
+export const countrySchema = yup
+  .string()
+  .trim()
+  .test('is-correct-country', (value = '') => value?.length > 2);

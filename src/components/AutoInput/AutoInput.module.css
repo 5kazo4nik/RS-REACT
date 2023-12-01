@@ -1,0 +1,35 @@
+.autoInput {
+  position: relative;
+}
+
+.autoInput__list {
+  inline-size: -webkit-fill-available;
+
+  list-style: none;
+  max-block-size: 155px;
+  background-color: aliceblue;
+  overflow-y: auto;
+  position: absolute;
+  left: 0;
+  bottom: 27px;
+  border-start-start-radius: 5px;
+  border-start-end-radius: 5px;
+}
+
+.autoInput__item {
+  padding-block: 10px;
+  padding-inline: 5px;
+  cursor: pointer;
+}
+
+.autoInput__item:hover {
+  background-color: burlywood;
+}
+
+.input {
+  max-inline-size: 500px;
+}
+
+.input_auto {
+  inline-size: -webkit-fill-available;
+}
