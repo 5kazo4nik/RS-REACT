@@ -9,6 +9,7 @@ import { useAppDispatch } from '../../store/store';
 import { setData, setIsSubmited } from '../../store/reducers/dataSlice';
 import { readAsyncPic } from '../../utils/readAsyncPic';
 import { useNavigate } from 'react-router-dom';
+import PasswordStr from '../PasswordStr/PasswordStr';
 
 interface IValidatedData {
   age?: number;
@@ -23,12 +24,14 @@ interface IValidatedData {
 }
 
 const ControlledForm = () => {
-  const { handleSubmit, register, reset, formState } = useForm({
+  const { handleSubmit, register, reset, formState, watch } = useForm({
     mode: 'onChange',
     resolver: yupResolver(formSchema)
   });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const passwordValue = watch('password');
 
   const onSubmitForm = async (data: IValidatedData) => {
     const pictureValue = (await readAsyncPic((data.picture as FileList)[0])) as string;
@@ -85,6 +88,7 @@ const ControlledForm = () => {
         isValid={!formState.errors.password}
       >
         <input {...register('password')} className='input_text' type='password' />
+        <PasswordStr value={passwordValue || ''} min={6} />
       </CustomInput>
 
       <CustomInput

@@ -2,6 +2,7 @@
   padding-inline: 20px;
   padding-block-start: 15px;
   inline-size: 500px;
+  position: relative;
 }
 
 .input__head {

@@ -47,7 +47,6 @@ const Info = () => {
         <h2 className={styles.info__head}>Information</h2>
         <div className={styles.info__data}>
           {arrData.map((data, i) => (
-            // <div className={styles.info__dataWrapper} key={i}>
             <div
               className={classNames(styles.info__dataWrapper, {
                 [styles.info__first]: i === 0

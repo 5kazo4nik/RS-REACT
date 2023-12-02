@@ -9,6 +9,7 @@ import { setData, setIsSubmited } from '../../store/reducers/dataSlice';
 import { useNavigate } from 'react-router-dom';
 import { readAsyncPic } from '../../utils/readAsyncPic';
 import AutoInput from '../AutoInput/AutoInput';
+import PasswordStr from '../PasswordStr/PasswordStr';
 
 const validInitState = {
   name: false,
@@ -31,7 +32,6 @@ const UncontrolledForm = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(inputRefs);
     const {
       current: { name, age, country, email, gender, password, picture, secondPassword, tc }
     } = inputRefs;
@@ -92,6 +92,7 @@ const UncontrolledForm = () => {
         isFirstSubmit={isFirstSubmit}
       >
         <input ref={(el) => (inputRefs.current.password = el)} className='input_text' type='password' />
+        <PasswordStr value={inputRefs.current.password?.value || ''} min={6} />
       </CustomInput>
 
       <CustomInput

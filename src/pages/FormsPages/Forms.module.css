@@ -1,7 +1,7 @@
 .uncontrolled {
-  background-color: #ff9baa;
+  background-color: var(--color-bg-uncontrolled);
 }
 
 .controlled {
-  background-color: #fce883;
+  background-color: var(--color-bg-controlled);
 }

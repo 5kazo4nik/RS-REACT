@@ -1,9 +1,5 @@
-:root {
-  --color-bg-blue-light: rgb(175, 218, 252);
-}
-
 .home {
-  background-color: var(--color-bg-blue-light);
+  background-color: var(--color-bg-home);
   min-block-size: 100vh;
 }
 
@@ -28,11 +24,11 @@
 }
 
 .home__link:nth-child(1) {
-  background-image: linear-gradient(to right, #fce883, #fce883);
+  background-image: linear-gradient(to right, var(--color-bg-controlled), var(--color-bg-controlled));
 }
 
 .home__link:nth-child(2) {
-  background-image: linear-gradient(to right, #ff9baa, #ff9baa);
+  background-image: linear-gradient(to right, var(--color-bg-uncontrolled), var(--color-bg-uncontrolled));
 }
 
 .home__link:hover {

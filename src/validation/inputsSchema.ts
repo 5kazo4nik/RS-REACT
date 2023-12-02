@@ -23,7 +23,7 @@ export const emailSchema = yup
 export const passwordSchema = yup
   .string()
   .trim()
-  .matches(/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~])/)
+  .matches(/^.{6,}$/)
   .required();
 
 export const genderSchema = yup.string().test('is-gender-selected', (value) => {

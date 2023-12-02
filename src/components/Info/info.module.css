@@ -5,7 +5,7 @@
 .info__wrapper {
   max-inline-size: 800px;
   margin-inline: auto;
-  background-color: #f5f5dc;
+  background-color: var(--color-beige);
   border-radius: 3px;
   padding-block-start: 30px;
 }

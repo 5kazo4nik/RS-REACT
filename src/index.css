@@ -1,3 +1,10 @@
+:root {
+  --color-beige: #f5f5dc;
+  --color-bg-home: rgb(175, 218, 252);
+  --color-bg-uncontrolled: #ff9baa;
+  --color-bg-controlled: #fce883;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -45,7 +52,7 @@ select {
 }
 
 .form__button {
-  background-color: cornflowerblue;
+  background-color: var(--color-bg-home);
   border-radius: 5px;
   border: none;
   font-size: 20px;
