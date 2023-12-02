@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEventHandler, MouseEvent, useState } from 'react';
+import { ChangeEvent, FocusEventHandler, useState } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form/dist/types';
 import styles from './AutoInput.module.css';
 
@@ -31,11 +31,8 @@ const AutoInput = ({ link, items, reg }: IAutoInputProps) => {
     setIsShown(false);
   };
 
-  const selectCountry = (e: MouseEvent, val: string) => {
-    setIsShown(true);
-    e.preventDefault();
+  const selectCountry = (val: string) => {
     setValue(val);
-    setIsShown(false);
     const newList = items.filter((item) => item.includes(val) && item !== val);
     setList(newList);
   };
@@ -45,7 +42,7 @@ const AutoInput = ({ link, items, reg }: IAutoInputProps) => {
       {isShown && (
         <ul className={styles.autoInput__list}>
           {list.map((item, i) => (
-            <li onMouseDown={(e) => selectCountry(e, item)} className={styles.autoInput__item} key={i}>
+            <li onMouseDown={() => selectCountry(item)} className={styles.autoInput__item} key={i}>
               {item}
             </li>
           ))}
