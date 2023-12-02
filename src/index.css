@@ -41,6 +41,7 @@ select {
 .form {
   margin-block-end: 50px;
   border-radius: 3px;
+  background-color: bisque;
 }
 
 .form__button {

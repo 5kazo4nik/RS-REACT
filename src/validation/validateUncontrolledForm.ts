@@ -15,7 +15,7 @@ export const validateUncontrolledForm = async (
   password: string | null | undefined,
   secondPassword: string | null | undefined,
   gender: string | null | undefined,
-  picture: false | File,
+  picture: FileList | null | undefined,
   tc: boolean | undefined,
   country: string | null | undefined
 ) => {
@@ -25,7 +25,7 @@ export const validateUncontrolledForm = async (
   const isValidPassword = await passwordSchema.isValid(password);
   const isValidSecPassword = password === secondPassword;
   const isValidGender = await genderSchema.isValid(gender);
-  const isValidPicture = await pictureSchema.isValid(picture && { size: picture.size, type: picture.type });
+  const isValidPicture = await pictureSchema.isValid(picture);
   const isValidCountry = await countrySchema.isValid(country);
 
   const isAllValid =

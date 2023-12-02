@@ -1,5 +1,5 @@
-import UncontrolledForm from '../../components/UncontolledForm/UncontrolledForm';
-import styles from './UncontrolledPage.module.css';
+import UncontrolledForm from '../../components/Forms/UncontrolledForm';
+import styles from './Forms.module.css';
 
 const UncontrolledPage = () => {
   return (

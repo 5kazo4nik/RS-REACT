@@ -1,17 +1,20 @@
-import { ChangeEvent, MouseEvent, useState } from 'react';
+import { ChangeEvent, FocusEventHandler, MouseEvent, useState } from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form/dist/types';
 import styles from './AutoInput.module.css';
 
 interface IAutoInputProps {
   link?: (el: HTMLInputElement) => void;
   items: string[];
+  reg?: UseFormRegisterReturn;
 }
 
-const AutoInput = ({ link, items }: IAutoInputProps) => {
+const AutoInput = ({ link, items, reg }: IAutoInputProps) => {
   const [list, setList] = useState(items);
   const [isShown, setIsShown] = useState(false);
   const [value, setValue] = useState('');
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    reg?.onChange(e);
     const val = e.target.value;
     setValue(val);
     const newList = items.filter((item) => item.includes(val) && item !== val);
@@ -19,11 +22,12 @@ const AutoInput = ({ link, items }: IAutoInputProps) => {
     setIsShown(true);
   };
 
-  const onFocusHandler = () => {
+  const onFocusHandler: FocusEventHandler = () => {
     setIsShown(true);
   };
 
-  const onBlurHandler = () => {
+  const onBlurHandler: FocusEventHandler = (e) => {
+    reg?.onBlur(e);
     setIsShown(false);
   };
 
@@ -48,8 +52,9 @@ const AutoInput = ({ link, items }: IAutoInputProps) => {
         </ul>
       )}
       <input
-        value={value}
         ref={link}
+        {...reg}
+        value={value}
         onFocus={onFocusHandler}
         onBlur={onBlurHandler}
         onChange={onChangeHandler}

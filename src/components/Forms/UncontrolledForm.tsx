@@ -1,7 +1,6 @@
 import { FormEvent, useRef, useState } from 'react';
 import { countryList } from '../../data/countryList';
 import CustomInput from '../CustomInput/CustomInput';
-import styles from './UncontrolledForm.module.css';
 import { IRefsInputs } from '../../types/RefsInputs';
 import { validateUncontrolledForm } from '../../validation/validateUncontrolledForm';
 import { messages } from '../../data/validationMessages';
@@ -44,7 +43,7 @@ const UncontrolledForm = () => {
       password?.value,
       secondPassword?.value,
       gender?.value,
-      !!picture?.files?.length && picture.files[0],
+      picture?.files,
       tc?.checked,
       country?.value
     );
@@ -73,7 +72,7 @@ const UncontrolledForm = () => {
   };
 
   return (
-    <form className={`${styles.form} form`} onSubmit={handleSubmit}>
+    <form className='form' onSubmit={handleSubmit}>
       <CustomInput head='Name:' message={messages.email} isValid={validState.name} isFirstSubmit={isFirstSubmit}>
         <input ref={(el) => (inputRefs.current.name = el)} className='input_text' type='text' />
       </CustomInput>
@@ -136,7 +135,7 @@ const UncontrolledForm = () => {
         <input ref={(el) => (inputRefs.current.tc = el)} type='checkbox' />
       </CustomInput>
 
-      <button className={`${styles.form__button_uncontrolled} form__button`} type='submit'>
+      <button className='form__button' type='submit'>
         Submit
       </button>
     </form>

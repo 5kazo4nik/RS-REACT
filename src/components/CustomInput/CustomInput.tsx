@@ -5,7 +5,7 @@ import styles from './CustomInput.module.css';
 interface ICustomInput {
   head: string;
   inline?: boolean;
-  isValid: boolean;
+  isValid?: boolean;
   message: string;
   isFirstSubmit: boolean;
 }
@@ -23,7 +23,7 @@ const CustomInput = (props: PropsWithChildren<ICustomInput>) => {
         {head}
         {children}
       </label>
-      <p className='validation-message'>{!isFirstSubmit && !isValid && message}</p>
+      {isValid !== undefined && <p className='validation-message'>{!isFirstSubmit && !isValid && message}</p>}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface IDataSlice {
+export interface IData {
   nameValue: string;
   ageValue: string;
   emailValue: string;
@@ -11,13 +11,7 @@ interface IDataSlice {
 }
 
 const initialState = {
-  nameValue: '',
-  ageValue: '',
-  emailValue: '',
-  passwordValue: '',
-  genderValue: '',
-  pictureValue: '',
-  countryValue: '',
+  arrData: [] as IData[],
   isSubmited: false
 };
 
@@ -29,8 +23,8 @@ export const dataSlice = createSlice({
       state.isSubmited = true;
     },
 
-    setData(state, action: PayloadAction<IDataSlice>) {
-      return { ...state, ...action.payload };
+    setData(state, action: PayloadAction<IData>) {
+      state.arrData.unshift(action.payload);
     }
   }
 });
