@@ -3,7 +3,7 @@ import { countryList } from '../../data/countryList';
 import CustomInput from '../CustomInput/CustomInput';
 import { IRefsInputs } from '../../types/RefsInputs';
 import { validateUncontrolledForm } from '../../validation/validateUncontrolledForm';
-import { messages } from '../../data/validationMessages';
+import { messages } from '../../validation/validationMessages';
 import { useAppDispatch } from '../../store/store';
 import { setData, setIsSubmited } from '../../store/reducers/dataSlice';
 import { useNavigate } from 'react-router-dom';

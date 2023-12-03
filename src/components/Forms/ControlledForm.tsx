@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { messages } from '../../data/validationMessages';
+import { messages } from '../../validation/validationMessages';
 import CustomInput from '../CustomInput/CustomInput';
 import AutoInput from '../AutoInput/AutoInput';
 import { countryList } from '../../data/countryList';
