@@ -15,6 +15,8 @@ export const useParamsNavigator = () => {
     search: string | null,
     limit: string | null
   ) => {
+    const arrPath = [];
+
     const pathValue = typeof path === 'object' ? curPath : path ? `${path}` : '/';
 
     const pagePath = page ? `?page=${page}` : `?page=${query.page || 1}`;
@@ -27,6 +29,7 @@ export const useParamsNavigator = () => {
 
     const limitPath = typeof limit === 'object' ? `&limit=${query.limit || 5}` : `&limit=${limit}`;
 
-    push(`${pathValue}${pagePath}${searchPath}${limitPath}${detailPath}`);
+    arrPath.push(pathValue, pagePath, searchPath, limitPath, detailPath);
+    push(arrPath.join(''));
   };
 };

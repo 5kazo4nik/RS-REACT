@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
 import { describe, expect, test } from 'vitest';
 import { createMockRouter } from '../testUtils/createMockRouter';
-import NotFound from '../../components/NotFound/NotFound';
+import NotFound from '../../pages/404/index';
 
 describe('test NotFound component page', () => {
   test('should display correct message', () => {
