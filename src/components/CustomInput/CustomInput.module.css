@@ -1,0 +1,19 @@
+.input {
+  padding-inline: 20px;
+  padding-block-start: 15px;
+  inline-size: 500px;
+  position: relative;
+}
+
+.input__head {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  font-size: 20px;
+}
+
+.input__head_inline {
+  flex-direction: row;
+  row-gap: 0px;
+  column-gap: 10px;
+}

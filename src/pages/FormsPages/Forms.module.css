@@ -1,0 +1,7 @@
+.uncontrolled {
+  background-color: var(--color-bg-uncontrolled);
+}
+
+.controlled {
+  background-color: var(--color-bg-controlled);
+}
